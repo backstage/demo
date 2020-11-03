@@ -11,7 +11,6 @@ import * as plugins from './plugins';
 import { AppSidebar } from './sidebar';
 import { Route, Routes, Navigate } from 'react-router';
 import { Router as CatalogRouter } from '@backstage/plugin-catalog';
-import { Router as DocsRouter } from '@backstage/plugin-techdocs';
 import { Router as RegisterComponentRouter } from '@backstage/plugin-register-component';
 import { Router as TechRadarRouter } from '@backstage/plugin-tech-radar';
 
@@ -45,7 +44,6 @@ const App: FC<{}> = () => (
             path="/catalog/*"
             element={<CatalogRouter EntityPage={EntityPage} />}
           />
-          <Route path="/docs/*" element={<DocsRouter />} />
           <Route
             path="/tech-radar"
             element={<TechRadarRouter width={1500} height={800} />}
