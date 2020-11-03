@@ -29,7 +29,7 @@ auth:
 
 catalog:
   rules:
-    - allow: [Component, API]
+    - allow: [Component, API, Location]
   locations:
     # Backstage example components
     - type: url
@@ -40,6 +40,10 @@ catalog:
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
   
     # The backstage demo deployment (this)
+    - type: url
+      target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
+
+    # The backstage library repository
     - type: url
       target: https://github.com/backstage/backstage/blob/master/catalog-info.yaml
 
