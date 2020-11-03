@@ -94,6 +94,21 @@ const WebsiteEntityPage = ({ entity }: { entity: Entity }) => (
   </EntityPageLayout>
 );
 
+const LibraryEntityPage = ({ entity }: { entity: Entity }) => (
+  <EntityPageLayout>
+    <EntityPageLayout.Content
+      path="/"
+      title="Overview"
+      element={<OverviewContent entity={entity} />}
+    />
+    <EntityPageLayout.Content
+      path="/ci-cd/*"
+      title="CI/CD"
+      element={<CICDSwitcher entity={entity} />}
+    />
+  </EntityPageLayout>
+);
+
 const DefaultEntityPage = ({ entity }: { entity: Entity }) => (
   <EntityPageLayout>
     <EntityPageLayout.Content
@@ -111,6 +126,8 @@ export const EntityPage = () => {
       return <ServiceEntityPage entity={entity} />;
     case 'website':
       return <WebsiteEntityPage entity={entity} />;
+    case 'library':
+      return <LibraryEntityPage entity={entity} />;
     default:
       return <DefaultEntityPage entity={entity} />;
   }

@@ -1,6 +1,6 @@
 app:
   title: Backstage Demo
-  baseUrl: http://localhost:3000
+  baseUrl: http://localhost:7000
 
 organization:
   name: Backstage 
@@ -25,7 +25,18 @@ integrations:
       token:
         $env: GITHUB_TOKEN
 auth:
-  providers: {}
+  providers: 
+    github:
+      development:
+        clientId:
+          $env: GITHUB_DEVELOPMENT_CLIENT_ID
+        clientSecret:
+          $env: GITHUB_DEVELOPMENT_CLIENT_SECRET
+      production:
+        clientId:
+          $env: GITHUB_PRODUCTION_CLIENT_ID
+        clientSecret:
+          $env: GITHUB_PRODUCTION_CLIENT_SECRET
 
 catalog:
   rules:
