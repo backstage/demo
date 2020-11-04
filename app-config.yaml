@@ -19,12 +19,14 @@ backend:
     client: sqlite3
     connection: ':memory:'
 
+
 integrations:
   github:
     - host: github.com
       token:
         $env: GITHUB_TOKEN
 auth:
+  environment: development
   providers: 
     github:
       development:
