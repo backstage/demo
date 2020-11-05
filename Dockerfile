@@ -3,9 +3,10 @@ FROM node:12-buster
 WORKDIR /usr/src/app
 
 # Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
-# The skeleton contains the package.json of each package in the monorepo,
-# and along with yarn.lock and the root package.json, that's enough to run yarn install.
 ADD yarn.lock package.json ./
+# Really annoying that you can't copy the tree easily using docker COPY command.
+ADD packages/backend/package.json ./packages/backend/package.json
+ADD packages/app/package.json ./packages/app/package.json
 
 RUN yarn install --frozen-lockfile --production
 
