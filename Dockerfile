@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 # Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
 ADD yarn.lock package.json ./
 # Really annoying that you can't copy the tree easily using docker COPY command.
+# https://github.com/moby/moby/issues/15858#issuecomment-383690925
 ADD packages/backend/package.json ./packages/backend/package.json
 ADD packages/app/package.json ./packages/app/package.json
 
