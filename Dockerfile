@@ -25,8 +25,8 @@ ENV GITHUB_DEVELOPMENT_CLIENT_SECRET ""
 
 # For now we need to manually add these configs through environment variables but in the
 # future, we should be able to fetch the frontend config from the backend somehow
-ENV APP_CONFIG_app_baseUrl "https://backstage-demo-deployment.herokuapp.com"
-ENV APP_CONFIG_backend_baseUrl "https://backstage-demo-deployment.herokuapp.com"
+ENV APP_CONFIG_app_baseUrl "https://demo.backstage.io"
+ENV APP_CONFIG_backend_baseUrl "https://demo.backstage.io"
 ENV APP_CONFIG_auth_environment "production"
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.heroku.yaml"]
