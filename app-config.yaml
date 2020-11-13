@@ -1,9 +1,9 @@
 app:
   title: Backstage Demo
-  baseUrl: http://localhost:7000
+  baseUrl: http://localhost:3000
 
 organization:
-  name: Backstage 
+  name: Backstage
 
 backend:
   baseUrl: http://localhost:7000
@@ -27,7 +27,7 @@ integrations:
         $env: GITHUB_TOKEN
 auth:
   environment: development
-  providers: 
+  providers:
     github:
       development:
         clientId:
@@ -51,7 +51,7 @@ catalog:
     # Backstage example APIs
     - type: url
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
-  
+
     # The backstage demo deployment (this)
     - type: url
       target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
