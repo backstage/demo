@@ -7,6 +7,11 @@ import {
   configApiRef,
 } from '@backstage/core';
 
+import {
+  costInsightsApiRef,
+  ExampleCostInsightsClient,
+} from '@backstage/plugin-cost-insights';
+
 export const apis = [
   createApiFactory({
     api: githubAuthApiRef,
@@ -23,4 +28,5 @@ export const apis = [
         environment: configApi.getString('auth.environment'),
       }),
   }),
+  createApiFactory(costInsightsApiRef, new ExampleCostInsightsClient()),
 ];

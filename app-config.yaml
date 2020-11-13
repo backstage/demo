@@ -3,7 +3,7 @@ app:
   baseUrl: http://localhost:7000
 
 organization:
-  name: Backstage 
+  name: Backstage
 
 backend:
   baseUrl: http://localhost:7000
@@ -27,7 +27,7 @@ integrations:
         $env: GITHUB_TOKEN
 auth:
   environment: development
-  providers: 
+  providers:
     github:
       development:
         clientId:
@@ -51,7 +51,7 @@ catalog:
     # Backstage example APIs
     - type: url
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
-  
+
     # The backstage demo deployment (this)
     - type: url
       target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
@@ -60,3 +60,21 @@ catalog:
     - type: url
       target: https://github.com/backstage/backstage/blob/master/catalog-info.yaml
 
+costInsights:
+  engineerCost: 200000
+  products:
+    computeEngine:
+      name: Compute Engine
+      icon: compute
+    cloudStorage:
+      name: Cloud Storage
+      icon: storage
+    bigQuery:
+      name: BigQuery
+      icon: search
+  metrics:
+    DAU:
+      name: Daily Active Users
+      default: true
+    MSC:
+      name: Monthly Subscribers
