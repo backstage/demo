@@ -14,7 +14,7 @@ import { Router as CatalogRouter } from '@backstage/plugin-catalog';
 import { Router as RegisterComponentRouter } from '@backstage/plugin-register-component';
 import { Router as TechRadarRouter } from '@backstage/plugin-tech-radar';
 import { Router as GraphiQLRouter } from '@backstage/plugin-graphiql';
-
+import { Router as SettingsRouter } from '@backstage/plugin-user-settings';
 import { EntityPage } from './components/catalog/EntityPage';
 
 const app = createApp({
@@ -54,6 +54,7 @@ const App: FC<{}> = () => (
               <RegisterComponentRouter catalogRouteRef={catalogRouteRef} />
             }
           />
+          <Route path="/settings" element={<SettingsRouter />} />
           <Route path="/graphiql" element={<GraphiQLRouter />} />
           {deprecatedAppRoutes}
         </Routes>
