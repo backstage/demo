@@ -13,6 +13,7 @@ import { Route, Routes, Navigate } from 'react-router';
 import { Router as CatalogRouter } from '@backstage/plugin-catalog';
 import { Router as RegisterComponentRouter } from '@backstage/plugin-register-component';
 import { Router as TechRadarRouter } from '@backstage/plugin-tech-radar';
+import { Router as GraphiQLRouter } from '@backstage/plugin-graphiql';
 
 import { EntityPage } from './components/catalog/EntityPage';
 
@@ -29,7 +30,6 @@ const catalogRouteRef = createRouteRef({
   path: '/catalog',
   title: 'Service Catalog',
 });
-
 
 const App: FC<{}> = () => (
   <AppProvider>
@@ -50,8 +50,11 @@ const App: FC<{}> = () => (
           />
           <Route
             path="/register-component"
-            element={<RegisterComponentRouter catalogRouteRef={catalogRouteRef} />}
+            element={
+              <RegisterComponentRouter catalogRouteRef={catalogRouteRef} />
+            }
           />
+          <Route path="/graphiql" element={<GraphiQLRouter />} />
           {deprecatedAppRoutes}
         </Routes>
       </SidebarPage>
