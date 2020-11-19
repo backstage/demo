@@ -1,9 +1,6 @@
 import React, { FC, useContext } from 'react';
 import HomeIcon from '@material-ui/icons/Home';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
-import BuildIcon from '@material-ui/icons/BuildRounded';
-import RuleIcon from '@material-ui/icons/AssignmentTurnedIn';
+
 import MapIcon from '@material-ui/icons/MyLocation';
 import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import { Link, makeStyles } from '@material-ui/core';
