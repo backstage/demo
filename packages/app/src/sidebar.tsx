@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
-
+import { graphiQLRouteRef } from '@backstage/plugin-graphiql';
 import {
   Sidebar,
   SidebarItem,
@@ -27,13 +27,14 @@ export const AppSidebar = () => (
     <SidebarDivider />
     {/* Global nav, not org-specific */}
     <SidebarItem icon={HomeIcon} to="./" text="Home" />
-    <SidebarItem icon={LibraryBooks} to="/docs" text="Docs" />
-    <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
     <SidebarDivider />
     <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-    <SidebarItem icon={RuleIcon} to="lighthouse" text="Lighthouse" />
+    <SidebarItem
+      icon={graphiQLRouteRef.icon!}
+      to={graphiQLRouteRef.path}
+      text={graphiQLRouteRef.title}
+    />
     <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
-    <SidebarItem icon={BuildIcon} to="circleci" text="CircleCI" />
     {/* End global nav */}
     <SidebarDivider />
     <SidebarSpace />
