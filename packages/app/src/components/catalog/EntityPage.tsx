@@ -21,7 +21,13 @@ import {
   Router as CircleCIRouter,
   isPluginApplicableToEntity as isCircleCIAvailable,
 } from '@backstage/plugin-circleci';
-import { Router as ApiDocsRouter } from '@backstage/plugin-api-docs';
+import {
+  ApiDefinitionCard,
+  ConsumedApisCard,
+  ConsumingComponentsCard,
+  ProvidedApisCard,
+  ProvidingComponentsCard,
+} from '@backstage/plugin-api-docs';
 
 import React from 'react';
 import {
@@ -29,7 +35,7 @@ import {
   useEntity,
   AboutCard,
 } from '@backstage/plugin-catalog';
-import { Entity } from '@backstage/catalog-model';
+import { ApiEntity, Entity } from '@backstage/catalog-model';
 import { Grid } from '@material-ui/core';
 import { WarningPanel } from '@backstage/core';
 
@@ -50,6 +56,17 @@ const CICDSwitcher = ({ entity }: { entity: Entity }) => {
       );
   }
 };
+
+const ComponentApisContent = ({ entity }: { entity: Entity }) => (
+  <Grid container spacing={3} alignItems="stretch">
+    <Grid item md={6}>
+      <ProvidedApisCard entity={entity} />
+    </Grid>
+    <Grid item md={6}>
+      <ConsumedApisCard entity={entity} />
+    </Grid>
+  </Grid>
+);
 
 const OverviewContent = ({ entity }: { entity: Entity }) => (
   <Grid container spacing={3} alignItems="stretch">
@@ -74,7 +91,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/api/*"
       title="API"
-      element={<ApiDocsRouter entity={entity} />}
+      element={<ComponentApisContent entity={entity} />}
     />
   </EntityPageLayout>
 );
@@ -119,8 +136,7 @@ const DefaultEntityPage = ({ entity }: { entity: Entity }) => (
   </EntityPageLayout>
 );
 
-export const EntityPage = () => {
-  const { entity } = useEntity();
+export const ComponentEntityPage = ({ entity }: { entity: Entity }) => {
   switch (entity?.spec?.type) {
     case 'service':
       return <ServiceEntityPage entity={entity} />;
@@ -128,6 +144,58 @@ export const EntityPage = () => {
       return <WebsiteEntityPage entity={entity} />;
     case 'library':
       return <LibraryEntityPage entity={entity} />;
+    default:
+      return <DefaultEntityPage entity={entity} />;
+  }
+};
+
+const ApiOverviewContent = ({ entity }: { entity: Entity }) => (
+  <Grid container spacing={3}>
+    <Grid item md={6}>
+      <AboutCard entity={entity} />
+    </Grid>
+    <Grid container item md={12}>
+      <Grid item md={6}>
+        <ProvidingComponentsCard entity={entity} />
+      </Grid>
+      <Grid item md={6}>
+        <ConsumingComponentsCard entity={entity} />
+      </Grid>
+    </Grid>
+  </Grid>
+);
+
+const ApiDefinitionContent = ({ entity }: { entity: ApiEntity }) => (
+  <Grid container spacing={3}>
+    <Grid item xs={12}>
+      <ApiDefinitionCard apiEntity={entity} />
+    </Grid>
+  </Grid>
+);
+
+const ApiEntityPage = ({ entity }: { entity: Entity }) => (
+  <EntityPageLayout>
+    <EntityPageLayout.Content
+      path="/*"
+      title="Overview"
+      element={<ApiOverviewContent entity={entity} />}
+    />
+    <EntityPageLayout.Content
+      path="/definition/*"
+      title="Definition"
+      element={<ApiDefinitionContent entity={entity as ApiEntity} />}
+    />
+  </EntityPageLayout>
+);
+
+export const EntityPage = () => {
+  const { entity } = useEntity();
+
+  switch (entity?.kind?.toLowerCase()) {
+    case 'component':
+      return <ComponentEntityPage entity={entity} />;
+    case 'api':
+      return <ApiEntityPage entity={entity} />;
     default:
       return <DefaultEntityPage entity={entity} />;
   }
