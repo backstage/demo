@@ -10,6 +10,6 @@ export type PluginEnvironment = {
   logger: Logger;
   database: PluginDatabaseManager;
   config: Config;
-  reader: UrlReader
+  reader: UrlReader;
   discovery: PluginEndpointDiscovery;
 };

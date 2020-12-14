@@ -22,6 +22,7 @@ import auth from './plugins/auth';
 import app from './plugins/app';
 import catalog from './plugins/catalog';
 import proxy from './plugins/proxy';
+import techdocs from './plugins/techdocs';
 import { PluginEnvironment } from './types';
 
 function makeCreateEnv(config: Config) {
@@ -51,11 +52,13 @@ async function main() {
   const authEnv = useHotMemoize(module, () => createEnv('auth'));
   const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
+  const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/auth', await auth(authEnv));
   apiRouter.use('/proxy', await proxy(proxyEnv));
+  apiRouter.use('/techdocs', await techdocs(techdocsEnv));
   apiRouter.use(notFoundHandler());
 
   const service = createServiceBuilder(module)

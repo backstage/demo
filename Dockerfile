@@ -8,6 +8,9 @@ ADD yarn.lock package.json ./
 # https://github.com/moby/moby/issues/15858#issuecomment-383690925
 ADD packages/backend/package.json ./packages/backend/package.json
 ADD packages/app/package.json ./packages/app/package.json
+ADD packages/local-techdocs-common/package.json ./packages/local-techdocs-common/package.json
+ADD plugins/local-techdocs/package.json ./plugins/local-techdocs/package.json
+ADD plugins/local-techdocs-backend/package.json ./plugins/local-techdocs-backend/package.json
 
 RUN yarn install --frozen-lockfile --production
 

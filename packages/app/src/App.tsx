@@ -15,6 +15,7 @@ import { Router as RegisterComponentRouter } from '@backstage/plugin-register-co
 import { Router as TechRadarRouter } from '@backstage/plugin-tech-radar';
 import { Router as GraphiQLRouter } from '@backstage/plugin-graphiql';
 import { Router as SettingsRouter } from '@backstage/plugin-user-settings';
+import { Router as TechDocsRouter } from '@backstage/plugin-local-techdocs';
 import { EntityPage } from './components/catalog/EntityPage';
 
 const app = createApp({
@@ -56,6 +57,7 @@ const App: FC<{}> = () => (
           />
           <Route path="/settings" element={<SettingsRouter />} />
           <Route path="/graphiql" element={<GraphiQLRouter />} />
+          <Route path="/docs/*" element={<TechDocsRouter />} />
           {deprecatedAppRoutes}
         </Routes>
       </SidebarPage>
