@@ -8,3 +8,4 @@ export { plugin as GithubActions } from '@backstage/plugin-github-actions';
 export { plugin as CostInsights } from '@backstage/plugin-cost-insights';
 export { plugin as GraphiQL } from '@backstage/plugin-graphiql';
 export { plugin as UserSettings } from '@backstage/plugin-user-settings';
+export { plugin as TechDocs } from '@backstage/plugin-techdocs';
