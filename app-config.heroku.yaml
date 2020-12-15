@@ -4,8 +4,24 @@ app:
 backend:
   baseUrl: https://demo.backstage.io
   listen:
-    port: 
+    port:
       $env: PORT
 
 auth:
   environment: production
+
+techdocs:
+  requestUrl: https://demo.backstage.io/api/techdocs
+  storageUrl: https://demo.backstage.io/api/techdocs/static/docs
+  builder: 'external'
+  generators:
+    techdocs: local
+  publisher:
+    type: 'googleGcs'
+    googleGcs:
+      credentials:
+        $env: TECHDOCS_GCS_CREDENTIALS
+      projectId:
+        $env: TECHDOCS_GCS_PROJECT_ID
+      bucketName:
+        $env: TECHDOCS_GCS_BUCKET
