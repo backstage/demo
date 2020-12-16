@@ -11,6 +11,7 @@ backend:
     port: 7000
   csp:
     connect-src: ["'self'", 'http:', 'https:']
+    img-src: ["'self'", 'data:', 'https://backstage.io']
   cors:
     origin: http://localhost:3000
     methods: [GET, POST, PUT, DELETE]
@@ -18,7 +19,6 @@ backend:
   database:
     client: sqlite3
     connection: ':memory:'
-
 
 integrations:
   github:
