@@ -78,3 +78,14 @@ costInsights:
       default: true
     MSC:
       name: Monthly Subscribers
+
+# app-config.heroku.yaml replaces these values
+# These configs here are required for config validation in CI to pass
+techdocs:
+  requestUrl: ''
+  storageUrl: ''
+  builder: 'external'
+  generators:
+    techdocs: 'local'
+  publisher:
+    type: 'local'
