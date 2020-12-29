@@ -1,11 +1,7 @@
 import {
   createRouter,
-  DirectoryPreparer,
   Preparers,
   Generators,
-  TechdocsGenerator,
-  CommonGitPreparer,
-  UrlPreparer,
   Publisher,
 } from '@backstage/plugin-techdocs-backend';
 import { PluginEnvironment } from '../types';
@@ -17,25 +13,19 @@ export default async function createPlugin({
   discovery,
   reader,
 }: PluginEnvironment) {
-  const generators = new Generators();
-  const techdocsGenerator = new TechdocsGenerator(logger, config);
-  generators.register('techdocs', techdocsGenerator);
+  const preparers = await Preparers.fromConfig(config, {
+    logger,
+    reader,
+  });
 
-  const preparers = new Preparers();
+  const generators = await Generators.fromConfig(config, {
+    logger,
+  });
 
-  const directoryPreparer = new DirectoryPreparer(logger);
-  preparers.register('dir', directoryPreparer);
-
-  const commonGitPreparer = new CommonGitPreparer(logger);
-  preparers.register('github', commonGitPreparer);
-  preparers.register('gitlab', commonGitPreparer);
-  preparers.register('azure/api', commonGitPreparer);
-
-  const urlPreparer = new UrlPreparer(reader, logger);
-  preparers.register('url', urlPreparer);
-
-  const publisher = Publisher.fromConfig(config, logger, discovery);
-
+  const publisher = await Publisher.fromConfig(config, {
+    logger,
+    discovery,
+  });
   const dockerClient = new Docker();
 
   return await createRouter({
