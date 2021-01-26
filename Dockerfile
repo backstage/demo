@@ -1,19 +1,42 @@
-FROM node:12-buster
+# Stage 1 - Create yarn install skeleton layer
+FROM node:14-buster AS packages
 
-WORKDIR /usr/src/app
+WORKDIR /app
+COPY package.json yarn.lock ./
 
-# Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
-ADD yarn.lock package.json ./
-# Really annoying that you can't copy the tree easily using docker COPY command.
-# https://github.com/moby/moby/issues/15858#issuecomment-383690925
-ADD packages/backend/package.json ./packages/backend/package.json
-ADD packages/app/package.json ./packages/app/package.json
+COPY packages packages
+# COPY plugins plugins
 
-RUN yarn install --frozen-lockfile --production
+RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
-# This will copy the contents of the dist-workspace when running the build-image command.
-# Do not use this Dockerfile outside of that command, as it will copy in the source code instead.
+# Stage 2 - Install dependencies and build packages
+FROM node:14-buster AS build
+
+WORKDIR /app
+COPY --from=packages /app .
+
+RUN yarn install --network-timeout 600000 && rm -rf "$(yarn cache dir)"
+
 COPY . .
+
+RUN yarn tsc
+RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
+
+# Stage 3 - Build the actual backend image and install production dependencies
+FROM node:14-buster
+
+WORKDIR /app
+
+# Copy from build stage
+COPY --from=build /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton.tar.gz ./
+RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
+
+RUN yarn install --production --network-timeout 600000 && rm -rf "$(yarn cache dir)"
+
+COPY --from=build /app/packages/backend/dist/bundle.tar.gz .
+RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
+
+COPY app-config.yaml app-config.heroku.yaml ./
 
 ENV PORT 7000
 
