@@ -4,9 +4,8 @@ FROM node:14-buster AS packages
 WORKDIR /app
 COPY package.json yarn.lock ./
 
-# Uncomment this line if building a non create-app version
-# COPY packages packages
-COPY plugins plugins
+COPY packages packages
+# COPY plugins plugins
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
