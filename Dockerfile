@@ -36,7 +36,7 @@ RUN yarn install --production --network-timeout 600000 && rm -rf "$(yarn cache d
 COPY --from=build /app/packages/backend/dist/bundle.tar.gz .
 RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
-COPY app-config.yaml app-config.heroky.yaml ./
+COPY app-config.yaml app-config.heroku.yaml ./
 
 ENV PORT 7000
 
