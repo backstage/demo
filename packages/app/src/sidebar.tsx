@@ -18,29 +18,6 @@ import {
   SidebarSpace,
 } from '@backstage/core';
 
-export const AppSidebar = () => (
-  <Sidebar>
-    <SidebarLogo />
-    <SidebarDivider />
-    {/* Global nav, not org-specific */}
-    <SidebarItem icon={HomeIcon} to="./" text="Home" />
-    <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-    <SidebarDivider />
-    <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-    <SidebarItem
-      icon={graphiQLRouteRef.icon!}
-      to={graphiQLRouteRef.path}
-      text={graphiQLRouteRef.title}
-    />
-    <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
-    {/* End global nav */}
-    <SidebarDivider />
-    <SidebarSpace />
-    <SidebarDivider />
-    <SidebarSettings />
-  </Sidebar>
-);
-
 const useSidebarLogoStyles = makeStyles({
   root: {
     width: sidebarConfig.drawerWidthClosed,
@@ -73,3 +50,26 @@ const SidebarLogo: FC<{}> = () => {
     </div>
   );
 };
+
+export const AppSidebar = () => (
+  <Sidebar>
+    <SidebarLogo />
+    <SidebarDivider />
+    {/* Global nav, not org-specific */}
+    <SidebarItem icon={HomeIcon} to="./" text="Home" />
+    <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
+    <SidebarDivider />
+    <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
+    <SidebarItem
+      icon={graphiQLRouteRef.icon!}
+      to={graphiQLRouteRef.path}
+      text={graphiQLRouteRef.title}
+    />
+    <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
+    {/* End global nav */}
+    <SidebarDivider />
+    <SidebarSpace />
+    <SidebarDivider />
+    <SidebarSettings />
+  </Sidebar>
+);
