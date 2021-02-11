@@ -30,11 +30,8 @@ import {
 } from '@backstage/plugin-api-docs';
 
 import React from 'react';
-import {
-  EntityPageLayout,
-  useEntity,
-  AboutCard,
-} from '@backstage/plugin-catalog';
+import { EntityPageLayout, AboutCard } from '@backstage/plugin-catalog';
+import { useEntity } from '@backstage/plugin-catalog-react';
 import { ApiEntity, Entity } from '@backstage/catalog-model';
 import { Grid } from '@material-ui/core';
 import { WarningPanel } from '@backstage/core';
