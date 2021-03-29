@@ -1,4 +1,5 @@
-import { useHotCleanup, NotAllowedError } from '@backstage/backend-common';
+import { useHotCleanup } from '@backstage/backend-common';
+import { NotAllowedError } from '@backstage/errors';
 import {
   CatalogBuilder,
   createRouter,
