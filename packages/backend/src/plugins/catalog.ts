@@ -1,4 +1,5 @@
-import { useHotCleanup, NotAllowedError } from '@backstage/backend-common';
+import { useHotCleanup } from '@backstage/backend-common';
+import { NotAllowedError } from '@backstage/errors';
 import {
   CatalogBuilder,
   createRouter,
@@ -7,12 +8,15 @@ import {
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 
-export default async function createPlugin(env: PluginEnvironment) {
+export default async function createPlugin(
+  env: PluginEnvironment,
+): Promise<Router> {
   const builder = new CatalogBuilder(env);
   const {
     entitiesCatalog,
     locationsCatalog,
     higherOrderOperation,
+    locationAnalyzer,
   } = await builder.build();
 
   useHotCleanup(
@@ -24,6 +28,7 @@ export default async function createPlugin(env: PluginEnvironment) {
     entitiesCatalog,
     locationsCatalog,
     higherOrderOperation,
+    locationAnalyzer,
     logger: env.logger,
   });
 

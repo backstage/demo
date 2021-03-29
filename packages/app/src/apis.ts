@@ -6,6 +6,7 @@ import {
   GithubAuth,
   errorApiRef,
   configApiRef,
+  AnyApiFactory,
 } from '@backstage/core';
 
 import {
@@ -18,7 +19,17 @@ import {
   ExampleCostInsightsClient,
 } from '@backstage/plugin-cost-insights';
 
-export const apis = [
+import {
+  ScmIntegrationsApi,
+  scmIntegrationsApiRef,
+} from '@backstage/integration-react';
+
+export const apis: AnyApiFactory[] = [
+  createApiFactory({
+    api: scmIntegrationsApiRef,
+    deps: { configApi: configApiRef },
+    factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
+  }),
   createApiFactory({
     api: githubAuthApiRef,
     deps: {
