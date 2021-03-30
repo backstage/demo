@@ -9,6 +9,13 @@ backend:
 
 auth:
   environment: production
+  providers:
+    github:
+      production:
+        clientId:
+          $env: GITHUB_PRODUCTION_CLIENT_ID
+        clientSecret:
+          $env: GITHUB_PRODUCTION_CLIENT_SECRET
 
 techdocs:
   requestUrl: https://demo.backstage.io/api/techdocs

@@ -42,14 +42,6 @@ import {
 } from '@backstage/plugin-catalog';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import {
-  Router as CircleCIRouter,
-  isPluginApplicableToEntity as isCircleCIAvailable,
-} from '@backstage/plugin-circleci';
-import {
-  Router as GitHubActionsRouter,
-  isPluginApplicableToEntity as isGitHubActionsAvailable,
-} from '@backstage/plugin-github-actions';
-import {
   GroupProfileCard,
   MembersListCard,
   OwnershipCard,
@@ -58,32 +50,23 @@ import {
 import { EmbeddedDocsRouter as DocsRouter } from '@backstage/plugin-techdocs';
 import { EntityTodoContent } from '@backstage/plugin-todo';
 
-const CICDSwitcher = ({ entity }: { entity: Entity }) => {
-  // This component is just an example of how you can implement your company's logic in entity page.
-  // You can for example enforce that all components of type 'service' should use GitHubActions
-  switch (true) {
-    case isGitHubActionsAvailable(entity):
-      return <GitHubActionsRouter entity={entity} />;
-    case isCircleCIAvailable(entity):
-      return <CircleCIRouter entity={entity} />;
-    default:
-      return (
-        <EmptyState
-          title="No CI/CD available for this entity"
-          missing="info"
-          description="You need to add an annotation to your component if you want to enable CI/CD for it. You can read more about annotations in Backstage by clicking the button below."
-          action={
-            <Button
-              variant="contained"
-              color="primary"
-              href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
-            >
-              Read more
-            </Button>
-          }
-        />
-      );
-  }
+const CICDSwitcher = () => {
+  return (
+    <EmptyState
+      title="No CI/CD available for this entity"
+      missing="info"
+      description="You need to add an annotation to your component to enable CI/CD. Read more about well-known Backstage CI/CD annotations below."
+      action={
+        <Button
+          variant="contained"
+          color="primary"
+          href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+        >
+          Read more
+        </Button>
+      }
+    />
+  );
 };
 
 const EntityPageLayoutWrapper = (props: { children?: React.ReactNode }) => {
@@ -141,7 +124,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/ci-cd/*"
       title="CI/CD"
-      element={<CICDSwitcher entity={entity} />}
+      element={<CICDSwitcher />}
     />
     <EntityPageLayout.Content
       path="/api/*"
@@ -171,7 +154,7 @@ const WebsiteEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/ci-cd/*"
       title="CI/CD"
-      element={<CICDSwitcher entity={entity} />}
+      element={<CICDSwitcher />}
     />
     <EntityPageLayout.Content
       path="/docs/*"
@@ -196,7 +179,7 @@ const LibraryEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/ci-cd/*"
       title="CI/CD"
-      element={<CICDSwitcher entity={entity} />}
+      element={<CICDSwitcher />}
     />
     <EntityPageLayout.Content
       path="/docs/*"

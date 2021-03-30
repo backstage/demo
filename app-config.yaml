@@ -25,6 +25,7 @@ integrations:
     - host: github.com
       token:
         $env: GITHUB_TOKEN
+
 auth:
   environment: development
   providers:
@@ -34,11 +35,6 @@ auth:
           $env: GITHUB_DEVELOPMENT_CLIENT_ID
         clientSecret:
           $env: GITHUB_DEVELOPMENT_CLIENT_SECRET
-      production:
-        clientId:
-          $env: GITHUB_PRODUCTION_CLIENT_ID
-        clientSecret:
-          $env: GITHUB_PRODUCTION_CLIENT_SECRET
 
 catalog:
   rules:
