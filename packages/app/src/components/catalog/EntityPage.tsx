@@ -42,6 +42,10 @@ import {
 } from '@backstage/plugin-catalog';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import {
+  Router as GitHubActionsRouter,
+  isPluginApplicableToEntity as isGitHubActionsAvailable,
+} from '@backstage/plugin-github-actions';
+import {
   GroupProfileCard,
   MembersListCard,
   OwnershipCard,
@@ -50,7 +54,11 @@ import {
 import { EmbeddedDocsRouter as DocsRouter } from '@backstage/plugin-techdocs';
 import { EntityTodoContent } from '@backstage/plugin-todo';
 
-const CICDSwitcher = () => {
+const CICDSwitcher = ({ entity }: { entity: Entity }) => {
+  switch (true) {
+    case isGitHubActionsAvailable(entity):
+      return <GitHubActionsRouter entity={entity} />;
+    default:
   return (
     <EmptyState
       title="No CI/CD available for this entity"
@@ -67,6 +75,7 @@ const CICDSwitcher = () => {
       }
     />
   );
+  }
 };
 
 const EntityPageLayoutWrapper = (props: { children?: React.ReactNode }) => {
@@ -124,7 +133,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/ci-cd/*"
       title="CI/CD"
-      element={<CICDSwitcher />}
+      element={<CICDSwitcher entity={entity} />}
     />
     <EntityPageLayout.Content
       path="/api/*"
@@ -154,7 +163,7 @@ const WebsiteEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/ci-cd/*"
       title="CI/CD"
-      element={<CICDSwitcher />}
+      element={<CICDSwitcher entity={entity} />}
     />
     <EntityPageLayout.Content
       path="/docs/*"
@@ -179,7 +188,7 @@ const LibraryEntityPage = ({ entity }: { entity: Entity }) => (
     <EntityPageLayout.Content
       path="/ci-cd/*"
       title="CI/CD"
-      element={<CICDSwitcher />}
+      element={<CICDSwitcher entity={entity} />}
     />
     <EntityPageLayout.Content
       path="/docs/*"
