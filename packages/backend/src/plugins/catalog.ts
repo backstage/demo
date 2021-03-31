@@ -1,5 +1,4 @@
 import { useHotCleanup } from '@backstage/backend-common';
-import { NotAllowedError } from '@backstage/errors';
 import {
   CatalogBuilder,
   createRouter,
@@ -24,29 +23,12 @@ export default async function createPlugin(
     runPeriodically(() => higherOrderOperation.refreshAllLocations(), 100000),
   );
 
-  const catalogRouter = await createRouter({
+  return await createRouter({
     entitiesCatalog,
     locationsCatalog,
     higherOrderOperation,
     locationAnalyzer,
     logger: env.logger,
+    config: env.config,
   });
-
-  const router = Router();
-
-  router.post('*', () => {
-    throw new NotAllowedError(
-      'This operation is disabled for the demo deployment',
-    );
-  });
-
-  router.delete('*', () => {
-    throw new NotAllowedError(
-      'This operation is disabled for the demo deployment',
-    );
-  });
-
-  router.use(catalogRouter);
-
-  return router;
 }

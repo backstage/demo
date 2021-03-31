@@ -37,6 +37,7 @@ auth:
           $env: GITHUB_DEVELOPMENT_CLIENT_SECRET
 
 catalog:
+  readonly: true
   rules:
     - allow: [Component, API, System, Domain, Resource, Location, User, Group]
   locations:
