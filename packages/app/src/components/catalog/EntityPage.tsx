@@ -59,22 +59,22 @@ const CICDSwitcher = ({ entity }: { entity: Entity }) => {
     case isGitHubActionsAvailable(entity):
       return <GitHubActionsRouter entity={entity} />;
     default:
-  return (
-    <EmptyState
-      title="No CI/CD available for this entity"
-      missing="info"
-      description="You need to add an annotation to your component to enable CI/CD. Read more about well-known Backstage CI/CD annotations below."
-      action={
-        <Button
-          variant="contained"
-          color="primary"
-          href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
-        >
-          Read more
-        </Button>
-      }
-    />
-  );
+      return (
+        <EmptyState
+          title="No CI/CD available for this entity"
+          missing="info"
+          description="You need to add an annotation to your component to enable CI/CD. Read more about well-known Backstage CI/CD annotations below."
+          action={
+            <Button
+              variant="contained"
+              color="primary"
+              href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
+            >
+              Read more
+            </Button>
+          }
+        />
+      );
   }
 };
 
