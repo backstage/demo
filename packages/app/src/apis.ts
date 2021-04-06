@@ -8,21 +8,20 @@ import {
   configApiRef,
   AnyApiFactory,
 } from '@backstage/core';
-
 import {
   graphQlBrowseApiRef,
   GraphQLEndpoints,
 } from '@backstage/plugin-graphiql';
-
 import {
   costInsightsApiRef,
   ExampleCostInsightsClient,
 } from '@backstage/plugin-cost-insights';
-
+import { exploreToolsConfigRef } from '@backstage/plugin-explore-react';
 import {
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
+import { exampleTools } from './tools';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
@@ -69,4 +68,13 @@ export const apis: AnyApiFactory[] = [
       ]),
   }),
   createApiFactory(costInsightsApiRef, new ExampleCostInsightsClient()),
+  createApiFactory({
+    api: exploreToolsConfigRef,
+    deps: {},
+    factory: () => ({
+      async getTools() {
+        return exampleTools;
+      },
+    }),
+  }),
 ];
