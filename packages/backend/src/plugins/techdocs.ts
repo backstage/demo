@@ -1,3 +1,4 @@
+import { DockerContainerRunner } from '@backstage/backend-common';
 import {
   createRouter,
   Generators,
@@ -19,21 +20,25 @@ export default async function createPlugin({
     reader,
   });
 
+  const dockerClient = new Docker();
+  const containerRunner = new DockerContainerRunner({ dockerClient });
+
   const generators = await Generators.fromConfig(config, {
     logger,
+    containerRunner,
   });
 
   const publisher = await Publisher.fromConfig(config, {
     logger,
     discovery,
   });
-  const dockerClient = new Docker();
+
+  await publisher.getReadiness();
 
   return await createRouter({
     preparers,
     generators,
     publisher,
-    dockerClient,
     logger,
     config,
     discovery,
