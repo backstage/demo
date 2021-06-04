@@ -43,7 +43,7 @@ const AppRouter = app.getRouter();
 
 const routes = (
   <FlatRoutes>
-    <Navigate key="/" to="/catalog" />
+    <Navigate key="/" to="/catalog" replace />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
