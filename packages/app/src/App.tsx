@@ -1,11 +1,5 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router';
-import {
-  AlertDisplay,
-  createApp,
-  FlatRoutes,
-  OAuthRequestDialog,
-} from '@backstage/core';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
   catalogPlugin,
@@ -27,6 +21,9 @@ import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { Root } from './components/Root';
 import * as plugins from './plugins';
+
+import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { createApp, FlatRoutes } from '@backstage/core-app-api';
 
 const app = createApp({
   apis,

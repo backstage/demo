@@ -1,8 +1,6 @@
-import { useHotCleanup } from '@backstage/backend-common';
 import {
   CatalogBuilder,
   createRouter,
-  runPeriodically,
 } from '@backstage/plugin-catalog-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
@@ -10,24 +8,21 @@ import { PluginEnvironment } from '../types';
 export default async function createPlugin(
   env: PluginEnvironment,
 ): Promise<Router> {
-  const builder = new CatalogBuilder(env);
+  const builder = await CatalogBuilder.create(env);
+
   const {
     entitiesCatalog,
-    locationsCatalog,
-    higherOrderOperation,
     locationAnalyzer,
-  } = await builder.build();
+    locationService,
+    processingEngine,
+  } = await builder.setRefreshIntervalSeconds(30).build();
 
-  useHotCleanup(
-    module,
-    runPeriodically(() => higherOrderOperation.refreshAllLocations(), 100000),
-  );
+  await processingEngine.start();
 
   return await createRouter({
     entitiesCatalog,
-    locationsCatalog,
-    higherOrderOperation,
     locationAnalyzer,
+    locationService,
     logger: env.logger,
     config: env.config,
   });
