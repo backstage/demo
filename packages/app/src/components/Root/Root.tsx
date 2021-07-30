@@ -8,6 +8,10 @@ import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
+import { NavLink } from 'react-router-dom';
+import { GraphiQLIcon } from '@backstage/plugin-graphiql';
+import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
+import { SidebarSearch } from '@backstage/plugin-search';
 import {
   Sidebar,
   SidebarPage,
@@ -16,11 +20,7 @@ import {
   SidebarItem,
   SidebarDivider,
   SidebarSpace,
-} from '@backstage/core';
-import { NavLink } from 'react-router-dom';
-import { GraphiQLIcon } from '@backstage/plugin-graphiql';
-import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
-import { SidebarSearch } from '@backstage/plugin-search';
+} from '@backstage/core-components';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
