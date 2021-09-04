@@ -67,7 +67,7 @@ const routes = (
       element={<CostInsightsLabelDataflowInstructionsPage />}
     />
     <Route path="/docs" element={<TechDocsIndexPage />}>
-      + <DefaultTechDocsHome />+{' '}
+      <DefaultTechDocsHome />
     </Route>
     <Route
       path="/docs/:namespace/:kind/:name/*"
