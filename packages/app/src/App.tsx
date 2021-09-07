@@ -15,7 +15,12 @@ import { explorePlugin, ExplorePage } from '@backstage/plugin-explore';
 import { GraphiQLPage } from '@backstage/plugin-graphiql';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage/plugin-tech-radar';
-import { TechdocsPage } from '@backstage/plugin-techdocs';
+import {
+  DefaultTechDocsHome,
+  TechDocsIndexPage,
+  techdocsPlugin,
+  TechDocsReaderPage,
+} from '@backstage/plugin-techdocs';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
@@ -32,6 +37,9 @@ const app = createApp({
     bind(explorePlugin.externalRoutes, {
       catalogEntity: catalogPlugin.routes.catalogEntity,
     });
+    bind(catalogPlugin.externalRoutes, {
+      viewTechDoc: techdocsPlugin.routes.docRoot,
+    });
   },
 });
 
@@ -40,7 +48,7 @@ const AppRouter = app.getRouter();
 
 const routes = (
   <FlatRoutes>
-    <Navigate key="/" to="/catalog" replace />
+    <Navigate key="/" to="catalog" replace />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
@@ -58,7 +66,13 @@ const routes = (
       path="/cost-insights/labeling-jobs"
       element={<CostInsightsLabelDataflowInstructionsPage />}
     />
-    <Route path="/docs" element={<TechdocsPage />} />
+    <Route path="/docs" element={<TechDocsIndexPage />}>
+      <DefaultTechDocsHome />
+    </Route>
+    <Route
+      path="/docs/:namespace/:kind/:name/*"
+      element={<TechDocsReaderPage />}
+    />
     <Route path="/explore" element={<ExplorePage />} />
     <Route path="/graphiql" element={<GraphiQLPage />} />
     <Route path="/search" element={<SearchPage />} />

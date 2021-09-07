@@ -19,7 +19,8 @@
     "lint": "lerna run lint --since origin/master --",
     "lint:all": "lerna run lint --",
     "create-plugin": "backstage-cli create-plugin --scope internal --no-private",
-    "remove-plugin": "backstage-cli remove-plugin"
+    "remove-plugin": "backstage-cli remove-plugin",
+    "prettier:check": "prettier --check ."
   },
   "workspaces": {
     "packages": [
@@ -32,7 +33,7 @@
     "@spotify/prettier-config": "^7.0.0",
     "concurrently": "^6.0.0",
     "lerna": "^3.20.2",
-    "prettier": "^1.19.1"
+    "prettier": "^2.3.2"
   },
   "prettier": "@spotify/prettier-config",
   "lint-staged": {

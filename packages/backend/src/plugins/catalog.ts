@@ -15,7 +15,7 @@ export default async function createPlugin(
     locationAnalyzer,
     locationService,
     processingEngine,
-  } = await builder.setRefreshIntervalSeconds(30).build();
+  } = await builder.build();
 
   await processingEngine.start();
 
