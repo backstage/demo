@@ -58,6 +58,7 @@ import {
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
 import { EntityTodoContent } from '@backstage/plugin-todo';
 import { EmptyState } from '@backstage/core-components';
+import { EntityCatalogGraphCard } from '@backstage/plugin-catalog-graph';
 
 const EntityLayoutWrapper = (props: { children?: React.ReactNode }) => {
   const [badgesDialogOpen, setBadgesDialogOpen] = useState(false);
@@ -144,6 +145,10 @@ const overviewContent = (
     {entityWarningContent}
     <Grid item xs={12} md={6}>
       <EntityAboutCard variant="gridItem" />
+    </Grid>
+
+    <Grid item md={6} xs={12}>
+      <EntityCatalogGraphCard variant="gridItem" />
     </Grid>
 
     <Grid item xs={12} md={4} sm={6}>

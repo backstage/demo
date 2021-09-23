@@ -16,6 +16,10 @@ import { GraphiQLPage } from '@backstage/plugin-graphiql';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage/plugin-tech-radar';
 import {
+  CatalogGraphPage,
+  catalogGraphPlugin,
+} from '@backstage/plugin-catalog-graph';
+import {
   DefaultTechDocsHome,
   TechDocsIndexPage,
   techdocsPlugin,
@@ -39,6 +43,9 @@ const app = createApp({
     });
     bind(catalogPlugin.externalRoutes, {
       viewTechDoc: techdocsPlugin.routes.docRoot,
+    });
+    bind(catalogGraphPlugin.externalRoutes, {
+      catalogEntity: catalogPlugin.routes.catalogEntity,
     });
   },
 });
@@ -81,6 +88,7 @@ const routes = (
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}
     />
+    <Route path="/catalog-graph" element={<CatalogGraphPage />} />
   </FlatRoutes>
 );
 
