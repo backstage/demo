@@ -29,6 +29,7 @@ import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { Root } from './components/Root';
+import { searchPage } from './components/search/SearchPage';
 import * as plugins from './plugins';
 
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
@@ -82,7 +83,9 @@ const routes = (
     />
     <Route path="/explore" element={<ExplorePage />} />
     <Route path="/graphiql" element={<GraphiQLPage />} />
-    <Route path="/search" element={<SearchPage />} />
+    <Route path="/search" element={<SearchPage />}>
+      {searchPage}
+    </Route>
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route
       path="/tech-radar"

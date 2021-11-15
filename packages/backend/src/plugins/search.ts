@@ -6,8 +6,10 @@ import {
 } from '@backstage/plugin-search-backend-node';
 import { PluginEnvironment } from '../types';
 import { DefaultCatalogCollator } from '@backstage/plugin-catalog-backend';
+import { DefaultTechDocsCollator } from '@backstage/plugin-techdocs-backend';
 
 export default async function createPlugin({
+  config,
   logger,
   discovery,
 }: PluginEnvironment) {
@@ -16,7 +18,12 @@ export default async function createPlugin({
 
   indexBuilder.addCollator({
     defaultRefreshIntervalSeconds: 600,
-    collator: new DefaultCatalogCollator({ discovery }),
+    collator: DefaultCatalogCollator.fromConfig(config, { discovery }),
+  });
+
+  indexBuilder.addCollator({
+    defaultRefreshIntervalSeconds: 600,
+    collator: DefaultTechDocsCollator.fromConfig(config, { discovery, logger }),
   });
 
   const { scheduler } = await indexBuilder.build();
