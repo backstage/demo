@@ -12,18 +12,26 @@ export default async function createPlugin({
   config,
   logger,
   discovery,
+  tokenManager,
 }: PluginEnvironment) {
   const searchEngine = new LunrSearchEngine({ logger });
   const indexBuilder = new IndexBuilder({ logger, searchEngine });
 
   indexBuilder.addCollator({
     defaultRefreshIntervalSeconds: 600,
-    collator: DefaultCatalogCollator.fromConfig(config, { discovery }),
+    collator: DefaultCatalogCollator.fromConfig(config, {
+      discovery,
+      tokenManager,
+    }),
   });
 
   indexBuilder.addCollator({
     defaultRefreshIntervalSeconds: 600,
-    collator: DefaultTechDocsCollator.fromConfig(config, { discovery, logger }),
+    collator: DefaultTechDocsCollator.fromConfig(config, {
+      discovery,
+      logger,
+      tokenManager,
+    }),
   });
 
   const { scheduler } = await indexBuilder.build();

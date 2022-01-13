@@ -13,9 +13,10 @@ import {
   getRootLogger,
   useHotMemoize,
   notFoundHandler,
-  SingleConnectionDatabaseManager,
   SingleHostDiscovery,
   UrlReaders,
+  ServerTokenManager,
+  DatabaseManager,
 } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
 import auth from './plugins/auth';
@@ -32,15 +33,15 @@ function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
   const discovery = SingleHostDiscovery.fromConfig(config);
+  const tokenManager = ServerTokenManager.noop();
+  const databaseManager = DatabaseManager.fromConfig(config);
 
   root.info(`Created UrlReader ${reader}`);
-
-  const databaseManager = SingleConnectionDatabaseManager.fromConfig(config);
 
   return (plugin: string): PluginEnvironment => {
     const logger = root.child({ type: 'plugin', plugin });
     const database = databaseManager.forPlugin(plugin);
-    return { logger, database, config, reader, discovery };
+    return { logger, database, config, reader, discovery, tokenManager };
   };
 }
 
