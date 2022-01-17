@@ -13,9 +13,11 @@ import {
   getRootLogger,
   useHotMemoize,
   notFoundHandler,
-  SingleConnectionDatabaseManager,
   SingleHostDiscovery,
   UrlReaders,
+  ServerTokenManager,
+  DatabaseManager,
+  CacheManager,
 } from '@backstage/backend-common';
 import { Config } from '@backstage/config';
 import auth from './plugins/auth';
@@ -27,20 +29,39 @@ import search from './plugins/search';
 import techdocs from './plugins/techdocs';
 import todo from './plugins/todo';
 import { PluginEnvironment } from './types';
+import { ServerPermissionClient } from '@backstage/plugin-permission-node';
+import { TaskScheduler } from '@backstage/backend-tasks';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
-  const discovery = SingleHostDiscovery.fromConfig(config);
-
   root.info(`Created UrlReader ${reader}`);
-
-  const databaseManager = SingleConnectionDatabaseManager.fromConfig(config);
+  const discovery = SingleHostDiscovery.fromConfig(config);
+  const tokenManager = ServerTokenManager.noop();
+  const databaseManager = DatabaseManager.fromConfig(config);
+  const permissions = ServerPermissionClient.fromConfig(config, {
+    discovery,
+    tokenManager,
+  });
+  const cacheManager = CacheManager.fromConfig(config);
+  const taskScheduler = TaskScheduler.fromConfig(config);
 
   return (plugin: string): PluginEnvironment => {
     const logger = root.child({ type: 'plugin', plugin });
+    const scheduler = taskScheduler.forPlugin(plugin);
     const database = databaseManager.forPlugin(plugin);
-    return { logger, database, config, reader, discovery };
+    const cache = cacheManager.forPlugin(plugin);
+    return {
+      logger,
+      database,
+      config,
+      reader,
+      discovery,
+      tokenManager,
+      permissions,
+      scheduler,
+      cache,
+    };
   };
 }
 

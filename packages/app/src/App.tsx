@@ -33,7 +33,8 @@ import { searchPage } from './components/search/SearchPage';
 import * as plugins from './plugins';
 
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
-import { createApp, FlatRoutes } from '@backstage/core-app-api';
+import { FlatRoutes } from '@backstage/core-app-api';
+import { createApp } from '@backstage/app-defaults';
 
 const app = createApp({
   apis,
