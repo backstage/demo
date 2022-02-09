@@ -13,6 +13,7 @@ export default async function createPlugin({
   logger,
   discovery,
   tokenManager,
+  permissions,
 }: PluginEnvironment) {
   const searchEngine = new LunrSearchEngine({ logger });
   const indexBuilder = new IndexBuilder({ logger, searchEngine });
@@ -41,6 +42,9 @@ export default async function createPlugin({
 
   return await createRouter({
     engine: indexBuilder.getSearchEngine(),
+    types: indexBuilder.getDocumentTypes(),
+    permissions,
+    config,
     logger,
   });
 }

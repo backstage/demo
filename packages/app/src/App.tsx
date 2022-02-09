@@ -35,6 +35,7 @@ import * as plugins from './plugins';
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { createApp } from '@backstage/app-defaults';
+import { orgPlugin } from '@backstage/plugin-org';
 
 const app = createApp({
   apis,
@@ -48,6 +49,9 @@ const app = createApp({
     });
     bind(catalogGraphPlugin.externalRoutes, {
       catalogEntity: catalogPlugin.routes.catalogEntity,
+    });
+    bind(orgPlugin.externalRoutes, {
+      catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
 });

@@ -14,6 +14,7 @@ export default async function createPlugin({
   config,
   discovery,
   reader,
+  cache,
 }: PluginEnvironment): Promise<Router> {
   const preparers = await Preparers.fromConfig(config, {
     logger,
@@ -42,5 +43,6 @@ export default async function createPlugin({
     logger,
     config,
     discovery,
+    cache,
   });
 }
