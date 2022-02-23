@@ -31,6 +31,7 @@ import todo from './plugins/todo';
 import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { TaskScheduler } from '@backstage/backend-tasks';
+import { metricsInit, metricsHandler } from './metrics';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -66,6 +67,7 @@ function makeCreateEnv(config: Config) {
 }
 
 async function main() {
+  metricsInit();
   const config = await loadBackendConfig({
     argv: process.argv,
     logger: getRootLogger(),
@@ -93,6 +95,7 @@ async function main() {
 
   const service = createServiceBuilder(module)
     .loadConfig(config)
+    .addRouter('', metricsHandler())
     .addRouter('/api', apiRouter)
     .addRouter('', await app(appEnv));
 
