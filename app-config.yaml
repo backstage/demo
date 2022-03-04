@@ -6,9 +6,9 @@ organization:
   name: Backstage
 
 backend:
-  baseUrl: http://localhost:7000
+  baseUrl: http://localhost:7007
   listen:
-    port: 7000
+    port: 7007
   csp:
     connect-src: ["'self'", 'http:', 'https:']
     img-src: ["'self'", 'data:', 'https://backstage.io']
@@ -23,18 +23,15 @@ backend:
 integrations:
   github:
     - host: github.com
-      token:
-        $env: GITHUB_TOKEN
+      token: ${GITHUB_TOKEN}
 
 auth:
   environment: development
   providers:
     github:
       development:
-        clientId:
-          $env: GITHUB_DEVELOPMENT_CLIENT_ID
-        clientSecret:
-          $env: GITHUB_DEVELOPMENT_CLIENT_SECRET
+        clientId: ${GITHUB_DEVELOPMENT_CLIENT_ID}
+        clientSecret: ${GITHUB_DEVELOPMENT_CLIENT_SECRET}
 
 catalog:
   readonly: true

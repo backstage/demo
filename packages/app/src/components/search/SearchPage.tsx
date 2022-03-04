@@ -1,5 +1,5 @@
 import { Content, Header, Lifecycle, Page } from '@backstage/core-components';
-import { CatalogResultListItem } from '@backstage/plugin-catalog';
+import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import {
   DefaultResultListItem,
   SearchBar,
@@ -8,7 +8,7 @@ import {
   SearchResultPager,
   SearchType,
 } from '@backstage/plugin-search';
-import { DocsResultListItem } from '@backstage/plugin-techdocs';
+import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
 import React from 'react';
 
@@ -65,14 +65,14 @@ const SearchPage = () => {
                     switch (type) {
                       case 'software-catalog':
                         return (
-                          <CatalogResultListItem
+                          <CatalogSearchResultListItem
                             key={document.location}
                             result={document}
                           />
                         );
                       case 'techdocs':
                         return (
-                          <DocsResultListItem
+                          <TechDocsSearchResultListItem
                             key={document.location}
                             result={document}
                           />
