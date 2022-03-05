@@ -23,8 +23,12 @@ import {
   SidebarGroup,
 } from '@backstage/core-components';
 import SearchIcon from '@material-ui/icons/Search';
+import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
+import { ApertureLogoFull } from './ApertureLogoFull';
+import { ApertureLogoIcon } from './ApertureLogoIcon';
+import { BackstageTheme } from '@backstage/theme';
 
-const useSidebarLogoStyles = makeStyles({
+const useSidebarLogoStyles = makeStyles<BackstageTheme, { themeId: string }>({
   root: {
     width: sidebarConfig.drawerWidthClosed,
     height: 3 * sidebarConfig.logoHeight,
@@ -33,15 +37,21 @@ const useSidebarLogoStyles = makeStyles({
     alignItems: 'center',
     marginBottom: -14,
   },
-  link: {
+  link: props => ({
     width: sidebarConfig.drawerWidthClosed,
-    marginLeft: 24,
-  },
+    marginLeft: props.themeId === 'aperture' ? 15 : 24,
+  }),
 });
 
 const SidebarLogo = () => {
-  const classes = useSidebarLogoStyles();
   const { isOpen } = useContext(SidebarContext);
+
+  const appThemeApi = useApi(appThemeApiRef);
+  const themeId = appThemeApi.getActiveThemeId();
+  const classes = useSidebarLogoStyles({ themeId: themeId! });
+
+  const fullLogo = themeId === 'aperture' ? <ApertureLogoFull /> : <LogoFull />;
+  const iconLogo = themeId === 'aperture' ? <ApertureLogoIcon /> : <LogoIcon />;
 
   return (
     <div className={classes.root}>
@@ -51,7 +61,7 @@ const SidebarLogo = () => {
         underline="none"
         className={classes.link}
       >
-        {isOpen ? <LogoFull /> : <LogoIcon />}
+        {isOpen ? fullLogo : iconLogo}
       </Link>
     </div>
   );
