@@ -4,18 +4,15 @@ app:
 backend:
   baseUrl: https://demo.backstage.io
   listen:
-    port:
-      $env: PORT
+    port: ${PORT}
 
 auth:
   environment: production
   providers:
     github:
       production:
-        clientId:
-          $env: GITHUB_PRODUCTION_CLIENT_ID
-        clientSecret:
-          $env: GITHUB_PRODUCTION_CLIENT_SECRET
+        clientId: ${GITHUB_PRODUCTION_CLIENT_ID}
+        clientSecret: ${GITHUB_PRODUCTION_CLIENT_SECRET}
 
 techdocs:
   requestUrl: https://demo.backstage.io/api/techdocs
@@ -26,9 +23,6 @@ techdocs:
   publisher:
     type: 'googleGcs'
     googleGcs:
-      credentials:
-        $env: TECHDOCS_GCS_CREDENTIALS
-      projectId:
-        $env: TECHDOCS_GCS_PROJECT_ID
-      bucketName:
-        $env: TECHDOCS_GCS_BUCKET
+      credentials: ${TECHDOCS_GCS_CREDENTIALS}
+      projectId: ${TECHDOCS_GCS_PROJECT_ID}
+      bucketName: ${TECHDOCS_GCS_BUCKET}

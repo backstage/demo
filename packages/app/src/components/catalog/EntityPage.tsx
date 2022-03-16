@@ -38,7 +38,6 @@ import {
   EntityOrphanWarning,
   EntityProcessingErrorsPanel,
   EntitySwitch,
-  EntitySystemDiagramCard,
   hasCatalogProcessingErrors,
   isComponentType,
   isKind,
@@ -350,7 +349,7 @@ const systemPage = (
       </Grid>
     </EntityLayout.Route>
     <EntityLayout.Route path="/diagram" title="Diagram">
-      <EntitySystemDiagramCard />
+      <EntityCatalogGraphCard />
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );

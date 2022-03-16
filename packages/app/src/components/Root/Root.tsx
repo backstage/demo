@@ -11,7 +11,7 @@ import LogoIcon from './LogoIcon';
 import { NavLink } from 'react-router-dom';
 import { GraphiQLIcon } from '@backstage/plugin-graphiql';
 import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
-import { SidebarSearch } from '@backstage/plugin-search';
+import { SidebarSearchModal } from '@backstage/plugin-search';
 import {
   Sidebar,
   SidebarPage,
@@ -20,7 +20,9 @@ import {
   SidebarItem,
   SidebarDivider,
   SidebarSpace,
+  SidebarGroup,
 } from '@backstage/core-components';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -59,7 +61,9 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
   <SidebarPage>
     <Sidebar>
       <SidebarLogo />
-      <SidebarSearch />
+      <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
+        <SidebarSearchModal />
+      </SidebarGroup>
       <SidebarDivider />
       {/* Global nav, not org-specific */}
       <SidebarItem icon={HomeIcon} to="catalog" text="Home" />

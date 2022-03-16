@@ -1,5 +1,5 @@
 # Stage 1 - Create yarn install skeleton layer
-FROM node:14-buster AS packages
+FROM node:16-bullseye-slim AS packages
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -30,6 +30,12 @@ WORKDIR /app
 # Copy from build stage
 COPY --from=build /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton.tar.gz ./
 RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
+
+# install sqlite3 dependencies
+RUN apt-get update && \
+    apt-get install -y libsqlite3-dev python3 cmake g++ && \
+    rm -rf /var/lib/apt/lists/* && \
+    yarn config set python /usr/bin/python3
 
 RUN yarn install --production --network-timeout 600000 && rm -rf "$(yarn cache dir)"
 
