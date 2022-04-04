@@ -147,7 +147,7 @@ const overviewContent = (
     </Grid>
 
     <Grid item md={6} xs={12}>
-      <EntityCatalogGraphCard variant="gridItem" />
+      <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
 
     <Grid item xs={12} md={4} sm={6}>
