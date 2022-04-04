@@ -35,6 +35,9 @@ import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { createApp } from '@backstage/app-defaults';
 import { orgPlugin } from '@backstage/plugin-org';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { apertureTheme } from './theme/aperture';
+import { darkTheme, lightTheme } from '@backstage/theme';
 
 const app = createApp({
   apis,
@@ -53,6 +56,38 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  themes: [
+    {
+      id: 'light',
+      title: 'Light',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+    {
+      id: 'dark',
+      title: 'Dark',
+      variant: 'dark',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+    {
+      id: 'aperture',
+      title: 'Aperture',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <ThemeProvider theme={apertureTheme}>
+          <CssBaseline>{children}</CssBaseline>
+        </ThemeProvider>
+      ),
+    },
+  ],
 });
 
 const AppProvider = app.getProvider();
