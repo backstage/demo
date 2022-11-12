@@ -19,12 +19,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  RELEASE_NAME: ''
-  HAS_CHANGES: ''
-  CURRENT_VERSION: ''
-  RELEASE_VERSION: ''
-
 jobs:
   version-bump:
     runs-on: ubuntu-latest
@@ -35,10 +29,10 @@ jobs:
           fetch-depth: 1
 
       # Beginning of yarn setup
-      - name: use node.js 14.x
+      - name: use node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
           registry-url: https://registry.npmjs.org/ # Needed for auth
       - name: cache all node_modules
         id: cache-modules
@@ -63,76 +57,59 @@ jobs:
       # End of yarn setup
 
       - name: 'Set release name'
-        shell: pwsh
-        run: |
-          $backstageJson = Get-Content 'backstage.json' | Out-String | ConvertFrom-Json
-          $latestBackstageRelease = Invoke-RestMethod 'https://api.github.com/repos/backstage/backstage/releases/latest'
-
-          $backstageReleases = Invoke-RestMethod 'https://api.github.com/repos/backstage/backstage/releases'
-          $preReleases = $backstageReleases | Where-Object -FilterScript { $_.prerelease -eq 'true'} | Sort-Object -Descending { $_.published_at -as [datetime] }
-
-          Write-Host "Current Backstage version is: v$($backstageJson.Version)"
-          Write-Host "Latest Release version is: $($latestBackstageRelease.name), published on: $($latestBackstageRelease.published_at)"
-          Write-Host "Latest Pre-Release version is $($preReleases[0].name), published on: $($preReleases[0].published_at)"
-
-          if ($($latestBackstageRelease.published_at) -gt $($preReleases[0].published_at)){
-            Write-Host "Latest Release is newer than latest Pre-Release, using Latest Release name $($latestBackstageRelease.name)"
-            echo "RELEASE_NAME=$($latestBackstageRelease.name)" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
-            echo "RELEASE_VERSION=$($latestBackstageRelease.name.substring(1))" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
-          }
-          else{
-            Write-Host "Latest Release is older than latest Pre-Release, using Latest Pre-Release name $($preReleases[0].name)"
-            echo "RELEASE_NAME=$($preReleases[0].name)" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
-            echo "RELEASE_VERSION=$($preReleases[0].name.substring(1))" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
-          }
-
-          echo "CURRENT_VERSION=$($backstageJson.Version)" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+        id: set_release_name
+        run: node scripts/set-release-name.js
       - name: 'Configure git'
         run: |
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
       - name: 'Create topic branch'
         run: |
-          echo "$GITHUB_WORKSPACE"
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git branch -D topic/${{ env.RELEASE_NAME }} &>/dev/null
-          git checkout -b topic/${{ env.RELEASE_NAME }}
-      - name: 'Run yarn install command'
-        run: yarn install --ignore-scripts --prefer-offline --frozen-lockfile
-      - name: 'Run backstage-cli versions:bump --release ${{ inputs.release_line }} command'
-        run: yarn backstage-cli versions:bump --release ${{ inputs.release_line }}
+          BRANCH=$(git branch --list topic/v${{ steps.set_release_name.outputs.release_version }})
+          if [ ! -z "$BRANCH" ]; then
+              git branch -D topic/v${{ steps.set_release_name.outputs.release_version }}
+          fi
+          git checkout -b topic/v${{ steps.set_release_name.outputs.release_version }}
+      - name: Run backstage-cli versions:bump --release ${{ inputs.release_line || 'next' }} command
+        run: yarn backstage-cli versions:bump --release ${{ inputs.release_line || 'next' }}
       - name: 'Check for changes'
-        shell: pwsh
+        id: check_for_changes
         run: |
-          $result = git diff
-          $result = if ($result) {'1'} else {'0'}
-          echo "HAS_CHANGES=$result" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+          CHANGES=$(git status --porcelain)
+          if [ -z "$CHANGES" ]; then
+              echo "No changes"
+              echo "HAS_CHANGES=0" >> $GITHUB_OUTPUT
+          else
+              echo "Has changes"
+              echo "HAS_CHANGES=1" >> $GITHUB_OUTPUT
+          fi
       - name: 'Commit changes'
-        if: ${{ env.HAS_CHANGES == 1 }}
+        if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         run: |
           git status
           git add -A -- :!.npmrc
-          git commit -m "${{ env.RELEASE_NAME }} version bump"
-          git push origin topic/${{ env.RELEASE_NAME }}
+          git commit -m "v${{ steps.set_release_name.outputs.release_version }} version bump"
+          git push origin topic/v${{ steps.set_release_name.outputs.release_version }}
       - name: 'Create Pull Request'
-        if: ${{ env.HAS_CHANGES == 1 }}
+        if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         uses: actions/github-script@v6
         with:
           github-token: ${{secrets.VERSION_BUMP_TOKEN}}
           script: |
             await github.rest.pulls.create({
-              title: '${{ env.RELEASE_NAME }} version bump',
+              title: 'v${{ steps.set_release_name.outputs.release_version }} version bump',
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head: 'topic/${{ env.RELEASE_NAME }}',
+              head: 'topic/v${{ steps.set_release_name.outputs.release_version }}',
               base: 'main',
               body: [
-                'Backstage release ${{ env.RELEASE_NAME }} has been published, this Pull Request contains the changes to upgrade to this new release',
+                'Backstage release v${{ steps.set_release_name.outputs.release_version }} has been published, this Pull Request contains the changes to upgrade to this new release',
                 ' ',
                 'Please review the changelog before approving, there may be manual changes needed to enable new features:',
                 ' ',
-                '- Changelog: [${{ env.RELEASE_NAME }}](https://github.com/backstage/backstage/blob/master/docs/releases/${{ env.RELEASE_NAME }}-changelog.md)',
-                '- Upgrade Helper: [From ${{ env.CURRENT_VERSION }} to ${{ env.RELEASE_VERSION }}](https://backstage.github.io/upgrade-helper/?from=${{ env.CURRENT_VERSION }}&to=${{ env.RELEASE_VERSION }})',
+                '- Changelog: [v${{ steps.set_release_name.outputs.release_version }}](https://github.com/backstage/backstage/blob/master/docs/releases/v${{ steps.set_release_name.outputs.release_version }}-changelog.md)',
+                '- Upgrade Helper: [From ${{ steps.set_release_name.outputs.CURRENT_VERSION }} to ${{ steps.set_release_name.outputs.release_version }}](https://backstage.github.io/upgrade-helper/?from=${{ steps.set_release_name.outputs.CURRENT_VERSION }}&to=${{ steps.set_release_name.outputs.release_version }})',
                 ' ',
                 'Created by [Version Bump ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})',
                 ' '
