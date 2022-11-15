@@ -95,7 +95,7 @@ jobs:
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         uses: actions/github-script@v6
         with:
-          github-token: ${{secrets.VERSION_BUMP_TOKEN}}
+          github-token: ${{secrets.GH_SERVICE_ACCOUNT_TOKEN}}
           script: |
             await github.rest.pulls.create({
               title: 'v${{ steps.set_release_name.outputs.release_version }} version bump',
