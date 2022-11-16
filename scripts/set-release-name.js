@@ -42,7 +42,9 @@ async function main() {
   console.log(`Latest Pre-release version is: ${latestPreRelease.name}, published on: ${latestPreRelease.published_at}`)
   console.log()
 
-  if (Date(latestRelease.published_at) > Date(latestPreRelease.published_at)){
+  const latestReleaseDate = new Date(latestRelease.published_at).getTime()
+  const latestPreReleaseDate = new Date(latestPreRelease.published_at).getTime()
+  if (latestReleaseDate > latestPreReleaseDate){
     console.log(`Latest Release is newer than latest Pre-release, using Latest Release name ${latestRelease.name}`)
     console.log()
     // TODO: Update this with whatever the solution is in: https://github.com/backstage/backstage/pull/14376
@@ -54,6 +56,9 @@ async function main() {
     // TODO: Update this with whatever the solution is in: https://github.com/backstage/backstage/pull/14376
     console.log(`::set-output name=release_version::${latestPreRelease.name.substring(1)}`)
   }
+
+  // TODO: Update this with whatever the solution is in: https://github.com/backstage/backstage/pull/14376
+  console.log(`::set-output name=current_version::${backstageVersion}`)
 }
 
 main().catch(error => {
