@@ -102,7 +102,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               head: 'topic/v${{ steps.set_release_name.outputs.release_version }}',
-              base: 'main',
+              base: 'master',
               body: [
                 'Backstage release v${{ steps.set_release_name.outputs.release_version }} has been published, this Pull Request contains the changes to upgrade to this new release',
                 ' ',
