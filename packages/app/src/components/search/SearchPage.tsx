@@ -1,13 +1,13 @@
 import { Content, Header, Lifecycle, Page } from '@backstage/core-components';
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
+import { SearchType } from '@backstage/plugin-search';
 import {
   DefaultResultListItem,
   SearchBar,
   SearchFilter,
   SearchResult,
   SearchResultPager,
-  SearchType,
-} from '@backstage/plugin-search';
+} from '@backstage/plugin-search-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
 import React from 'react';
