@@ -14,12 +14,17 @@ export default async function createPlugin({
   discovery,
   tokenManager,
   permissions,
+  scheduler,
 }: PluginEnvironment) {
   const searchEngine = new LunrSearchEngine({ logger });
   const indexBuilder = new IndexBuilder({ logger, searchEngine });
-
+  const schedule = scheduler.createScheduledTaskRunner({
+    frequency: { minutes: 10 },
+    timeout: { minutes: 10 },
+    initialDelay: { seconds: 3 },
+  });
   indexBuilder.addCollator({
-    defaultRefreshIntervalSeconds: 600,
+    schedule,
     factory: DefaultCatalogCollatorFactory.fromConfig(config, {
       discovery,
       tokenManager,
@@ -27,7 +32,7 @@ export default async function createPlugin({
   });
 
   indexBuilder.addCollator({
-    defaultRefreshIntervalSeconds: 600,
+    schedule,
     factory: DefaultTechDocsCollatorFactory.fromConfig(config, {
       discovery,
       logger,
@@ -35,10 +40,9 @@ export default async function createPlugin({
     }),
   });
 
-  const { scheduler } = await indexBuilder.build();
-
-  scheduler.start();
-  useHotCleanup(module, () => scheduler.stop());
+  const { scheduler: indexScheduler } = await indexBuilder.build();
+  indexScheduler.start();
+  useHotCleanup(module, () => indexScheduler.stop());
 
   return await createRouter({
     engine: indexBuilder.getSearchEngine(),

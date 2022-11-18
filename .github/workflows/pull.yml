@@ -1,4 +1,4 @@
-name: Main Master Build
+name: PR CI build
 
 on:
   pull_request: {}
@@ -49,4 +49,6 @@ jobs:
         run: yarn tsc:full
 
       - name: docker build
+        env:
+          DOCKER_BUILDKIT: 1
         run: docker build -t example .
