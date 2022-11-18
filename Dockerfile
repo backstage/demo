@@ -10,41 +10,66 @@ COPY packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM node:14-buster AS build
-
-WORKDIR /app
-COPY --from=packages /app .
-
-RUN yarn install --network-timeout 600000 && rm -rf "$(yarn cache dir)"
-
-COPY . .
-
-RUN yarn tsc
-RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
-
-# Stage 3 - Build the actual backend image and install production dependencies
-FROM node:14-buster
-
-WORKDIR /app
-
-# Copy from build stage
-COPY --from=build /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton.tar.gz ./
-RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
+FROM node:16-bullseye-slim AS build
 
 # install sqlite3 dependencies
-RUN apt-get update && \
-    apt-get install -y libsqlite3-dev python3 cmake g++ && \
-    rm -rf /var/lib/apt/lists/* && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
     yarn config set python /usr/bin/python3
 
-RUN yarn install --production --network-timeout 600000 && rm -rf "$(yarn cache dir)"
+WORKDIR /app
 
-COPY --from=build /app/packages/backend/dist/bundle.tar.gz .
-RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
+COPY --from=packages --chown=node:node /app .
 
-COPY app-config.yaml app-config.heroku.yaml ./
+# Stop cypress from downloading it's massive binary.
+ENV CYPRESS_INSTALL_BINARY=0
+RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
+    yarn install --frozen-lockfile --network-timeout 600000
+
+COPY --chown=node:node . .
+
+RUN yarn tsc
+# RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
+RUN yarn --cwd packages/backend build
+
+RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
+    && tar xzf packages/backend/dist/skeleton.tar.gz -C packages/backend/dist/skeleton \
+    && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
+
+# Stage 3 - Build the actual backend image and install production dependencies
+FROM node:16-bullseye-slim
+
+# Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
+# in which case you should also move better-sqlite3 to "devDependencies" in package.json.
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
+    yarn config set python /usr/bin/python3
+
+# From here on we use the least-privileged `node` user to run the backend.
+USER node
+
+# This should create the app dir as `node`.
+# If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
+# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created as `node`.
+WORKDIR /app
+
+# Copy the install dependencies from the build stage and context
+COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
+
+RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
+    yarn install --frozen-lockfile --production --network-timeout 600000
+
+# Copy the built packages from the build stage
+COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
+
+COPY --chown=node:node app-config.yaml app-config.heroku.yaml ./
 
 ENV PORT 7000
+ENV NODE_ENV production
 
 ENV GITHUB_PRODUCTION_CLIENT_ID ""
 ENV GITHUB_PRODUCTION_CLIENT_SECRET ""
