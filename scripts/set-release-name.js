@@ -3,6 +3,7 @@
 const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('node-fetch')
+const { EOL } = require('os');
 
 async function getBackstageVersion() {
   const rootPath = path.resolve(__dirname, '../backstage.json');
@@ -47,18 +48,17 @@ async function main() {
   if (latestReleaseDate > latestPreReleaseDate){
     console.log(`Latest Release is newer than latest Pre-release, using Latest Release name ${latestRelease.name}`)
     console.log()
-    // TODO: Update this with whatever the solution is in: https://github.com/backstage/backstage/pull/14376
-    console.log(`::set-output name=release_version::${latestRelease.name.substring(1)}`)
+
+    await fs.appendFile(process.env.GITHUB_OUTPUT, `release_version=${latestRelease.name.substring(1)}${EOL}`);
   }
   else {
     console.log(`Latest Release is older than latest Pre-release, using Latest Pre-release name ${latestPreRelease.name}`)
     console.log()
-    // TODO: Update this with whatever the solution is in: https://github.com/backstage/backstage/pull/14376
-    console.log(`::set-output name=release_version::${latestPreRelease.name.substring(1)}`)
+
+    await fs.appendFile(process.env.GITHUB_OUTPUT, `release_version=${latestPreRelease.name.substring(1)}${EOL}`);
   }
 
-  // TODO: Update this with whatever the solution is in: https://github.com/backstage/backstage/pull/14376
-  console.log(`::set-output name=current_version::${backstageVersion}`)
+  await fs.appendFile(process.env.GITHUB_OUTPUT, `current_version=${backstageVersion}${EOL}`);
 }
 
 main().catch(error => {
