@@ -43,7 +43,7 @@ jobs:
       # End of yarn setup
 
       - name: lint
-        run: yarn lerna -- run lint
+        run: yarn backstage-cli repo lint
 
       - name: deprecations
         run: yarn backstage-cli repo list-deprecations  
