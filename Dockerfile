@@ -2,7 +2,8 @@
 FROM node:16-bullseye-slim AS packages
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
 
 COPY packages packages
 # COPY plugins plugins
@@ -22,6 +23,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
+COPY --from=packages --chown=node:node /app/.yarn ./.yarn
+COPY --from=packages --chown=node:node /app/.yarnrc.yml  ./
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
@@ -58,6 +61,8 @@ USER node
 WORKDIR /app
 
 # Copy the install dependencies from the build stage and context
+COPY --from=build --chown=node:node /app/.yarn ./.yarn
+COPY --from=build --chown=node:node /app/.yarnrc.yml  ./
 COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
 
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
