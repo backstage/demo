@@ -1,16 +1,16 @@
-name: 'Version Bump'
+name: "Version Bump"
 on:
   workflow_dispatch:
     inputs:
       release_line:
-        description: 'Release Line'
+        description: "Release Line"
         required: true
         default: next
         type: choice
         options:
-        - next
-        - main
-  
+          - next
+          - main
+
   # Run Weekly on Wednesday at 10:00 UTC time
   schedule:
     - cron: "0 10 * * 3"
@@ -23,7 +23,7 @@ jobs:
   version-bump:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout backstage'
+      - name: "Checkout backstage"
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
@@ -38,12 +38,12 @@ jobs:
         id: cache-modules
         uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
       - name: find location of global yarn cache
         id: yarn-cache
         if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - name: cache global yarn cache
         uses: actions/cache@v2
         if: steps.cache-modules.outputs.cache-hit != 'true'
@@ -53,17 +53,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: yarn install
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
       # End of yarn setup
 
-      - name: 'Set release name'
+      - name: "Set release name"
         id: set_release_name
         run: node scripts/set-release-name.js
-      - name: 'Configure git'
+      - name: "Configure git"
         run: |
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-      - name: 'Create topic branch'
+      - name: "Create topic branch"
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           BRANCH=$(git branch --list topic/v${{ steps.set_release_name.outputs.release_version }})
@@ -73,7 +73,7 @@ jobs:
           git checkout -b topic/v${{ steps.set_release_name.outputs.release_version }}
       - name: Run backstage-cli versions:bump --release ${{ inputs.release_line || 'next' }} command
         run: yarn backstage-cli versions:bump --release ${{ inputs.release_line || 'next' }}
-      - name: 'Check for changes'
+      - name: "Check for changes"
         id: check_for_changes
         run: |
           CHANGES=$(git status --porcelain)
@@ -84,14 +84,14 @@ jobs:
               echo "Has changes"
               echo "HAS_CHANGES=1" >> $GITHUB_OUTPUT
           fi
-      - name: 'Commit changes'
+      - name: "Commit changes"
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         run: |
           git status
           git add -A -- :!.npmrc
           git commit -m "v${{ steps.set_release_name.outputs.release_version }} version bump"
           git push origin topic/v${{ steps.set_release_name.outputs.release_version }}
-      - name: 'Create Pull Request'
+      - name: "Create Pull Request"
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
         uses: actions/github-script@v6
         with:
