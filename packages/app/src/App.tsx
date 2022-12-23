@@ -1,43 +1,44 @@
-import React from 'react';
-import { Navigate, Route } from 'react-router';
-import { ApiExplorerPage } from '@backstage/plugin-api-docs';
+import * as plugins from './plugins';
+
+import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
-  catalogPlugin,
   CatalogEntityPage,
   CatalogIndexPage,
+  catalogPlugin,
 } from '@backstage/plugin-catalog';
-import {
-  CostInsightsLabelDataflowInstructionsPage,
-  CostInsightsPage,
-  CostInsightsProjectGrowthInstructionsPage,
-} from '@backstage/plugin-cost-insights';
-import { explorePlugin, ExplorePage } from '@backstage/plugin-explore';
-import { GraphiQLPage } from '@backstage/plugin-graphiql';
-import { SearchPage } from '@backstage/plugin-search';
-import { TechRadarPage } from '@backstage/plugin-tech-radar';
 import {
   CatalogGraphPage,
   catalogGraphPlugin,
 } from '@backstage/plugin-catalog-graph';
 import {
-  TechDocsIndexPage,
-  techdocsPlugin,
-  TechDocsReaderPage,
-} from '@backstage/plugin-techdocs';
-import { UserSettingsPage } from '@backstage/plugin-user-settings';
-import { apis } from './apis';
-import { entityPage } from './components/catalog/EntityPage';
-import { Root } from './components/Root';
-import { searchPage } from './components/search/SearchPage';
-import * as plugins from './plugins';
-
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
-import { FlatRoutes } from '@backstage/core-app-api';
-import { createApp } from '@backstage/app-defaults';
-import { orgPlugin } from '@backstage/plugin-org';
+  CostInsightsLabelDataflowInstructionsPage,
+  CostInsightsPage,
+  CostInsightsProjectGrowthInstructionsPage,
+} from '@backstage/plugin-cost-insights';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { apertureTheme } from './theme/aperture';
+import { ExplorePage, explorePlugin } from '@backstage/plugin-explore';
+import { Navigate, Route } from 'react-router';
+import {
+  TechDocsIndexPage,
+  TechDocsReaderPage,
+  techdocsPlugin,
+} from '@backstage/plugin-techdocs';
 import { darkTheme, lightTheme } from '@backstage/theme';
+
+import { ApiExplorerPage } from '@backstage/plugin-api-docs';
+import { GraphiQLPage } from '@backstage/plugin-graphiql';
+import React from 'react';
+import { Root } from './components/Root';
+import { SearchPage } from '@backstage/plugin-search';
+import { TechRadarPage } from '@backstage/plugin-tech-radar';
+import { UserSettingsPage } from '@backstage/plugin-user-settings';
+import { apertureTheme } from './theme/aperture';
+import { apis } from './apis';
+import { createApp } from '@backstage/app-defaults';
+import { entityPage } from './components/catalog/EntityPage';
+import { orgPlugin } from '@backstage/plugin-org';
+import { searchPage } from './components/search/SearchPage';
 
 const app = createApp({
   apis,
@@ -90,9 +91,6 @@ const app = createApp({
   ],
 });
 
-const AppProvider = app.getProvider();
-const AppRouter = app.getRouter();
-
 const routes = (
   <FlatRoutes>
     <Navigate key="/" to="catalog" replace />
@@ -132,14 +130,12 @@ const routes = (
   </FlatRoutes>
 );
 
-const App = () => (
-  <AppProvider>
+export default app.createRoot(
+  <>
     <AlertDisplay />
     <OAuthRequestDialog />
     <AppRouter>
       <Root>{routes}</Root>
     </AppRouter>
-  </AppProvider>
+  </>,
 );
-
-export default App;
