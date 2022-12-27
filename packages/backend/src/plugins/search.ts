@@ -7,6 +7,7 @@ import {
 import { PluginEnvironment } from '../types';
 import { DefaultCatalogCollatorFactory } from '@backstage/plugin-catalog-backend';
 import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-techdocs-backend';
+import { ToolDocumentCollatorFactory } from '@backstage/plugin-explore-backend';
 
 export default async function createPlugin({
   config,
@@ -37,6 +38,14 @@ export default async function createPlugin({
       discovery,
       logger,
       tokenManager,
+    }),
+  });
+
+  indexBuilder.addCollator({
+    schedule,
+    factory: ToolDocumentCollatorFactory.fromConfig(config, {
+      discovery: discovery,
+      logger: logger,
     }),
   });
 

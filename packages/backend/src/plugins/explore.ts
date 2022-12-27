@@ -1,4 +1,13 @@
-export const exampleTools = [
+import {
+  createRouter,
+  StaticExploreToolProvider,
+} from '@backstage/plugin-explore-backend';
+import { ExploreTool } from '@backstage/plugin-explore-common';
+import { Router } from 'express';
+import { PluginEnvironment } from '../types';
+
+// List of tools you want to surface in the Explore plugin "Tools" page.
+const tools: ExploreTool[] = [
   {
     title: 'Tech Radar',
     description:
@@ -23,3 +32,12 @@ export const exampleTools = [
     tags: ['graphql', 'dev'],
   },
 ];
+
+export default async function createPlugin(
+  env: PluginEnvironment,
+): Promise<Router> {
+  return await createRouter({
+    logger: env.logger,
+    toolProvider: StaticExploreToolProvider.fromData(tools),
+  });
+}

@@ -6,31 +6,33 @@
  * Happy hacking!
  */
 
-import Router from 'express-promise-router';
 import {
-  createServiceBuilder,
-  loadBackendConfig,
-  getRootLogger,
-  useHotMemoize,
-  notFoundHandler,
+  CacheManager,
+  DatabaseManager,
+  ServerTokenManager,
   SingleHostDiscovery,
   UrlReaders,
-  ServerTokenManager,
-  DatabaseManager,
-  CacheManager,
+  createServiceBuilder,
+  getRootLogger,
+  loadBackendConfig,
+  notFoundHandler,
+  useHotMemoize,
 } from '@backstage/backend-common';
+
 import { Config } from '@backstage/config';
-import auth from './plugins/auth';
+import { PluginEnvironment } from './types';
+import Router from 'express-promise-router';
+import { ServerPermissionClient } from '@backstage/plugin-permission-node';
+import { TaskScheduler } from '@backstage/backend-tasks';
 import app from './plugins/app';
+import auth from './plugins/auth';
 import badges from './plugins/badges';
 import catalog from './plugins/catalog';
+import explore from './plugins/explore';
 import proxy from './plugins/proxy';
 import search from './plugins/search';
 import techdocs from './plugins/techdocs';
 import todo from './plugins/todo';
-import { PluginEnvironment } from './types';
-import { ServerPermissionClient } from '@backstage/plugin-permission-node';
-import { TaskScheduler } from '@backstage/backend-tasks';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -80,6 +82,7 @@ async function main() {
   const todoEnv = useHotMemoize(module, () => createEnv('todo'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const badgesEnv = useHotMemoize(module, () => createEnv('badges'));
+  const exploreEnv = useHotMemoize(module, () => createEnv('explore'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -89,6 +92,7 @@ async function main() {
   apiRouter.use('/todo', await todo(todoEnv));
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use('/badges', await badges(badgesEnv));
+  apiRouter.use('/explore', await explore(exploreEnv));
   apiRouter.use(notFoundHandler());
 
   const service = createServiceBuilder(module)
