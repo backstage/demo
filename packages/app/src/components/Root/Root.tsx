@@ -24,6 +24,7 @@ import {
   SidebarDivider,
   SidebarSpace,
   SidebarGroup,
+  useSidebarOpenState,
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -48,7 +49,7 @@ const useSidebarLogoStyles = makeStyles<BackstageTheme, { themeId: string }>({
 });
 
 const SidebarLogo = () => {
-  const { isOpen } = useContext(SidebarContext);
+  const { isOpen } = useSidebarOpenState();
 
   const appThemeApi = useApi(appThemeApiRef);
   const themeId = appThemeApi.getActiveThemeId();

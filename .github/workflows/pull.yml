@@ -45,6 +45,9 @@ jobs:
       - name: lint
         run: yarn lerna -- run lint
 
+      - name: deprecations
+        run: yarn backstage-cli repo list-deprecations  
+
       - name: type checking and declarations
         run: yarn tsc:full
 
