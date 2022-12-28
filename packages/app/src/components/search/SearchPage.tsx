@@ -11,6 +11,7 @@ import {
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
 import React from 'react';
+import { ToolSearchResultListItem } from '@backstage/plugin-explore';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
@@ -61,13 +62,15 @@ const SearchPage = () => {
             <SearchResult>
               {({ results }) => (
                 <List>
-                  {results.map(({ type, document }) => {
+                  {results.map(({ type, document, highlight, rank }) => {
                     switch (type) {
                       case 'software-catalog':
                         return (
                           <CatalogSearchResultListItem
                             key={document.location}
                             result={document}
+                            highlight={highlight}
+                            rank={rank}
                           />
                         );
                       case 'techdocs':
@@ -75,6 +78,17 @@ const SearchPage = () => {
                           <TechDocsSearchResultListItem
                             key={document.location}
                             result={document}
+                            highlight={highlight}
+                            rank={rank}
+                          />
+                        );
+                      case 'tools':
+                        return (
+                          <ToolSearchResultListItem
+                            key={document.location}
+                            result={document}
+                            highlight={highlight}
+                            rank={rank}
                           />
                         );
                       default:
@@ -82,6 +96,8 @@ const SearchPage = () => {
                           <DefaultResultListItem
                             key={document.location}
                             result={document}
+                            highlight={highlight}
+                            rank={rank}
                           />
                         );
                     }

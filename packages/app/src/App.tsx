@@ -17,7 +17,7 @@ import {
   CostInsightsProjectGrowthInstructionsPage,
 } from '@backstage/plugin-cost-insights';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import { ExplorePage, explorePlugin } from '@backstage/plugin-explore';
+import { ExplorePage } from '@backstage/plugin-explore';
 import { Navigate, Route } from 'react-router';
 import {
   TechDocsIndexPage,
@@ -44,9 +44,6 @@ const app = createApp({
   apis,
   plugins: Object.values(plugins),
   bindRoutes({ bind }) {
-    bind(explorePlugin.externalRoutes, {
-      catalogEntity: catalogPlugin.routes.catalogEntity,
-    });
     bind(catalogPlugin.externalRoutes, {
       viewTechDoc: techdocsPlugin.routes.docRoot,
     });
