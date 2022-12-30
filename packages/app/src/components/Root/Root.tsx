@@ -1,4 +1,4 @@
-import React, { useContext, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Link, makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
@@ -19,11 +19,11 @@ import {
   Sidebar,
   SidebarPage,
   sidebarConfig,
-  SidebarContext,
   SidebarItem,
   SidebarDivider,
   SidebarSpace,
   SidebarGroup,
+  useSidebarOpenState,
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -48,7 +48,7 @@ const useSidebarLogoStyles = makeStyles<BackstageTheme, { themeId: string }>({
 });
 
 const SidebarLogo = () => {
-  const { isOpen } = useContext(SidebarContext);
+  const { isOpen } = useSidebarOpenState();
 
   const appThemeApi = useApi(appThemeApiRef);
   const themeId = appThemeApi.getActiveThemeId();
