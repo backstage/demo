@@ -75,7 +75,7 @@ jobs:
       
       - name: Discord notification
         uses: Ilshidur/action-discord@0.3.2
-        if: steps.check_if_release.outputs.is_release === 'true'
+        if: steps.check_if_release.outputs.is_release == 'true'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
           CURRENT_VERSION: ${{ steps.check_if_release.outputs.current_version }}
