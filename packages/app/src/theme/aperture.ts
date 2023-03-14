@@ -1,7 +1,14 @@
 import { BackstageOverrides } from '@backstage/core-components';
 import { BackstageOverrides as CatalogReactOverrides } from '@backstage/plugin-catalog-react';
-import { BackstageTheme, createTheme, lightTheme } from '@backstage/theme';
+import {
+  BackstageTheme,
+  createTheme,
+  lightTheme,
+  pageTheme as defaultPageThemes,
+  PageTheme,
+} from '@backstage/theme';
 
+import { alpha } from '@material-ui/core/styles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
 
@@ -12,6 +19,14 @@ declare module '@material-ui/core/styles/overrides' {
     MuiAutocomplete: AutocompleteClassKey;
   }
 }
+
+const pageThemesFontColorOverride: Record<string, PageTheme> = {};
+Object.keys(defaultPageThemes).map(key => {
+  pageThemesFontColorOverride[key] = {
+    ...defaultPageThemes[key],
+    fontColor: '#172B4D',
+  };
+});
 
 const baseTheme = createTheme({
   palette: {
@@ -75,6 +90,7 @@ const baseTheme = createTheme({
     },
   },
   fontFamily: 'Roboto, sans-serif',
+  pageTheme: pageThemesFontColorOverride,
   defaultPageTheme: 'home',
 });
 
@@ -89,14 +105,23 @@ const createCustomThemeOverrides = (
         paddingBottom: theme.spacing(1),
       },
       title: {
-        color: theme.palette.primary.dark,
+        color: theme.page.fontColor,
         fontWeight: 900,
       },
       subtitle: {
-        color: theme.palette.primary.dark,
+        color: alpha(theme.page.fontColor, 0.8),
       },
       type: {
-        color: theme.palette.primary.dark,
+        color: alpha(theme.page.fontColor, 0.8),
+      },
+    },
+    // TODO: Remove after https://github.com/backstage/backstage/pull/16853 is available here
+    BackstageHeaderLabel: {
+      label: {
+        color: theme.page.fontColor,
+      },
+      value: {
+        color: alpha(theme.page.fontColor, 0.8),
       },
     },
     BackstageHeaderTabs: {
