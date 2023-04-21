@@ -3,6 +3,8 @@ FROM node:16-bullseye-slim AS packages
 
 WORKDIR /app
 COPY package.json yarn.lock ./
+COPY .yarn ./.yarn
+COPY .yarnrc.yml ./
 
 COPY packages packages
 # COPY plugins plugins
@@ -12,21 +14,26 @@ RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs
 # Stage 2 - Install dependencies and build packages
 FROM node:16-bullseye-slim AS build
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON /usr/bin/python3
+
 # install sqlite3 dependencies
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
     apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
-    yarn config set python /usr/bin/python3
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
+COPY --from=packages --chown=node:node /app/.yarn ./.yarn
+COPY --from=packages --chown=node:node /app/.yarnrc.yml  ./
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --frozen-lockfile --network-timeout 600000
+    yarn install --immutable
 
 COPY --chown=node:node . .
 
@@ -41,13 +48,16 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
 # Stage 3 - Build the actual backend image and install production dependencies
 FROM node:16-bullseye-slim
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON /usr/bin/python3
+
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
     apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
-    yarn config set python /usr/bin/python3
+    rm -rf /var/lib/apt/lists/*
 
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
@@ -58,10 +68,12 @@ USER node
 WORKDIR /app
 
 # Copy the install dependencies from the build stage and context
+COPY --from=build --chown=node:node /app/.yarn ./.yarn
+COPY --from=build --chown=node:node /app/.yarnrc.yml  ./
 COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
 
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --frozen-lockfile --production --network-timeout 600000
+    yarn workspaces focus --all --production
 
 # Copy the built packages from the build stage
 COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
