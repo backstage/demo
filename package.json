@@ -9,15 +9,14 @@
     "dev": "concurrently \"yarn start\" \"yarn start-backend\"",
     "start": "yarn workspace app start",
     "start-backend": "yarn workspace backend start",
-    "build": "lerna run build",
+    "build": "backstage-cli repo build --all",
     "tsc": "tsc",
     "tsc:full": "tsc --skipLibCheck false --incremental false",
-    "clean": "backstage-cli clean && lerna run clean",
-    "diff": "lerna run diff --",
-    "test": "lerna run test --since origin/master -- --coverage",
-    "test:all": "lerna run test -- --coverage",
-    "lint": "lerna run lint --since origin/master --",
-    "lint:all": "lerna run lint --",
+    "clean": "backstage-cli repo clean",
+    "test": "backstage-cli repo test",
+    "test:all": "backstage-cli repo test --coverage",
+    "lint": "backstage-cli repo lint --since origin/master",
+    "lint:all": "backstage-cli repo lint",
     "create-plugin": "backstage-cli create-plugin --scope internal --no-private",
     "remove-plugin": "backstage-cli remove-plugin",
     "prettier:check": "prettier --check ."
@@ -38,7 +37,7 @@
     "@backstage/cli": "^0.22.6",
     "@spotify/prettier-config": "^7.0.0",
     "concurrently": "^6.0.0",
-    "lerna": "^3.20.2",
+    "eslint-plugin-jest": "*",
     "node-fetch": "^2.6.7",
     "prettier": "^2.3.2",
     "typescript": "^4.5.5"
@@ -57,5 +56,6 @@
     "transformModules": [
       "@asyncapi/react-component"
     ]
-  }
+  },
+  "packageManager": "yarn@3.5.0"
 }
