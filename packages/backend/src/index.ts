@@ -9,8 +9,8 @@
 import {
   CacheManager,
   DatabaseManager,
+  HostDiscovery,
   ServerTokenManager,
-  SingleHostDiscovery,
   UrlReaders,
   createServiceBuilder,
   getRootLogger,
@@ -33,12 +33,13 @@ import proxy from './plugins/proxy';
 import search from './plugins/search';
 import techdocs from './plugins/techdocs';
 import todo from './plugins/todo';
+import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
   const reader = UrlReaders.default({ logger: root, config });
   root.info(`Created UrlReader ${reader}`);
-  const discovery = SingleHostDiscovery.fromConfig(config);
+  const discovery = HostDiscovery.fromConfig(config);
   const tokenManager = ServerTokenManager.noop();
   const databaseManager = DatabaseManager.fromConfig(config);
   const permissions = ServerPermissionClient.fromConfig(config, {
@@ -47,14 +48,19 @@ function makeCreateEnv(config: Config) {
   });
   const cacheManager = CacheManager.fromConfig(config);
   const taskScheduler = TaskScheduler.fromConfig(config);
+  const identity = DefaultIdentityClient.create({
+    discovery,
+  });
 
   return (plugin: string): PluginEnvironment => {
     const logger = root.child({ type: 'plugin', plugin });
-    const scheduler = taskScheduler.forPlugin(plugin);
     const database = databaseManager.forPlugin(plugin);
     const cache = cacheManager.forPlugin(plugin);
+    const scheduler = taskScheduler.forPlugin(plugin);
+
     return {
       logger,
+      cache,
       database,
       config,
       reader,
@@ -62,7 +68,7 @@ function makeCreateEnv(config: Config) {
       tokenManager,
       permissions,
       scheduler,
-      cache,
+      identity,
     };
   };
 }
