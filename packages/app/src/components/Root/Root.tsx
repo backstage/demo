@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { Link, makeStyles } from '@material-ui/core';
+import { Link, Theme, makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import MapIcon from '@material-ui/icons/MyLocation';
@@ -30,9 +30,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
-import { BackstageTheme } from '@backstage/theme';
 
-const useSidebarLogoStyles = makeStyles<BackstageTheme, { themeId: string }>({
+const useSidebarLogoStyles = makeStyles<Theme, { themeId: string }>({
   root: {
     width: sidebarConfig.drawerWidthClosed,
     height: 3 * sidebarConfig.logoHeight,

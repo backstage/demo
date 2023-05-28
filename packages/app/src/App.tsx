@@ -16,7 +16,6 @@ import {
   CostInsightsPage,
   CostInsightsProjectGrowthInstructionsPage,
 } from '@backstage/plugin-cost-insights';
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { ExplorePage } from '@backstage/plugin-explore';
 import { Navigate, Route } from 'react-router';
 import {
@@ -24,7 +23,7 @@ import {
   TechDocsReaderPage,
   techdocsPlugin,
 } from '@backstage/plugin-techdocs';
-import { darkTheme, lightTheme } from '@backstage/theme';
+import { UnifiedThemeProvider, themes } from '@backstage/theme';
 
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
 import { GraphiQLPage } from '@backstage/plugin-graphiql';
@@ -60,9 +59,7 @@ const app = createApp({
       title: 'Light',
       variant: 'light',
       Provider: ({ children }) => (
-        <ThemeProvider theme={lightTheme}>
-          <CssBaseline>{children}</CssBaseline>
-        </ThemeProvider>
+        <UnifiedThemeProvider theme={themes.light} children={children} />
       ),
     },
     {
@@ -70,9 +67,7 @@ const app = createApp({
       title: 'Dark',
       variant: 'dark',
       Provider: ({ children }) => (
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline>{children}</CssBaseline>
-        </ThemeProvider>
+        <UnifiedThemeProvider theme={themes.dark} children={children} />
       ),
     },
     {
@@ -80,9 +75,7 @@ const app = createApp({
       title: 'Aperture',
       variant: 'light',
       Provider: ({ children }) => (
-        <ThemeProvider theme={apertureTheme}>
-          <CssBaseline>{children}</CssBaseline>
-        </ThemeProvider>
+        <UnifiedThemeProvider theme={apertureTheme} children={children} />
       ),
     },
   ],
