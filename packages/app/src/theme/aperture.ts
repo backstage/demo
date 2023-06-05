@@ -1,7 +1,8 @@
 import { BackstageOverrides } from '@backstage/core-components';
 import { BackstageOverrides as CatalogReactOverrides } from '@backstage/plugin-catalog-react';
 import {
-  createUnifiedTheme,
+  createTheme,
+  createUnifiedThemeFromV4,
   pageTheme as defaultPageThemes,
   PageTheme,
   palettes,
@@ -28,7 +29,11 @@ Object.keys(defaultPageThemes).map(key => {
   };
 });
 
-const baseTheme = createUnifiedTheme({
+// TODO(awanlin): Continuing to use the deprecated `createTheme` for now
+// will come back to clean this up when we have a better solution for this
+
+// eslint-disable-next-line
+const baseTheme = createTheme({
   palette: {
     ...palettes.light,
     primary: {
@@ -257,10 +262,10 @@ const createCustomThemeOverrides = (
   };
 };
 
-export const apertureTheme: UnifiedTheme = {
+export const apertureTheme: UnifiedTheme = createUnifiedThemeFromV4({
   ...baseTheme,
   overrides: {
-    ...baseTheme,
+    ...baseTheme.overrides,
     ...createCustomThemeOverrides(baseTheme),
   },
-};
+});
