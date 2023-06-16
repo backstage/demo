@@ -1,14 +1,15 @@
 import { BackstageOverrides } from '@backstage/core-components';
 import { BackstageOverrides as CatalogReactOverrides } from '@backstage/plugin-catalog-react';
 import {
-  BackstageTheme,
   createTheme,
-  lightTheme,
+  createUnifiedThemeFromV4,
   pageTheme as defaultPageThemes,
   PageTheme,
+  palettes,
+  UnifiedTheme,
 } from '@backstage/theme';
 
-import { alpha } from '@material-ui/core/styles';
+import { alpha, Theme } from '@material-ui/core/styles';
 import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
 import { AlertClassKey } from '@material-ui/lab/Alert';
 
@@ -28,9 +29,13 @@ Object.keys(defaultPageThemes).map(key => {
   };
 });
 
+// TODO(awanlin): Continuing to use the deprecated `createTheme` for now
+// will come back to clean this up when we have a better solution for this
+
+// eslint-disable-next-line
 const baseTheme = createTheme({
   palette: {
-    ...lightTheme.palette,
+    ...palettes.light,
     primary: {
       main: '#0052CC',
       light: '#4C9AFF',
@@ -74,7 +79,7 @@ const baseTheme = createTheme({
       dark: '#0747A6',
     },
     navigation: {
-      ...lightTheme.palette.navigation,
+      ...palettes.light.navigation,
       background: '#172B4D',
       color: '#FFFFFF',
       indicator: '#2684FF',
@@ -95,7 +100,7 @@ const baseTheme = createTheme({
 });
 
 const createCustomThemeOverrides = (
-  theme: BackstageTheme,
+  theme: Theme,
 ): BackstageOverrides & CatalogReactOverrides => {
   return {
     BackstageHeader: {
@@ -257,10 +262,10 @@ const createCustomThemeOverrides = (
   };
 };
 
-export const apertureTheme: BackstageTheme = {
+export const apertureTheme: UnifiedTheme = createUnifiedThemeFromV4({
   ...baseTheme,
   overrides: {
     ...baseTheme.overrides,
     ...createCustomThemeOverrides(baseTheme),
   },
-};
+});
