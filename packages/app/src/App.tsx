@@ -38,6 +38,7 @@ import { createApp } from '@backstage/app-defaults';
 import { entityPage } from './components/catalog/EntityPage';
 import { orgPlugin } from '@backstage/plugin-org';
 import { searchPage } from './components/search/SearchPage';
+import { CssBaseline } from '@material-ui/core';
 
 const app = createApp({
   apis,
@@ -75,7 +76,10 @@ const app = createApp({
       title: 'Aperture',
       variant: 'light',
       Provider: ({ children }) => (
-        <UnifiedThemeProvider theme={apertureTheme} children={children} />
+        <UnifiedThemeProvider theme={apertureTheme} noCssBaseline>
+          <CssBaseline />
+          {children}
+        </UnifiedThemeProvider>
       ),
     },
   ],
