@@ -37,8 +37,10 @@ import {
   EntityLinksCard,
   EntityOrphanWarning,
   EntityProcessingErrorsPanel,
+  EntityRelationWarning,
   EntitySwitch,
   hasCatalogProcessingErrors,
+  hasRelationWarnings,
   isComponentType,
   isKind,
   isOrphan,
@@ -94,6 +96,15 @@ const entityWarningContent = (
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
+
+    <EntitySwitch>
+      <EntitySwitch.Case if={hasRelationWarnings}>
+        <Grid item xs={12}>
+          <EntityRelationWarning />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+
     <EntitySwitch>
       <EntitySwitch.Case if={hasCatalogProcessingErrors}>
         <Grid item xs={12}>
