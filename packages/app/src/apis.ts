@@ -7,6 +7,7 @@ import {
   ExampleCostInsightsClient,
 } from '@backstage/plugin-cost-insights';
 import {
+  ScmAuth,
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
@@ -29,6 +30,7 @@ export const apis: AnyApiFactory[] = [
     deps: { configApi: configApiRef },
     factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
   }),
+  ScmAuth.createDefaultApiFactory(),
   createApiFactory({
     api: githubAuthApiRef,
     deps: {
