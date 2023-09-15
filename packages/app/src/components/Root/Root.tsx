@@ -4,6 +4,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import MapIcon from '@material-ui/icons/MyLocation';
 import LayersIcon from '@material-ui/icons/Layers';
+import CategoryIcon from '@material-ui/icons/Category';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import LogoFull from './LogoFull';
@@ -79,7 +80,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
+        <SidebarItem icon={HomeIcon} to="/" text="Home" />
+        <SidebarItem icon={CategoryIcon} to="catalog" text="Catalog" />
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
         <SidebarItem icon={LayersIcon} to="explore" text="Explore" />

@@ -1,7 +1,6 @@
 import React from 'react';
 
-export const homePage = () => {
-  return <>This is Homepage From Yogi</>;
-};
-
-
+export const HomePage = () => (
+  /* We will shortly compose a pretty homepage here. */
+  <h1>Welcome to Backstage!</h1>
+);
