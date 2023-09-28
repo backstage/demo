@@ -43,24 +43,18 @@
     "react-use": "^15.3.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.32.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/jest": "^26.0.7",
     "@types/node": "^12.0.0",
     "@types/react-dom": "*",
-    "cross-env": "^7.0.0",
-    "cypress": "^4.2.0",
-    "eslint-plugin-cypress": "^2.10.3",
-    "start-server-and-test": "^1.10.11"
+    "cross-env": "^7.0.0"
   },
   "scripts": {
     "start": "backstage-cli package start",
     "build": "backstage-cli package build",
     "test": "backstage-cli package test",
     "lint": "backstage-cli package lint",
-    "test:e2e": "cross-env PORT=3001 start-server-and-test start http://localhost:3001 cy:dev",
-    "test:e2e:ci": "cross-env PORT=3001 start-server-and-test start http://localhost:3001 cy:run",
-    "cy:dev": "cypress open",
-    "cy:run": "cypress run",
     "clean": "backstage-cli package clean"
   },
   "browserslist": {

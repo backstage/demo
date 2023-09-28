@@ -46,7 +46,7 @@ function makeCreateEnv(config: Config) {
     tokenManager,
   });
   const cacheManager = CacheManager.fromConfig(config);
-  const taskScheduler = TaskScheduler.fromConfig(config);
+  const taskScheduler = TaskScheduler.fromConfig(config, { databaseManager });
   const identity = DefaultIdentityClient.create({
     discovery,
   });
@@ -79,15 +79,15 @@ async function main() {
   });
   const createEnv = makeCreateEnv(config);
 
-  const catalogEnv = createEnv('catalog')
-  const authEnv = createEnv('auth')
-  const proxyEnv = createEnv('proxy')
-  const searchEnv = createEnv('search')
-  const techdocsEnv = createEnv('techdocs')
-  const todoEnv = createEnv('todo')
-  const appEnv = createEnv('app')
-  const badgesEnv = createEnv('badges')
-  const exploreEnv = createEnv('explore')
+  const catalogEnv = createEnv('catalog');
+  const authEnv = createEnv('auth');
+  const proxyEnv = createEnv('proxy');
+  const searchEnv = createEnv('search');
+  const techdocsEnv = createEnv('techdocs');
+  const todoEnv = createEnv('todo');
+  const appEnv = createEnv('app');
+  const badgesEnv = createEnv('badges');
+  const exploreEnv = createEnv('explore');
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));

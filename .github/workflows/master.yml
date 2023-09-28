@@ -47,7 +47,7 @@ jobs:
         run: yarn backstage-cli repo lint
 
       - name: type checking and declarations
-        run: yarn tsc:full
+        run: yarn tsc
 
       - name: build
         run: yarn build

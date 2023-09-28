@@ -42,14 +42,14 @@ jobs:
         run: yarn install --immutable
       # End of yarn setup
 
+      - name: type checking and declarations
+        run: yarn tsc
+
       - name: lint
         run: yarn backstage-cli repo lint
 
       - name: deprecations
         run: yarn backstage-cli repo list-deprecations  
-
-      - name: type checking and declarations
-        run: yarn tsc:full
 
       - name: tests
         run: yarn backstage-cli repo test 

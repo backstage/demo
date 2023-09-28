@@ -1,5 +1,5 @@
 # Stage 1 - Create yarn install skeleton layer
-FROM node:18-bullseye-slim AS packages
+FROM node:18-bookworm-slim AS packages
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -12,7 +12,7 @@ COPY packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM node:18-bullseye-slim AS build
+FROM node:18-bookworm-slim AS build
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON /usr/bin/python3
@@ -46,7 +46,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:18-bullseye-slim
+FROM node:18-bookworm-slim
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON /usr/bin/python3
