@@ -1,4 +1,3 @@
-import { useHotCleanup } from '@backstage/backend-common';
 import { createRouter } from '@backstage/plugin-search-backend';
 import {
   IndexBuilder,
@@ -51,7 +50,6 @@ export default async function createPlugin({
 
   const { scheduler: indexScheduler } = await indexBuilder.build();
   indexScheduler.start();
-  useHotCleanup(module, () => indexScheduler.stop());
 
   return await createRouter({
     engine: indexBuilder.getSearchEngine(),

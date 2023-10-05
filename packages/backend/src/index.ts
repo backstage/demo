@@ -16,7 +16,6 @@ import {
   getRootLogger,
   loadBackendConfig,
   notFoundHandler,
-  useHotMemoize,
 } from '@backstage/backend-common';
 
 import { Config } from '@backstage/config';
@@ -80,15 +79,15 @@ async function main() {
   });
   const createEnv = makeCreateEnv(config);
 
-  const catalogEnv = useHotMemoize(module, () => createEnv('catalog'));
-  const authEnv = useHotMemoize(module, () => createEnv('auth'));
-  const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
-  const searchEnv = useHotMemoize(module, () => createEnv('search'));
-  const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
-  const todoEnv = useHotMemoize(module, () => createEnv('todo'));
-  const appEnv = useHotMemoize(module, () => createEnv('app'));
-  const badgesEnv = useHotMemoize(module, () => createEnv('badges'));
-  const exploreEnv = useHotMemoize(module, () => createEnv('explore'));
+  const catalogEnv = createEnv('catalog');
+  const authEnv = createEnv('auth');
+  const proxyEnv = createEnv('proxy');
+  const searchEnv = createEnv('search');
+  const techdocsEnv = createEnv('techdocs');
+  const todoEnv = createEnv('todo');
+  const appEnv = createEnv('app');
+  const badgesEnv = createEnv('badges');
+  const exploreEnv = createEnv('explore');
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
