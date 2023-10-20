@@ -48,9 +48,14 @@ export const apis: AnyApiFactory[] = [
   }),
   createApiFactory({
     api: graphQlBrowseApiRef,
-    deps: { errorApi: errorApiRef, githubAuthApi: githubAuthApiRef },
-    factory: ({ errorApi, githubAuthApi }) =>
+    deps: { errorApi: errorApiRef, githubAuthApi: githubAuthApiRef, discoveryApi: discoveryApiRef },
+    factory: ({ errorApi, githubAuthApi, discoveryApi }) =>
       GraphQLEndpoints.from([
+        GraphQLEndpoints.create({
+          id: 'backstage',
+          title: 'GraphQL Backend',
+          url: discoveryApi.getBaseUrl('graphql')
+        }),
         GraphQLEndpoints.github({
           id: 'github',
           title: 'GitHub',
