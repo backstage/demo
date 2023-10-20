@@ -9,3 +9,24 @@ spec:
   type: website
   owner: backstage/maintainers
   lifecycle: experimental
+  consumesApis:
+    - demo-graphql
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: demo-graphql
+  description: GraphQL Backend Plugin
+  links:
+    - title: GraphQL Backend Plugin
+      url: https://github.com/thefrontside/playhouse/tree/main/plugins/graphql-backend#graphql-backend
+    - title: GraphQL Catalog Schema
+      url: https://github.com/thefrontside/playhouse/tree/main/plugins/graphql-backend-module-catalog#graphql-backend-catalog-module
+    - title: Schema Directives Docs
+      url: https://github.com/thefrontside/HydraphQL
+spec:
+  type: graphql
+  lifecycle: production
+  owner: backstage/maintainers
+  definition:
+    $text: https://demo.backstage.io/api/graphql/schema
