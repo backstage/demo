@@ -32,6 +32,11 @@ backend:
   database:
     client: better-sqlite3
     connection: ':memory:'
+  reading:
+    allow:
+      - host: https://demo.backstage.io
+        paths:
+          - /api/graphql/schema
 
 integrations:
   github:
@@ -82,6 +87,10 @@ catalog:
     # The backstage library repository
     - type: url
       target: https://github.com/backstage/backstage/blob/master/catalog-info.yaml
+
+    # The demo site
+    - type: url
+      target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
 
 costInsights:
   engineerCost: 200000
