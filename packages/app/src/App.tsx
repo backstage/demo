@@ -89,7 +89,7 @@ const routes = (
   <FlatRoutes>
     <Navigate key="/" to="catalog" replace />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route path="/catalog" element={<CatalogIndexPage initiallySelectedFilter='all' />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
