@@ -33,6 +33,7 @@ import search from './plugins/search';
 import techdocs from './plugins/techdocs';
 import todo from './plugins/todo';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
+import graphql from './plugins/graphql';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -88,6 +89,7 @@ async function main() {
   const appEnv = createEnv('app');
   const badgesEnv = createEnv('badges');
   const exploreEnv = createEnv('explore');
+  const graphqlEnv = createEnv('graphql');
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -98,6 +100,7 @@ async function main() {
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use('/badges', await badges(badgesEnv));
   apiRouter.use('/explore', await explore(exploreEnv));
+  apiRouter.use('/graphql', await graphql(graphqlEnv));
   apiRouter.use(notFoundHandler());
 
   const service = createServiceBuilder(module)
