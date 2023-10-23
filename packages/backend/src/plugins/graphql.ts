@@ -1,4 +1,3 @@
-import { CatalogClient } from '@backstage/catalog-client';
 import { createRouter } from '@frontside/backstage-plugin-graphql-backend';
 import {
   createCatalogLoader,
@@ -9,9 +8,8 @@ import { PluginEnvironment } from '../types';
 
 export default async function createPlugin({
   logger,
-  discovery,
+  catalogClient,
 }: PluginEnvironment): Promise<Router> {
-  const catalogClient = new CatalogClient({ discoveryApi: discovery });
   return await createRouter({
     modules: [Catalog()],
     logger,
