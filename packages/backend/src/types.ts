@@ -11,7 +11,6 @@ import { IdentityApi } from '@backstage/plugin-auth-node';
 import { Logger } from 'winston';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
 import { PluginTaskScheduler } from '@backstage/backend-tasks';
-import { CatalogClient } from '@backstage/catalog-client';
 
 export type PluginEnvironment = {
   logger: Logger;
@@ -24,5 +23,4 @@ export type PluginEnvironment = {
   scheduler: PluginTaskScheduler;
   permissions: PermissionEvaluator;
   identity: IdentityApi;
-  catalogClient: CatalogClient;
 };
