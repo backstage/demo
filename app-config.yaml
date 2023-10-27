@@ -34,7 +34,7 @@ backend:
     connection: ':memory:'
   reading:
     allow:
-      - host: https://demo.backstage.io
+      - host: demo.backstage.io
         paths:
           - /api/graphql/schema
 
@@ -87,10 +87,6 @@ catalog:
     # The backstage library repository
     - type: url
       target: https://github.com/backstage/backstage/blob/master/catalog-info.yaml
-
-    # The demo site
-    - type: url
-      target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
 
 costInsights:
   engineerCost: 200000
