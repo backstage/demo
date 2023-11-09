@@ -5,6 +5,9 @@ backend:
   baseUrl: https://demo.backstage.io
   listen:
     port: ${PORT}
+  auth:
+    keys:
+      - secret: ${BACKEND_AUTH_KEY}
 
 auth:
   environment: production
