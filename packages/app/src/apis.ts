@@ -20,9 +20,11 @@ import {
   errorApiRef,
   configApiRef,
   AnyApiFactory,
+  identityApiRef,
 } from '@backstage/core-plugin-api';
 
 import { GithubAuth } from '@backstage/core-app-api';
+import { visitsApiRef, VisitsWebStorageApi } from '@backstage/plugin-home';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
@@ -48,13 +50,17 @@ export const apis: AnyApiFactory[] = [
   }),
   createApiFactory({
     api: graphQlBrowseApiRef,
-    deps: { errorApi: errorApiRef, githubAuthApi: githubAuthApiRef, discoveryApi: discoveryApiRef },
+    deps: {
+      errorApi: errorApiRef,
+      githubAuthApi: githubAuthApiRef,
+      discoveryApi: discoveryApiRef,
+    },
     factory: ({ errorApi, githubAuthApi, discoveryApi }) =>
       GraphQLEndpoints.from([
         GraphQLEndpoints.create({
           id: 'backstage',
           title: 'GraphQL Backend',
-          url: discoveryApi.getBaseUrl('graphql')
+          url: discoveryApi.getBaseUrl('graphql'),
         }),
         GraphQLEndpoints.github({
           id: 'github',
@@ -75,4 +81,13 @@ export const apis: AnyApiFactory[] = [
       ]),
   }),
   createApiFactory(costInsightsApiRef, new ExampleCostInsightsClient()),
+  createApiFactory({
+    api: visitsApiRef,
+    deps: {
+      identityApi: identityApiRef,
+      errorApi: errorApiRef,
+    },
+    factory: ({ identityApi, errorApi }) =>
+      VisitsWebStorageApi.create({ identityApi, errorApi }),
+  }),
 ];
