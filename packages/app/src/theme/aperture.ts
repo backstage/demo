@@ -1,26 +1,12 @@
-import { BackstageOverrides } from '@backstage/core-components';
-import { BackstageOverrides as CatalogReactOverrides } from '@backstage/plugin-catalog-react';
 import {
-  createTheme,
-  createUnifiedThemeFromV4,
   createBaseThemeOptions,
   pageTheme as defaultPageThemes,
   PageTheme,
   palettes,
-  UnifiedTheme,
+  createUnifiedTheme,
 } from '@backstage/theme';
 
-import { alpha, Theme } from '@material-ui/core/styles';
-import { AutocompleteClassKey } from '@material-ui/lab/Autocomplete';
-import { AlertClassKey } from '@material-ui/lab/Alert';
-
-// Labs types not included in overrides; https://github.com/mui/material-ui/issues/19427
-declare module '@material-ui/core/styles/overrides' {
-  export interface ComponentNameToClassKey {
-    MuiAlert: AlertClassKey;
-    MuiAutocomplete: AutocompleteClassKey;
-  }
-}
+import { alpha } from '@material-ui/core/styles';
 
 const pageThemesFontColorOverride: Record<string, PageTheme> = {};
 Object.keys(defaultPageThemes).map(key => {
@@ -30,11 +16,7 @@ Object.keys(defaultPageThemes).map(key => {
   };
 });
 
-// TODO(awanlin): Continuing to use the deprecated `createTheme` for now
-// will come back to clean this up when we have a better solution for this
-
-// eslint-disable-next-line
-const baseTheme = createTheme({
+export const apertureTheme = createUnifiedTheme({
   ...createBaseThemeOptions({
     palette: {
       ...palettes.light,
@@ -100,175 +82,182 @@ const baseTheme = createTheme({
   fontFamily: 'Roboto, sans-serif',
   pageTheme: pageThemesFontColorOverride,
   defaultPageTheme: 'home',
-});
-
-const createCustomThemeOverrides = (
-  theme: Theme,
-): BackstageOverrides & CatalogReactOverrides => {
-  return {
+  components: {
     BackstageHeader: {
-      header: {
-        backgroundImage: 'unset',
-        boxShadow: 'unset',
-        paddingBottom: theme.spacing(1),
-      },
-      title: {
-        color: theme.page.fontColor,
-        fontWeight: 900,
-      },
-      subtitle: {
-        color: alpha(theme.page.fontColor, 0.8),
-      },
-      type: {
-        color: alpha(theme.page.fontColor, 0.8),
-      },
-    },
-    // TODO: Remove after https://github.com/backstage/backstage/pull/16853 is available here
-    BackstageHeaderLabel: {
-      label: {
-        color: theme.page.fontColor,
-      },
-      value: {
-        color: alpha(theme.page.fontColor, 0.8),
+      styleOverrides: {
+        header: ({ theme }) => ({
+          backgroundImage: 'unset',
+          boxShadow: 'unset',
+          paddingBottom: theme.spacing(1),
+        }),
+        title: ({ theme }) => ({
+          color: theme.page.fontColor,
+          fontWeight: 900,
+        }),
+        subtitle: ({ theme }) => ({
+          color: alpha(theme.page.fontColor, 0.8),
+        }),
+        type: ({ theme }) => ({
+          color: alpha(theme.page.fontColor, 0.8),
+        }),
       },
     },
     BackstageHeaderTabs: {
-      defaultTab: {
-        fontSize: 'inherit',
-        textTransform: 'none',
+      styleOverrides: {
+        defaultTab: {
+          fontSize: 'inherit',
+          textTransform: 'none',
+        },
       },
     },
     BackstageOpenedDropdown: {
-      icon: {
-        '& path': {
-          fill: '#FFFFFF',
+      styleOverrides: {
+        icon: {
+          '& path': {
+            fill: '#FFFFFF',
+          },
         },
       },
     },
     BackstageTable: {
-      root: {
-        '&> :first-child': {
-          borderBottom: '1px solid #D5D5D5',
-          boxShadow: 'none',
-        },
-        '& th': {
-          borderTop: 'none',
-          textTransform: 'none !important',
+      styleOverrides: {
+        root: {
+          '&> :first-child': {
+            borderBottom: '1px solid #D5D5D5',
+            boxShadow: 'none',
+          },
+          '& th': {
+            borderTop: 'none',
+            textTransform: 'none !important',
+          },
         },
       },
     },
     CatalogReactUserListPicker: {
-      title: {
-        textTransform: 'none',
+      styleOverrides: {
+        title: {
+          textTransform: 'none',
+        },
       },
     },
     MuiAlert: {
-      root: {
-        borderRadius: 0,
-      },
-      standardError: {
-        color: '#FFFFFF',
-        backgroundColor: theme.palette.error.dark,
-        '& $icon': {
-          color: '#FFFFFF',
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
         },
-      },
-      standardInfo: {
-        color: '#FFFFFF',
-        backgroundColor: theme.palette.primary.dark,
-        '& $icon': {
+        standardError: ({ theme }) => ({
           color: '#FFFFFF',
-        },
-      },
-      standardSuccess: {
-        color: '#FFFFFF',
-        backgroundColor: theme.palette.success.dark,
-        '& $icon': {
+          backgroundColor: theme.palette.error.dark,
+          '& $icon': {
+            color: '#FFFFFF',
+          },
+        }),
+        standardInfo: ({ theme }) => ({
           color: '#FFFFFF',
-        },
-      },
-      standardWarning: {
-        color: theme.palette.grey[700],
-        backgroundColor: theme.palette.secondary.light,
-        '& $icon': {
+          backgroundColor: theme.palette.primary.dark,
+          '& $icon': {
+            color: '#FFFFFF',
+          },
+        }),
+        standardSuccess: ({ theme }) => ({
+          color: '#FFFFFF',
+          backgroundColor: theme.palette.success.dark,
+          '& $icon': {
+            color: '#FFFFFF',
+          },
+        }),
+        standardWarning: ({ theme }) => ({
           color: theme.palette.grey[700],
-        },
+          backgroundColor: theme.palette.secondary.light,
+          '& $icon': {
+            color: theme.palette.grey[700],
+          },
+        }),
       },
     },
     MuiAutocomplete: {
-      root: {
-        '&[aria-expanded=true]': {
-          backgroundColor: '#26385A',
-          color: '#FFFFFF',
-        },
-        '&[aria-expanded=true] path': {
-          fill: '#FFFFFF',
+      styleOverrides: {
+        root: {
+          '&[aria-expanded=true]': {
+            backgroundColor: '#26385A',
+            color: '#FFFFFF',
+          },
+          '&[aria-expanded=true] path': {
+            fill: '#FFFFFF',
+          },
         },
       },
     },
     MuiBackdrop: {
-      root: {
-        backgroundColor: 'rgba(9,30,69,0.54)',
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(9,30,69,0.54)',
+        },
       },
     },
     MuiButton: {
-      root: {
-        borderRadius: 3,
-        textTransform: 'none',
-      },
-      contained: {
-        boxShadow: 'none',
+      styleOverrides: {
+        root: {
+          borderRadius: 3,
+          textTransform: 'none',
+        },
+        contained: {
+          boxShadow: 'none',
+        },
       },
     },
     MuiChip: {
-      root: {
-        borderRadius: 3,
-        backgroundColor: theme.palette.grey[50],
-        color: theme.palette.primary.dark,
-        margin: 4,
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: 3,
+          backgroundColor: theme.palette.grey[50],
+          color: theme.palette.primary.dark,
+          margin: 4,
+        }),
       },
     },
+    // TODO: (awanlin) - we get a type error for `root`, need to investigate
     MuiSelect: {
-      root: {
-        '&[aria-expanded]': {
-          backgroundColor: '#26385A',
-          color: '#FFFFFF',
+      styleOverrides: {
+        select: {
+          '&[aria-expanded]': {
+            backgroundColor: '#26385A',
+            color: '#FFFFFF',
+          },
         },
       },
     },
     MuiSwitch: {
-      root: {
-        padding: 10,
-      },
-      switchBase: {
-        padding: 12,
-      },
-      thumb: {
-        backgroundColor: '#FFFFFF',
-        height: 14,
-        width: 14,
-      },
-      track: {
-        borderRadius: 9,
+      styleOverrides: {
+        root: {
+          padding: 10,
+        },
+        switchBase: {
+          padding: 12,
+        },
+        thumb: {
+          backgroundColor: '#FFFFFF',
+          height: 14,
+          width: 14,
+        },
+        track: {
+          borderRadius: 9,
+        },
       },
     },
     MuiTabs: {
-      indicator: {
-        transition: 'none',
+      styleOverrides: {
+        indicator: {
+          transition: 'none',
+        },
       },
     },
     MuiTypography: {
-      button: {
-        textTransform: 'none',
+      styleOverrides: {
+        button: {
+          textTransform: 'none',
+        },
       },
     },
-  };
-};
-
-export const apertureTheme: UnifiedTheme = createUnifiedThemeFromV4({
-  ...baseTheme,
-  overrides: {
-    ...baseTheme.overrides,
-    ...createCustomThemeOverrides(baseTheme),
   },
 });
