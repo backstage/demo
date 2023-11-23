@@ -5,7 +5,7 @@ on:
 
   # Run Daily at 10:00 UTC time
   schedule:
-    - cron: "0 10 * * *"
+    - cron: '0 10 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
