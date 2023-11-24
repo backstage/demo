@@ -30,6 +30,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
+import CategoryIcon from '@material-ui/icons/Category';
 
 const useSidebarLogoStyles = makeStyles<Theme, { themeId: string }>({
   root: {
@@ -79,7 +80,8 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       </SidebarGroup>
       <SidebarDivider />
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
+        <SidebarItem icon={HomeIcon} to="home" text="Home" />
+        <SidebarItem icon={CategoryIcon} to="/" text="Catalog" />
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
         <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
