@@ -1,16 +1,13 @@
 import React from 'react';
 import { renderWithEffects } from '@backstage/test-utils';
 import App from './App';
+import { v4 } from 'uuid';
 
 describe('App', () => {
-  
   const mockRandomUUID = () =>
-    '068f3129-7440-4e0e-8fd4-xxxxxxxxxxxx'.replace(
-      /x/g,
-      () => Math.floor(Math.random() * 16).toString(16), // 0x0 to 0xf
-    ) as `${string}-${string}-${string}-${string}-${string}`;
-  
-    beforeEach(() => {
+    v4() as `${string}-${string}-${string}-${string}-${string}`;
+
+  beforeEach(() => {
     window.crypto.randomUUID = mockRandomUUID;
   });
 
