@@ -94,6 +94,6 @@ ENV GITHUB_DEVELOPMENT_CLIENT_SECRET ""
 ENV APP_CONFIG_app_baseUrl "https://demo.backstage.io"
 ENV APP_CONFIG_backend_baseUrl "https://demo.backstage.io"
 ENV APP_CONFIG_auth_environment "production"
-ENV NODE_OPTIONS "--max-old-space-size=400"
+ENV NODE_OPTIONS "--max-old-space-size=1000"
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.heroku.yaml"]
