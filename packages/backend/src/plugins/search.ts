@@ -5,7 +5,7 @@ import {
 } from '@backstage/plugin-search-backend-node';
 import { PluginEnvironment } from '../types';
 import { DefaultCatalogCollatorFactory } from '@backstage/plugin-search-backend-module-catalog';
-import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-search-backend-module-techdocs';
+// import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-search-backend-module-techdocs';
 import { ToolDocumentCollatorFactory } from '@backstage/plugin-search-backend-module-explore';
 
 export default async function createPlugin({
@@ -31,14 +31,14 @@ export default async function createPlugin({
     }),
   });
 
-  indexBuilder.addCollator({
-    schedule,
-    factory: DefaultTechDocsCollatorFactory.fromConfig(config, {
-      discovery,
-      logger,
-      tokenManager,
-    }),
-  });
+  // indexBuilder.addCollator({
+  //   schedule,
+  //   factory: DefaultTechDocsCollatorFactory.fromConfig(config, {
+  //     discovery,
+  //     logger,
+  //     tokenManager,
+  //   }),
+  // });
 
   indexBuilder.addCollator({
     schedule,
