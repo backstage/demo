@@ -7,6 +7,7 @@ const backend = createBackend();
 
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-auth-backend'));
+backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-badges-backend'));
 backend.add(import('@backstage/plugin-catalog-backend/alpha'));
 // TODO:(awanlin) replace when this is completed: https://github.com/backstage/backstage/pull/20551
