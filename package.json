@@ -20,7 +20,9 @@
     "lint:all": "backstage-cli repo lint",
     "create-plugin": "backstage-cli create-plugin --scope internal --no-private",
     "remove-plugin": "backstage-cli remove-plugin",
-    "prettier:check": "prettier --check ."
+    "prettier:check": "prettier --check .",
+    "prepare": "husky install",
+    "postinstall": "husky install || true"
   },
   "workspaces": {
     "packages": [
@@ -45,6 +47,8 @@
     "@types/node": "^18.0.0",
     "concurrently": "^6.0.0",
     "eslint-plugin-jest": "*",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0",
     "node-fetch": "^2.6.7",
     "prettier": "^2.3.2",
     "typescript": "~5.2.0"
