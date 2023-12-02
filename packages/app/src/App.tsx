@@ -90,7 +90,7 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
-    <Navigate key="/" to="catalog" replace />
+    <Route path="/" element={<Navigate to="catalog" />} />
     <FeatureFlagged with="customizable-home-page-preview">
       <Route path="/home" element={<HomepageCompositionRoot />}>
         <CustomizableHomePage />
