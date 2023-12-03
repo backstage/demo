@@ -17,7 +17,7 @@ import {
   CostInsightsProjectGrowthInstructionsPage,
 } from '@backstage/plugin-cost-insights';
 import { ExplorePage } from '@backstage/plugin-explore';
-import { Route } from 'react-router';
+import { Navigate, Route } from 'react-router';
 import {
   TechDocsIndexPage,
   TechDocsReaderPage,
@@ -90,6 +90,7 @@ const app = createApp({
 
 const routes = (
   <FlatRoutes>
+    <Route path="/" element={<Navigate to="catalog" />} />
     <FeatureFlagged with="customizable-home-page-preview">
       <Route path="/home" element={<HomepageCompositionRoot />}>
         <CustomizableHomePage />
@@ -102,7 +103,7 @@ const routes = (
     </FeatureFlagged>
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
-      path="/"
+      path="/catalog"
       element={<CatalogIndexPage initiallySelectedFilter="all" />}
     />
     <Route
