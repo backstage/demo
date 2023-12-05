@@ -14,7 +14,9 @@ concurrency:
 jobs:
   publish-techdocs-site:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - name: Checkout Backstage
         uses: actions/checkout@v3
@@ -22,23 +24,30 @@ jobs:
           repository: backstage/backstage
           fetch-depth: 1
 
-      - name: use node.js 18.x
+      - name: Setup Node 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
           registry-url: https://registry.npmjs.org/ # Needed for auth
-      - uses: actions/setup-python@v4
+      
+      - name: Setup Python 3.9
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
       - name: Install techdocs-cli
         run: sudo npm install -g @techdocs/cli
 
-      - name: Install mkdocs and mkdocs plugins
+      - name: Install MkDocs and MkDocs Plugins
         run: python -m pip install mkdocs-techdocs-core==1.*
 
-      - name: Generate docs site
-        run: techdocs-cli generate --no-docker --verbose
+      - name: Generate TechDocs
+        run: techdocs-cli generate --no-docker --legacyCopyReadmeMdToIndexMd --verbose
 
-      - name: Publish docs site
+      - name: Login to Google Cloud Services
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ secrets.TECHDOCS_GCS_CREDENTIALS_JSON }}
+      
+      - name: Publish TechDocs
         run: techdocs-cli publish --publisher-type googleGcs --storage-name ${{ secrets.TECHDOCS_GCS_BUCKET }} --entity default/component/backstage
