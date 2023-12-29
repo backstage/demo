@@ -115,7 +115,7 @@ const entityWarningContent = (
   </>
 );
 
-export const cicdContent = (
+const cicdContent = (
   <EntitySwitch>
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <EntityGithubActionsContent />

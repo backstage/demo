@@ -1,4 +1,4 @@
-import * as plugins from './plugins';
+import { badgesPlugin } from './plugins';
 
 import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
 import { AppRouter, FeatureFlagged, FlatRoutes } from '@backstage/core-app-api';
@@ -45,7 +45,7 @@ import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 
 const app = createApp({
   apis,
-  plugins: Object.values(plugins),
+  plugins: [badgesPlugin],
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       viewTechDoc: techdocsPlugin.routes.docRoot,
