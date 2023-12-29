@@ -4,7 +4,7 @@ app:
 backend:
   baseUrl: https://demo.backstage.io
   listen:
-    port: ${PORT}
+    port: 7000
   auth:
     keys:
       - secret: ${BACKEND_AUTH_KEY}
@@ -23,8 +23,6 @@ techdocs:
   requestUrl: https://demo.backstage.io/api/techdocs
   storageUrl: https://demo.backstage.io/api/techdocs/static/docs
   builder: 'external'
-  generators:
-    techdocs: local
   publisher:
     type: 'googleGcs'
     googleGcs:
