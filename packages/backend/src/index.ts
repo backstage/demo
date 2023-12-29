@@ -2,6 +2,7 @@ import { legacyPlugin } from '@backstage/backend-common';
 import { createBackend } from '@backstage/backend-defaults';
 import { graphqlPlugin } from '@frontside/backstage-plugin-graphql-backend';
 import { graphqlModuleCatalog } from '@frontside/backstage-plugin-graphql-backend-module-catalog';
+import { docsBuildStrategy } from './extensions/docsBuildStrategy';
 
 const backend = createBackend();
 
@@ -19,8 +20,12 @@ backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-explore/alpha'));
+// TODO:(awanlin) enable when issue causing crashes is resolved
 // backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
+
 backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
+backend.add(docsBuildStrategy)
+
 backend.add(import('@backstage/plugin-todo-backend'));
 
 backend.start();

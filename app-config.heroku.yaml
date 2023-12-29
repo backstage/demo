@@ -20,8 +20,9 @@ auth:
         clientSecret: ${GITHUB_PRODUCTION_CLIENT_SECRET}
 
 techdocs:
-  requestUrl: https://demo.backstage.io/api/techdocs
-  storageUrl: https://demo.backstage.io/api/techdocs/static/docs
+  sanitizer:
+    allowedIframeHosts:
+      - www.youtube.com
   builder: 'external'
   publisher:
     type: 'googleGcs'
