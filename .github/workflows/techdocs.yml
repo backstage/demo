@@ -45,6 +45,7 @@ jobs:
         run: |
           for i in README*.md; do
             sed -i 's|docs/assets|assets|g' $i
+            sed -i 's|README.md|index.md|g' $i
           done
 
       - name: Copy Translated Readmes
