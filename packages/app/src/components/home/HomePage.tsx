@@ -9,7 +9,8 @@ import {
 } from '@backstage/plugin-home';
 import { HomePageSearchBar } from '@backstage/plugin-search';
 import { SearchContextProvider } from '@backstage/plugin-search-react';
-import { Grid, makeStyles } from '@material-ui/core';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { tools, useLogoStyles } from './shared';
 

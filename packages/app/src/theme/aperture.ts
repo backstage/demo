@@ -6,7 +6,7 @@ import {
   createUnifiedTheme,
 } from '@backstage/theme';
 
-import { alpha } from '@material-ui/core/styles';
+import { alpha } from '@mui/material/styles';
 
 const pageThemesFontColorOverride: Record<string, PageTheme> = {};
 Object.keys(defaultPageThemes).map(key => {

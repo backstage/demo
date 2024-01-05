@@ -38,7 +38,7 @@ import { createApp } from '@backstage/app-defaults';
 import { entityPage } from './components/catalog/EntityPage';
 import { orgPlugin } from '@backstage/plugin-org';
 import { searchPage } from './components/search/SearchPage';
-import { CssBaseline } from '@material-ui/core';
+import CssBaseline from '@mui/material/CssBaseline';
 import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
