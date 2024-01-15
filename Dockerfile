@@ -1,5 +1,9 @@
+# Global scope
+ARG ENVIRONMENT_CONFIG=heroku
+
 # Stage 1 - Create yarn install skeleton layer
 FROM node:18-bookworm-slim AS packages
+ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -13,32 +17,32 @@ RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs
 
 # Stage 2 - Install dependencies and build packages
 FROM node:18-bookworm-slim AS build
+ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON /usr/bin/python3
 
-# install sqlite3 dependencies
+# Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
+# in which case you should also move better-sqlite3 to "devDependencies" in package.json.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
     apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
     rm -rf /var/lib/apt/lists/*
 
+USER node
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
 COPY --from=packages --chown=node:node /app/.yarn ./.yarn
 COPY --from=packages --chown=node:node /app/.yarnrc.yml  ./
 
-# Stop cypress from downloading it's massive binary.
-ENV CYPRESS_INSTALL_BINARY=0
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
     yarn install --immutable
 
 COPY --chown=node:node . .
 
 RUN yarn tsc
-# RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
 RUN yarn --cwd packages/backend build
 
 RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
@@ -47,6 +51,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
 
 # Stage 3 - Build the actual backend image and install production dependencies
 FROM node:18-bookworm-slim
+ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON /usr/bin/python3
@@ -78,22 +83,15 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 # Copy the built packages from the build stage
 COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 
-COPY --chown=node:node app-config.yaml app-config.heroku.yaml ./
+# Copy any other files that we need at runtime
+COPY --chown=node:node app-config.yaml app-config.*.yaml ./
 
-ENV PORT 7000
+# This switches many Node.js dependencies to production mode.
 ENV NODE_ENV production
-
-ENV GITHUB_PRODUCTION_CLIENT_ID ""
-ENV GITHUB_PRODUCTION_CLIENT_SECRET ""
-
-ENV GITHUB_DEVELOPMENT_CLIENT_ID ""
-ENV GITHUB_DEVELOPMENT_CLIENT_SECRET ""
-
-# For now we need to manually add these configs through environment variables but in the
-# future, we should be able to fetch the frontend config from the backend somehow
-ENV APP_CONFIG_app_baseUrl "https://demo.backstage.io"
-ENV APP_CONFIG_backend_baseUrl "https://demo.backstage.io"
-ENV APP_CONFIG_auth_environment "production"
+# Sets the max memory size of V8's old memory section
 ENV NODE_OPTIONS "--max-old-space-size=1000"
 
-CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.heroku.yaml"]
+# Default is 'heroku', for local testing pass in 'local'
+ENV ENVIRONMENT_CONFIG=${ENVIRONMENT_CONFIG}
+
+CMD ["sh", "-c", "node packages/backend --config app-config.yaml --config app-config.${ENVIRONMENT_CONFIG}.yaml"]
