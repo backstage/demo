@@ -19,12 +19,16 @@ RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs
 FROM node:18-bookworm-slim AS build
 ARG ENVIRONMENT_CONFIG
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON /usr/bin/python3
+
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
 USER node
 WORKDIR /app
@@ -49,12 +53,16 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
 FROM node:18-bookworm-slim
 ARG ENVIRONMENT_CONFIG
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON /usr/bin/python3
+
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
