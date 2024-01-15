@@ -99,8 +99,9 @@ COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 # Copy any other files that we need at runtime
 COPY --chown=node:node app-config.yaml app-config.*.yaml ./
 
-
-ENV PORT 7000
+# Heroku will assign the port dynamically; the default value here will be overridden by what Heroku passes in
+# For local development the default will be used
+ENV PORT 7007
 # This switches many Node.js dependencies to production mode.
 ENV NODE_ENV production
 # Sets the max memory size of V8's old memory section
