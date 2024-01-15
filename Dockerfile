@@ -86,6 +86,8 @@ COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 # Copy any other files that we need at runtime
 COPY --chown=node:node app-config.yaml app-config.*.yaml ./
 
+
+ENV PORT 7000
 # This switches many Node.js dependencies to production mode.
 ENV NODE_ENV production
 # Sets the max memory size of V8's old memory section
