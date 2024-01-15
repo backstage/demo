@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import React, { useMemo, useState } from 'react';
-import { Button, Grid } from '@material-ui/core';
-import BadgeIcon from '@material-ui/icons/CallToAction';
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import BadgeIcon from '@mui/icons-material/CallToAction';
 import {
   EntityApiDefinitionCard,
   EntityConsumedApisCard,

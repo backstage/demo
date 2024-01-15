@@ -9,7 +9,11 @@ import {
   SearchResultPager,
 } from '@backstage/plugin-search-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
-import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
+import Grid from '@mui/material/Grid'
+import List from '@mui/material/List'
+import Paper from '@mui/material/Paper'
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { ToolSearchResultListItem } from '@backstage/plugin-explore';
 
