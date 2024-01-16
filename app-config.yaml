@@ -24,7 +24,16 @@ backend:
     port: 7007
   csp:
     connect-src: ["'self'", 'http:', 'https:']
-    img-src: ["'self'", 'data:', 'https://backstage.io', 'https://img.shields.io', 'https://api.dicebear.com/']
+    img-src:
+      [
+        "'self'",
+        'data:',
+        'https://backstage.io',
+        'https://img.shields.io/',
+        'https://api.dicebear.com/',
+        'https://kroki.io/',
+      ]
+    frame-src: ['https://www.youtube.com']
   cors:
     origin: http://localhost:3000
     methods: [GET, POST, PUT, DELETE]
@@ -80,9 +89,9 @@ catalog:
     - type: url
       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
 
-    # The backstage demo deployment (this)
-    - type: url
-      target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
+    # # The backstage demo deployment (this)
+    # - type: url
+    #   target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
 
     # The backstage library repository
     - type: url
@@ -107,9 +116,10 @@ costInsights:
     MSC:
       name: Monthly Subscribers
 
-# app-config.heroku.yaml replaces these values
-# These configs here are required for config validation in CI to pass
 techdocs:
+  sanitizer:
+    allowedIframeHosts:
+      - www.youtube.com
   builder: 'external'
   generator:
     runIn: 'local'

@@ -4,7 +4,8 @@ app:
 backend:
   baseUrl: https://demo.backstage.io
   listen:
-    port: ${PORT}
+    # Heroku will assign the port dynamically so we want to just pass that in as is
+    port: ${PORT} 
   auth:
     keys:
       - secret: ${BACKEND_AUTH_KEY}
@@ -20,8 +21,9 @@ auth:
         clientSecret: ${GITHUB_PRODUCTION_CLIENT_SECRET}
 
 techdocs:
-  requestUrl: https://demo.backstage.io/api/techdocs
-  storageUrl: https://demo.backstage.io/api/techdocs/static/docs
+  sanitizer:
+    allowedIframeHosts:
+      - www.youtube.com
   builder: 'external'
   publisher:
     type: 'googleGcs'
