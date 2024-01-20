@@ -1,4 +1,11 @@
-import { Content, Header, Lifecycle, Page } from '@backstage/core-components';
+import {
+  CatalogIcon,
+  Content,
+  DocsIcon,
+  Header,
+  Lifecycle,
+  Page,
+} from '@backstage/core-components';
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
 import { SearchType } from '@backstage/plugin-search';
 import {
@@ -7,52 +14,99 @@ import {
   SearchFilter,
   SearchResult,
   SearchResultPager,
+  useSearch,
 } from '@backstage/plugin-search-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
 import React from 'react';
 import { ToolSearchResultListItem } from '@backstage/plugin-explore';
+import { useApi } from '@backstage/core-plugin-api';
+import {
+  catalogApiRef,
+  CATALOG_FILTER_EXISTS,
+} from '@backstage/plugin-catalog-react';
+import BuildIcon from '@material-ui/icons/Build';
 
 const useStyles = makeStyles((theme: Theme) => ({
   bar: {
     padding: theme.spacing(1, 0),
+  },
+  filters: {
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
   filter: {
     '& + &': {
       marginTop: theme.spacing(2.5),
     },
   },
-  filters: {
-    padding: theme.spacing(2),
-  },
 }));
 
 const SearchPage = () => {
   const classes = useStyles();
+  const { types } = useSearch();
+  const catalogApi = useApi(catalogApiRef);
   return (
     <Page themeId="home">
       <Header title="Search" subtitle={<Lifecycle alpha />} />
       <Content>
         <Grid container direction="row">
           <Grid item xs={12}>
-            <Paper className={classes.bar}>
-              <SearchBar debounceTime={100} />
-            </Paper>
+            <SearchBar />
           </Grid>
           <Grid item xs={3}>
+            <SearchType.Accordion
+              name="Result Type"
+              defaultValue=""
+              types={[
+                {
+                  value: 'software-catalog',
+                  name: 'Software Catalog',
+                  icon: <CatalogIcon />,
+                },
+                {
+                  value: 'techdocs',
+                  name: 'Documentation',
+                  icon: <DocsIcon />,
+                },
+                {
+                  value: 'tools',
+                  name: 'Tools',
+                  icon: <BuildIcon />,
+                },
+              ]}
+            />
             <Paper className={classes.filters}>
-              <SearchType
-                values={['techdocs', 'software-catalog']}
-                name="type"
-                defaultValue="software-catalog"
-              />
+              {types.includes('techdocs') && (
+                <SearchFilter.Select
+                  className={classes.filter}
+                  label="Entity"
+                  name="name"
+                  values={async () => {
+                    // Return a list of entities which are documented.
+                    const { items } = await catalogApi.getEntities({
+                      fields: ['metadata.name'],
+                      filter: {
+                        'metadata.annotations.backstage.io/techdocs-ref':
+                          CATALOG_FILTER_EXISTS,
+                      },
+                    });
+
+                    const names = items.map(entity => entity.metadata.name);
+                    names.sort();
+                    return names;
+                  }}
+                />
+              )}
               <SearchFilter.Select
                 className={classes.filter}
+                label="Kind"
                 name="kind"
                 values={['Component', 'Template']}
               />
               <SearchFilter.Checkbox
                 className={classes.filter}
+                label="Lifecycle"
                 name="lifecycle"
                 values={['experimental', 'production']}
               />
