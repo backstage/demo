@@ -42,12 +42,18 @@ import { CssBaseline } from '@material-ui/core';
 import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
+import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 
 const app = createApp({
   apis,
   plugins: [badgesPlugin],
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
+      createComponent: scaffolderPlugin.routes.root,
+      viewTechDoc: techdocsPlugin.routes.docRoot,
+      createFromTemplate: scaffolderPlugin.routes.selectedTemplate,
+    });
+    bind(scaffolderPlugin.externalRoutes, {
       viewTechDoc: techdocsPlugin.routes.docRoot,
     });
     bind(catalogGraphPlugin.externalRoutes, {
@@ -101,6 +107,7 @@ const routes = (
         <HomePage />
       </Route>
     </FeatureFlagged>
+    <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/catalog"

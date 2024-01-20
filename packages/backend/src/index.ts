@@ -10,12 +10,16 @@ backend.add(import('@backstage/plugin-auth-backend'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-badges-backend'));
 backend.add(import('@backstage/plugin-catalog-backend/alpha'));
+backend.add(
+    import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
+  );
 // TODO:(awanlin) replace when this is completed: https://github.com/backstage/backstage/pull/20551
 backend.add(legacyPlugin('explore', import('./plugins/explore')));
 // TODO:(awanlin) update with import when available
 backend.add(graphqlPlugin);
 backend.add(graphqlModuleCatalog());
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
+backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-explore/alpha'));

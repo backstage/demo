@@ -27,7 +27,7 @@ ENV PYTHON /usr/bin/python3
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 g++ build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 USER node
@@ -61,7 +61,7 @@ ENV PYTHON /usr/bin/python3
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev \
+    apt-get install -y --no-install-recommends libsqlite3-dev g++ build-essential \
     python3 python3-pip python3-venv \
     curl default-jre graphviz fonts-dejavu fontconfig && \
     rm -rf /var/lib/apt/lists/* && \
