@@ -48,7 +48,7 @@ const SearchPage = () => {
   const catalogApi = useApi(catalogApiRef);
   return (
     <Page themeId="home">
-      <Header title="Search" subtitle={<Lifecycle alpha />} />
+      <Header title="Search" />
       <Content>
         <Grid container direction="row">
           <Grid item xs={12}>
