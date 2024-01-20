@@ -3,7 +3,6 @@ import {
   Content,
   DocsIcon,
   Header,
-  Lifecycle,
   Page,
 } from '@backstage/core-components';
 import { CatalogSearchResultListItem } from '@backstage/plugin-catalog';
