@@ -3705,7 +3705,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-auth-node@npm:^0.4.3":
+"@backstage/plugin-auth-node@npm:^0.4.1, @backstage/plugin-auth-node@npm:^0.4.3":
   version: 0.4.3
   resolution: "@backstage/plugin-auth-node@npm:0.4.3"
   dependencies:
@@ -5650,13 +5650,14 @@ __metadata:
   linkType: hard
 
 "@frontside/backstage-plugin-graphql-backend-module-catalog@npm:^0.2.0":
-  version: 0.2.1
-  resolution: "@frontside/backstage-plugin-graphql-backend-module-catalog@npm:0.2.1"
+  version: 0.2.3
+  resolution: "@frontside/backstage-plugin-graphql-backend-module-catalog@npm:0.2.3"
   dependencies:
     "@backstage/backend-common": ^0.19.9
     "@backstage/backend-plugin-api": ^0.6.7
     "@backstage/catalog-client": ^1.4.6
     "@backstage/catalog-model": ^1.4.3
+    "@backstage/plugin-auth-node": ^0.4.1
     "@backstage/plugin-catalog-node": ^1.5.0
     "@frontside/backstage-plugin-graphql-backend": ^0.1.4
     "@frontside/hydraphql": ^0.1.1
@@ -5667,7 +5668,7 @@ __metadata:
     graphql-modules: ^2.1.0
     graphql-relay: ^0.10.0
     graphql-type-json: ^0.3.2
-  checksum: 52aeecb257cfd328ec6c94e4c7a87b9f53498213a6096c0d12a35dc68a3818364d80c36ba8076cc48da13634f068eab39d71594a6439e4d94cbd85a3b32a3f27
+  checksum: 86500833df4970a58c6685c4f13fd5fec69f053fada546447204e82c4eb93e887f1d7198499bdd272227a3a95728d42c61095c9ce05c71290ce140dc8a569cfd
   languageName: node
   linkType: hard
 
@@ -18061,7 +18062,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphiql@npm:3.1.0":
+"graphiql@npm:3.1.0, graphiql@npm:^3.0.6":
   version: 3.1.0
   resolution: "graphiql@npm:3.1.0"
   dependencies:
@@ -18074,22 +18075,6 @@ __metadata:
     react: ^16.8.0 || ^17 || ^18
     react-dom: ^16.8.0 || ^17 || ^18
   checksum: a8969ea299561fe627ba566fb72dd90eda31b195e9983af87c4079bf807f5b356d116ece133e46d5098d6809a88b8f3b64b04a9e95dfe34cd84eb8fd109e2b8a
-  languageName: node
-  linkType: hard
-
-"graphiql@npm:^3.0.6":
-  version: 3.0.10
-  resolution: "graphiql@npm:3.0.10"
-  dependencies:
-    "@graphiql/react": ^0.20.2
-    "@graphiql/toolkit": ^0.9.1
-    graphql-language-service: ^5.2.0
-    markdown-it: ^12.2.0
-  peerDependencies:
-    graphql: ^15.5.0 || ^16.0.0
-    react: ^16.8.0 || ^17 || ^18
-    react-dom: ^16.8.0 || ^17 || ^18
-  checksum: f85b5e82cd2280325dedb28d42580119df46b6724a913a571b7a8183c2bf23d4832edf45570d6c8a0af18ba576f50c9b39219a8537277cba626f0411e6ed55bb
   languageName: node
   linkType: hard
 
@@ -20279,7 +20264,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^4.15.1, jose@npm:^4.15.4, jose@npm:^4.6.0":
+"jose@npm:^4.15.4, jose@npm:^4.6.0":
   version: 4.15.4
   resolution: "jose@npm:4.15.4"
   checksum: dccad91cb3357f36423774a0b89ad830dd84b31090de65cd139b85488439f16a00f8c59c0773825e8a1adb0dd9d13ad725ad66e6ea33880ecb3959bb99e1ea5b
@@ -23460,19 +23445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openid-client@npm:^5.2.1, openid-client@npm:^5.3.0":
-  version: 5.6.1
-  resolution: "openid-client@npm:5.6.1"
-  dependencies:
-    jose: ^4.15.1
-    lru-cache: ^6.0.0
-    object-hash: ^2.2.0
-    oidc-token-hash: ^5.0.3
-  checksum: 9d939cec57540e6dd3f67e9a248ec5ecec3b439b7ab5bd2e9fb4481bd03e8d030deedd87a447348194be7f3e93e84085841b0414033caf86479870f526cdbc2f
-  languageName: node
-  linkType: hard
-
-"openid-client@npm:^5.5.0":
+"openid-client@npm:^5.2.1, openid-client@npm:^5.3.0, openid-client@npm:^5.5.0":
   version: 5.6.4
   resolution: "openid-client@npm:5.6.4"
   dependencies:
