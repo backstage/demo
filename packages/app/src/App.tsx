@@ -47,6 +47,7 @@ import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
+import { DefaultFilters } from '@backstage/plugin-catalog-react';
 
 const app = createApp({
   apis,
@@ -118,7 +119,18 @@ const routes = (
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/catalog"
-      element={<CatalogIndexPage initiallySelectedFilter="all" />}
+      element={
+        <CatalogIndexPage
+          filters={
+            <>
+              <DefaultFilters
+                initiallySelectedFilter="all"
+                initiallySelectedNamespaces={['default']}
+              />
+            </>
+          }
+        />
+      }
     />
     <Route
       path="/catalog/:namespace/:kind/:name"

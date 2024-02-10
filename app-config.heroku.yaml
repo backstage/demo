@@ -47,3 +47,11 @@ kubernetes:
           authProvider: 'serviceAccount'
           caData: ${K8S_CA_DATA}
           serviceAccountToken: ${KUBERNETES_SERVICE_ACCOUNT_TOKEN}
+
+catalog:
+  providers:
+    backstage:
+      enabled: false
+      schedule:
+        frequency: { minutes: 360 } # runs every 6 hours
+        timeout: { minutes: 5 }

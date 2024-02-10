@@ -110,6 +110,12 @@ catalog:
       target: ../../demo-template/template/template.yaml
       rules:
         - allow: ['Template']   
+  providers:
+    backstage:
+      enabled: false
+      schedule:
+        frequency: { minutes: 360 } # runs every 6 hours
+        timeout: { minutes: 5 }
 
 costInsights:
   engineerCost: 200000
