@@ -18,6 +18,7 @@ backend.add(legacyPlugin('explore', import('./plugins/explore')));
 // TODO:(awanlin) update with import when available
 backend.add(graphqlPlugin);
 backend.add(graphqlModuleCatalog());
+backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'))
