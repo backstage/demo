@@ -1,4 +1,3 @@
-import { legacyPlugin } from '@backstage/backend-common';
 import { createBackend } from '@backstage/backend-defaults';
 import { graphqlPlugin } from '@frontside/backstage-plugin-graphql-backend';
 import { graphqlModuleCatalog } from '@frontside/backstage-plugin-graphql-backend-module-catalog';
@@ -11,17 +10,17 @@ backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-badges-backend'));
 backend.add(import('@backstage/plugin-catalog-backend/alpha'));
 backend.add(
-    import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
-  );
-// TODO:(awanlin) replace when this is completed: https://github.com/backstage/backstage/pull/20551
-backend.add(legacyPlugin('explore', import('./plugins/explore')));
+  import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
+);
+backend.add(import('@backstage/plugin-explore-backend'));
+
 // TODO:(awanlin) update with import when available
 backend.add(graphqlPlugin);
 backend.add(graphqlModuleCatalog());
 backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
-backend.add(import('@backstage/plugin-scaffolder-backend-module-github'))
+backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-explore/alpha'));
