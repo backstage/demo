@@ -58,7 +58,9 @@ jobs:
         run: yarn backstage-cli repo test
 
       - name: config check
-        run: yarn backstage-cli config:check --lax --strict
+        run: |
+          yarn backstage-cli config:check --lax --strict
+          yarn backstage-cli config:check --lax --strict --config app-config.yaml --config app-config.heroku.yaml
 
       - name: docker build
         env:
