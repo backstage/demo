@@ -156,3 +156,9 @@ explore:
       url: '/graphiql'
       image: '/graphiql.png'
       tags: ['graphql', 'dev']
+
+backstageEntityProvider:
+  enabled: false
+  schedule:
+    frequency: { minutes: 360 } # runs every 6 hours
+    timeout: { minutes: 5 }

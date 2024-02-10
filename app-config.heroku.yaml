@@ -44,4 +44,8 @@ kubernetes:
          caData: ${K8S_CA_DATA}
          serviceAccountToken: ${KUBERNETES_SERVICE_ACCOUNT_TOKEN}
 
-
+backstageEntityProvider:
+  enabled: ${BACKSTAGE_ENTITY_PROVIDER_ENABLED}
+  schedule:
+    frequency: { minutes: 360 } # runs every 6 hours
+    timeout: { minutes: 5 }
