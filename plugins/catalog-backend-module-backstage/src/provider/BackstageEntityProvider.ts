@@ -17,7 +17,7 @@ import {
 } from '@backstage/plugin-catalog-node';
 import lodash from 'lodash';
 import yaml from 'yaml';
-
+import fetch from 'node-fetch';
 import * as uuid from 'uuid';
 import { Logger } from 'winston';
 import { GithubRepository, PackageJson } from '../types';
