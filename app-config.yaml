@@ -127,3 +127,10 @@ techdocs:
     runIn: 'local'
   publisher:
     type: 'local'
+
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters: []
