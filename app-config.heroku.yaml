@@ -39,7 +39,9 @@ kubernetes:
     - type: 'config'
       clusters:
        - name: demo-cluster
-         url: https://demo.backstage.io
+         url: ${K8S_URL}
          authProvider: 'serviceAccount'
+         caData: ${K8S_CA_DATA}
          serviceAccountToken: ${KUBERNETES_SERVICE_ACCOUNT_TOKEN}
+
 
