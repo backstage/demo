@@ -31,3 +31,17 @@ techdocs:
       credentials: ${TECHDOCS_GCS_CREDENTIALS}
       projectId: ${TECHDOCS_GCS_PROJECT_ID}
       bucketName: ${TECHDOCS_GCS_BUCKET}
+
+kubernetes:
+  serviceLocatorMethod:
+    type: 'multiTenant'
+  clusterLocatorMethods:
+    - type: 'config'
+      clusters:
+       - name: demo-cluster
+         url: ${K8S_URL}
+         authProvider: 'serviceAccount'
+         caData: ${K8S_CA_DATA}
+         serviceAccountToken: ${KUBERNETES_SERVICE_ACCOUNT_TOKEN}
+
+
