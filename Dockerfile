@@ -11,7 +11,7 @@ COPY .yarn ./.yarn
 COPY .yarnrc.yml ./
 
 COPY packages packages
-# COPY plugins plugins
+COPY plugins plugins
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
