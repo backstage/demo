@@ -1,0 +1,138 @@
+# yaml-language-server: $schema=https://json.schemastore.org/yamllint.json
+
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: demo-template
+  title: Demo Template
+  description: Software Template used to demo Scaffolder features
+spec:
+  owner: backstage/maintainers
+  type: website
+
+  parameters:
+    - title: Fill in some steps
+      required:
+        - name
+        - mode
+        - topics
+      properties:
+        name:
+          title: What is your Name?
+          description: Enter your name
+          type: string
+          ui:autofocus: true
+        mode:
+          title: What do you prefer Light or Dark mode?
+          description: Select the mode your prefer
+          type: string
+          ui:widget: radio
+          enum:
+            - light
+            - dark
+          enumNames:
+            - Light
+            - Dark
+        topics:
+          title: What Software Template topics are you interested in?
+          description: Select one ore more Software Template topics you are interested in
+          type: array
+          uniqueItems: true
+          ui:widget: checkboxes
+          items:
+            type: string
+            enum:
+              - writing-templates
+              - input-examples
+              - builtin-actions
+              - writing-custom-actions
+              - writing-custom-field-extensions
+              - adding-your-own-templates
+            enumNames:
+              - Writing Templates
+              - Input Examples
+              - Builtin Actions
+              - Writing Custom Actions
+              - Writing Custom Field Extensions
+              - Adding Your Own Templates
+
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: This Has Been Completed For You
+          description: The values are read-only for demo purposes
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            requestUserCredentials:
+              secretsKey: USER_OAUTH_TOKEN
+              additionalScopes:
+                github:
+                  - workflow
+                  - administration
+            allowedHosts:
+              - github.com
+            # allowedRepos:
+            #   - demo-template
+
+  steps:
+    - id: list-inputs
+      name: List Inputs
+      action: debug:log
+      input:
+        message: |
+          The following inputs were provided: 
+            - Name: ${{ parameters.name }}
+            - Mode: ${{ parameters.mode }}
+            - Topics: ${{ parameters.topics }}
+          The following inputs were pre-selected:
+            - Repo URL: ${{ parameters.repoUrl }}
+            - Owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
+            - Repo: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+    - id: fetch-skeleton
+      name: Fetch Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{parameters.name}}
+          mode: ${{parameters.mode}}
+          topics: ${{parameters.topics}}
+          owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
+          repo: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        repoUrl: ${{ parameters.repoUrl }}
+        token: ${{ secrets.USER_OAUTH_TOKEN }}
+        repoVisibility: public
+        defaultBranch: main
+        description: Repo Created by Demo Template
+    - id: enable-pages
+      name: Enable Pages
+      action: github:pages
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        buildType: 'workflow'
+        sourceBranch: main
+        sourcePath: '/'
+        token: ${{ secrets.USER_OAUTH_TOKEN }}
+    - id: dispatch-workflow
+      name: Dispatch Github Action Workflow
+      action: github:actions:dispatch
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        workflowId: pages.yml
+        branchOrTagName: main
+        token: ${{ secrets.USER_OAUTH_TOKEN }}
+
+  output:
+    links:
+      - url: ${{steps.publish.output.remoteUrl}}
+        title: 'GitHub Repository'
+      - url: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}/actions/workflows/pages.yml
+        title: 'Github Action Workflow'
