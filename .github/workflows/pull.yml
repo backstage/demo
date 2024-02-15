@@ -43,19 +43,24 @@ jobs:
       # End of yarn setup
 
       - name: knip
-        run: yarn knip      
+        run: yarn knip
 
       - name: lint
         run: yarn backstage-cli repo lint
 
       - name: deprecations
-        run: yarn backstage-cli repo list-deprecations  
+        run: yarn backstage-cli repo list-deprecations
 
       - name: type checking and declarations
         run: yarn tsc:full
 
       - name: tests
-        run: yarn backstage-cli repo test 
+        run: yarn backstage-cli repo test
+
+      - name: config check
+        run: |
+          yarn backstage-cli config:check --lax --strict
+          yarn backstage-cli config:check --lax --strict --config app-config.yaml --config app-config.heroku.yaml
 
       - name: docker build
         env:
