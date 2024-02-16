@@ -26,11 +26,7 @@ import { UrlReader } from '@backstage/backend-common';
 import { sync as globSync } from 'glob';
 import fs from 'fs-extra';
 import path from 'path';
-import {
-  BACKSTAGE_ENTITY_PROVIDER_DEFAULT_HOST,
-  BACKSTAGE_ENTITY_PROVIDER_DEFAULT_NAMESPACE,
-  BACKSTAGE_ENTITY_PROVIDER_DEFAULT_ORGANIZATION,
-} from '../constants';
+import { defaults } from '../constants';
 
 export class BackstageEntityProvider implements EntityProvider {
   private readonly logger: Logger;
@@ -46,40 +42,24 @@ export class BackstageEntityProvider implements EntityProvider {
     options: {
       logger: Logger;
       urlReader: UrlReader;
-      schedule?: TaskRunner;
-      scheduler?: PluginTaskScheduler;
+      scheduler: PluginTaskScheduler;
     },
   ): BackstageEntityProvider {
-    if (!options.schedule && !options.scheduler) {
-      throw new Error('Either schedule or scheduler must be provided.');
-    }
-
     const integrations = ScmIntegrations.fromConfig(config);
-    const integration = integrations.github.byHost(
-      BACKSTAGE_ENTITY_PROVIDER_DEFAULT_HOST,
-    );
+    const integration = integrations.github.byHost(defaults.host);
 
     if (!integration) {
       throw new Error(
-        `There is no GitHub config that matches host ${BACKSTAGE_ENTITY_PROVIDER_DEFAULT_HOST}. Please add a configuration entry for it under 'integrations.github'`,
+        `There is no GitHub config that matches host ${defaults.host}. Please add a configuration entry for it under 'integrations.github'`,
       );
     }
 
-    const configSchedule = config.has('backstageEntityProvider.schedule')
-      ? readTaskScheduleDefinitionFromConfig(
-          config.getConfig('backstageEntityProvider.schedule'),
-        )
-      : undefined;
-
-    if (!options.schedule && !configSchedule) {
-      throw new Error(
-        `No schedule provided neither via code nor config for the Backstage Entity Provider`,
-      );
-    }
+    const configSchedule = readTaskScheduleDefinitionFromConfig(
+      config.getConfig('catalog.providers.backstage.schedule'),
+    );
 
     const taskRunner =
-      options.schedule ??
-      options.scheduler!.createScheduledTaskRunner(configSchedule!);
+      options.scheduler!.createScheduledTaskRunner(configSchedule);
 
     return new BackstageEntityProvider(
       integration,
@@ -145,7 +125,9 @@ export class BackstageEntityProvider implements EntityProvider {
     if (!this.connection) {
       throw new Error('Not initialized');
     }
-    const enabled = this.config.getBoolean('backstageEntityProvider.enabled');
+    const enabled = this.config.getBoolean(
+      'catalog.providers.backstage.enabled',
+    );
     if (!enabled) {
       logger.warn(
         'Backstage entity provider is currently disabled via config, exiting',
@@ -243,14 +225,14 @@ export class BackstageEntityProvider implements EntityProvider {
 
   private async getAllRepositories(): Promise<GithubRepository[]> {
     const host = this.integration.host;
-    const orgUrl = `https://${host}/${BACKSTAGE_ENTITY_PROVIDER_DEFAULT_ORGANIZATION}`;
+    const orgUrl = `https://${host}/${defaults.organization}`;
 
     const credentials = await this.githubCredentialsProvider.getCredentials({
       url: orgUrl,
     });
 
     // TODO: (awanlin) - Default page size is 30, there are 22 repos ast of December 9, 2023
-    const ghApiUrl = `https://api.github.com/orgs/${BACKSTAGE_ENTITY_PROVIDER_DEFAULT_ORGANIZATION}/repos`;
+    const ghApiUrl = `https://api.github.com/orgs/${defaults.organization}/repos`;
     const response = await fetch(ghApiUrl, {
       headers: {
         ...credentials?.headers,
@@ -310,7 +292,7 @@ export class BackstageEntityProvider implements EntityProvider {
 
     for (const rawEntity of rawEntities) {
       const annotations: Record<string, string> =
-        rawEntity.metadata.annotations ?? {};
+        (rawEntity.metadata.annotations ??= {});
 
       annotations['backstage.io/managed-by-location'] =
         `url:${baseUrl}/blob/${repository.default_branch}/${catalogInfoFilePath}`;
@@ -323,9 +305,7 @@ export class BackstageEntityProvider implements EntityProvider {
       annotations['backstage.io/source-location'] =
         `url:${baseUrl}/blob/${repository.default_branch}/${subPath}`;
 
-      rawEntity.metadata.annotations = annotations;
-      rawEntity.metadata.namespace =
-        BACKSTAGE_ENTITY_PROVIDER_DEFAULT_NAMESPACE;
+      rawEntity.metadata.namespace = defaults.namespace;
       cleanEntities.push(rawEntity);
     }
 
@@ -355,7 +335,7 @@ export class BackstageEntityProvider implements EntityProvider {
           );
           dependencies.forEach((dep, index) => {
             dependencies[index] =
-              `component:${BACKSTAGE_ENTITY_PROVIDER_DEFAULT_NAMESPACE}/${dep.replace(
+              `component:${defaults.namespace}/${dep.replace(
                 '@backstage/',
                 'backstage-',
               )}`;

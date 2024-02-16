@@ -1,3 +1,5 @@
-export const BACKSTAGE_ENTITY_PROVIDER_DEFAULT_ORGANIZATION = 'backstage';
-export const BACKSTAGE_ENTITY_PROVIDER_DEFAULT_HOST = 'github.com';
-export const BACKSTAGE_ENTITY_PROVIDER_DEFAULT_NAMESPACE = 'backstage';
+export const defaults = {
+  organization: 'backstage',
+  host: 'github.com',
+  namespace: 'backstage',
+} as const;

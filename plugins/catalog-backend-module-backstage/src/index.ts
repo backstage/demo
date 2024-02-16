@@ -1,4 +1,3 @@
-/***/
 /**
  * The backstage entity provider backend module for the catalog plugin.
  *

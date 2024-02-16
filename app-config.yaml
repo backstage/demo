@@ -103,6 +103,13 @@ catalog:
     - type: url
       target: https://github.com/mclarke47/dice-roller/blob/master/catalog-info.yaml
 
+  providers:
+    backstage:
+      enabled: true
+      schedule:
+        frequency: { minutes: 360 } # runs every 6 hours
+        timeout: { minutes: 5 }
+
 costInsights:
   engineerCost: 200000
   products:
@@ -156,9 +163,3 @@ explore:
       url: '/graphiql'
       image: '/graphiql.png'
       tags: ['graphql', 'dev']
-
-backstageEntityProvider:
-  enabled: false
-  schedule:
-    frequency: { minutes: 360 } # runs every 6 hours
-    timeout: { minutes: 5 }
