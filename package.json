@@ -24,8 +24,8 @@
     "prettier:check": "prettier --check .",
     "new": "backstage-cli new --scope internal",
     "knip": "knip",
-    "prepare": "husky install",
-    "postinstall": "husky install || true"
+    "prepare": "husky",
+    "postinstall": "husky || true"
   },
   "workspaces": {
     "packages": [
@@ -48,7 +48,7 @@
     "concurrently": "^8.0.0",
     "eslint": "^8.6.0",
     "fs-extra": "11.2.0",
-    "husky": "^8.0.0",
+    "husky": "^9.0.0",
     "jest": "^29.7.0",
     "knip": "^5.0.0",
     "lint-staged": "^15.0.0",
@@ -62,7 +62,7 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,md}": [
+    "*.{json,md,yaml,yml}": [
       "prettier --write"
     ]
   },
