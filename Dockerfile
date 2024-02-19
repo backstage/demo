@@ -105,7 +105,8 @@ ENV PORT 7007
 # This switches many Node.js dependencies to production mode.
 ENV NODE_ENV production
 # Sets the max memory size of V8's old memory section
-ENV NODE_OPTIONS "--max-old-space-size=1000"
+# Also disables node snapshot for Node 20 to work with the Scaffolder
+ENV NODE_OPTIONS "--max-old-space-size=1000 --no-node-snapshot"
 
 # Default is 'heroku', for local testing pass in 'local'
 ENV ENVIRONMENT_CONFIG=${ENVIRONMENT_CONFIG}
