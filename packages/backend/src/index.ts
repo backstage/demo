@@ -1,6 +1,5 @@
 import { createBackend } from '@backstage/backend-defaults';
 import { graphqlPlugin } from '@frontside/backstage-plugin-graphql-backend';
-import { graphqlModuleCatalog } from '@frontside/backstage-plugin-graphql-backend-module-catalog';
 
 const backend = createBackend();
 
@@ -16,7 +15,9 @@ backend.add(import('@backstage/plugin-explore-backend'));
 
 // TODO:(awanlin) update with import when available
 backend.add(graphqlPlugin);
-backend.add(graphqlModuleCatalog());
+backend.add(
+  import('@frontside/backstage-plugin-graphql-backend-module-catalog'),
+);
 backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
