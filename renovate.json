@@ -1,21 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":disableDependencyDashboard", ":gitSignOff"],
+  "extends": ["config:best-practices", ":gitSignOff"],
+  "ignorePresets": [":pinDevDependencies"],
   "postUpdateOptions": ["yarnDedupeHighest"],
   "rangeStrategy": "update-lockfile",
   "labels": ["dependencies"],
   "packageRules": [
     {
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["major"]
-    },
-    {
-      "matchUpdateTypes": ["minor"],
-      "addLabels": ["minor"]
-    },
-    {
-      "matchUpdateTypes": ["patch"],
-      "addLabels": ["patch"]
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "addLabels": ["{{ updateType }}"]
     },
     {
       "matchSourceUrls": ["https://github.com/yarnpkg/berry"],
