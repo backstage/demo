@@ -1,1 +1,1 @@
-export { createGithubPagesAction} from './createGithubPagesAction'
+export { createGithubPagesAction } from './createGithubPagesAction';
