@@ -24,19 +24,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout backstage'
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
           fetch-depth: 1
 
       # Beginning of yarn setup
       - name: use node.js 20.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
         with:
           node-version: 20.x
           registry-url: https://registry.npmjs.org/ # Needed for auth
       - name: cache all node_modules
         id: cache-modules
-        uses: actions/cache@v4
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
@@ -45,7 +45,7 @@ jobs:
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       - name: cache global yarn cache
-        uses: actions/cache@v4
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4
         if: steps.cache-modules.outputs.cache-hit != 'true'
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
@@ -95,7 +95,7 @@ jobs:
           git push origin topic/v${{ steps.set_release_name.outputs.release_version }}
       - name: 'Create Pull Request'
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
         with:
           github-token: ${{secrets.GH_SERVICE_ACCOUNT_TOKEN}}
           script: |
