@@ -1,5 +1,4 @@
 import { createBackend } from '@backstage/backend-defaults';
-import { graphqlPlugin } from '@frontside/backstage-plugin-graphql-backend';
 
 const backend = createBackend();
 
@@ -13,9 +12,7 @@ backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
 backend.add(import('@backstage/plugin-explore-backend'));
-
-// TODO:(awanlin) update with import when available
-backend.add(graphqlPlugin);
+backend.add(import('@frontside/backstage-plugin-graphql-backend'));
 backend.add(
   import('@frontside/backstage-plugin-graphql-backend-module-catalog'),
 );
@@ -26,12 +23,12 @@ backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-explore/alpha'));
+
 // TODO:(awanlin) enable when issue causing crashes is resolved
 // backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
 backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 backend.add(import('./extensions/docsBuildStrategy'));
-
 backend.add(import('@backstage/plugin-todo-backend'));
 
 backend.start();
