@@ -61,8 +61,8 @@ spec:
         - repoUrl
       properties:
         repoUrl:
-          title: This Has Been Completed For You
-          description: The values are read-only for demo purposes
+          title: Enter an Owner and Repo Name
+          description: This will create a new repo in the location you provide using your GitHub credentials
           type: string
           ui:field: RepoUrlPicker
           ui:options:
@@ -74,8 +74,6 @@ spec:
                   - administration
             allowedHosts:
               - github.com
-            # allowedRepos:
-            #   - demo-template
 
   steps:
     - id: list-inputs

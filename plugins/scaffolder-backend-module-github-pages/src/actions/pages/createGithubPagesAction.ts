@@ -8,8 +8,8 @@ import {
   createTemplateAction,
   parseRepoUrl,
 } from '@backstage/plugin-scaffolder-node';
-import { getOctokitOptions } from './helpers';
 import { examples } from './createGithubPagesAction.examples';
+import { getOctokitOptions } from '@backstage/plugin-scaffolder-backend-module-github';
 
 /**
  * Creates a new action that initializes a git repository of the content in the workspace
