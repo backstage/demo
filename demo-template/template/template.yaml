@@ -94,12 +94,13 @@ spec:
       action: fetch:template
       input:
         url: ./skeleton
+        token: ${{ secrets.USER_OAUTH_TOKEN or false }}
         values:
           name: ${{parameters.name}}
           mode: ${{parameters.mode}}
           topics: ${{parameters.topics}}
-          owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
-          repo: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          owner: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          repo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
     - id: publish
       name: Publish
       action: publish:github
@@ -132,5 +133,5 @@ spec:
     links:
       - url: ${{steps.publish.output.remoteUrl}}
         title: 'GitHub Repository'
-      - url: https://github.com/${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}/actions/workflows/pages.yml
+      - url: https://github.com/${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}/actions/workflows/pages.yml
         title: 'Github Action Workflow'
