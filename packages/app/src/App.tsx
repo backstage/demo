@@ -70,6 +70,9 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  components: {
+    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
+  },
   themes: [
     {
       id: 'light',
