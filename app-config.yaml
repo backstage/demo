@@ -57,7 +57,8 @@ integrations:
 auth:
   environment: development
   providers:
-    guest: {}
+    guest:
+      userEntityRef: user:default/guest
     github:
       development:
         clientId: ${GITHUB_DEVELOPMENT_CLIENT_ID}
