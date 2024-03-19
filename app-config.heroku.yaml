@@ -16,7 +16,9 @@ auth:
   experimentalExtraAllowedOrigins:
     - https://pr-+(0|1|2|3|4|5|6|7|8|9)-deployment-+(0|1|2|3|4|5|6|7|8|9)-backstage.app.uffizzi.com
   providers:
-    guest: {}
+    guest:
+      userEntityRef: user:default/guest
+      dangerouslyAllowOutsideDevelopment: true
     github:
       production:
         clientId: ${GITHUB_PRODUCTION_CLIENT_ID}

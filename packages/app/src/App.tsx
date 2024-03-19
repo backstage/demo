@@ -1,6 +1,10 @@
 import { badgesPlugin } from './plugins';
 
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import {
+  AlertDisplay,
+  OAuthRequestDialog,
+  ProxiedSignInPage,
+} from '@backstage/core-components';
 import { AppRouter, FeatureFlagged, FlatRoutes } from '@backstage/core-app-api';
 import {
   CatalogEntityPage,
@@ -47,6 +51,9 @@ import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 const app = createApp({
   apis,
   plugins: [badgesPlugin],
+  components: {
+    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
+  },
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
