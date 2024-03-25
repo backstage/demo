@@ -2976,7 +2976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/backend-plugin-api@npm:^0.6.10, @backstage/backend-plugin-api@npm:^0.6.14, @backstage/backend-plugin-api@npm:^0.6.7":
+"@backstage/backend-plugin-api@npm:^0.6.10, @backstage/backend-plugin-api@npm:^0.6.14, @backstage/backend-plugin-api@npm:^0.6.14-next.1, @backstage/backend-plugin-api@npm:^0.6.7":
   version: 0.6.14
   resolution: "@backstage/backend-plugin-api@npm:0.6.14"
   dependencies:
@@ -3025,7 +3025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/catalog-model@npm:^1.4.3, @backstage/catalog-model@npm:^1.4.5":
+"@backstage/catalog-model@npm:^1.4.3, @backstage/catalog-model@npm:^1.4.5, @backstage/catalog-model@npm:^1.4.5-next.0":
   version: 1.4.5
   resolution: "@backstage/catalog-model@npm:1.4.5"
   dependencies:
@@ -3044,7 +3044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/cli-node@npm:^0.2.3, @backstage/cli-node@npm:^0.2.4":
+"@backstage/cli-node@npm:^0.2.3, @backstage/cli-node@npm:^0.2.4, @backstage/cli-node@npm:^0.2.4-next.0":
   version: 0.2.4
   resolution: "@backstage/cli-node@npm:0.2.4"
   dependencies:
@@ -3057,6 +3057,139 @@ __metadata:
     semver: ^7.5.3
     zod: ^3.22.4
   checksum: 071ae325c8fb16cd9dac2b811461ca8c617fa601879baf7048afa780a5612064aef7a281d42dab36e52b58acb97f90f509fea3627437bbb7c6934d0f0b8c6fe5
+  languageName: node
+  linkType: hard
+
+"@backstage/cli@npm:^0.25.3-next.1":
+  version: 0.25.3-next.2
+  resolution: "@backstage/cli@npm:0.25.3-next.2"
+  dependencies:
+    "@backstage/catalog-model": ^1.4.5-next.0
+    "@backstage/cli-common": ^0.1.13
+    "@backstage/cli-node": ^0.2.4-next.0
+    "@backstage/config": ^1.2.0-next.1
+    "@backstage/config-loader": ^1.7.0-next.1
+    "@backstage/errors": ^1.2.4-next.0
+    "@backstage/eslint-plugin": ^0.1.6-next.0
+    "@backstage/integration": ^1.9.1-next.2
+    "@backstage/release-manifests": ^0.0.11
+    "@backstage/types": ^1.1.1
+    "@manypkg/get-packages": ^1.1.3
+    "@octokit/graphql": ^5.0.0
+    "@octokit/graphql-schema": ^13.7.0
+    "@octokit/oauth-app": ^4.2.0
+    "@octokit/request": ^6.0.0
+    "@pmmmwh/react-refresh-webpack-plugin": ^0.5.7
+    "@rollup/plugin-commonjs": ^25.0.0
+    "@rollup/plugin-json": ^6.0.0
+    "@rollup/plugin-node-resolve": ^15.0.0
+    "@rollup/plugin-yaml": ^4.0.0
+    "@spotify/eslint-config-base": ^14.0.0
+    "@spotify/eslint-config-react": ^14.0.0
+    "@spotify/eslint-config-typescript": ^14.0.0
+    "@sucrase/webpack-loader": ^2.0.0
+    "@svgr/core": 6.5.x
+    "@svgr/plugin-jsx": 6.5.x
+    "@svgr/plugin-svgo": 6.5.x
+    "@svgr/rollup": 6.5.x
+    "@svgr/webpack": 6.5.x
+    "@swc/core": ^1.3.46
+    "@swc/helpers": ^0.5.0
+    "@swc/jest": ^0.2.22
+    "@types/jest": ^29.5.11
+    "@types/webpack-env": ^1.15.2
+    "@typescript-eslint/eslint-plugin": ^6.12.0
+    "@typescript-eslint/parser": ^6.7.2
+    "@yarnpkg/lockfile": ^1.1.0
+    "@yarnpkg/parsers": ^3.0.0-rc.4
+    bfj: ^8.0.0
+    buffer: ^6.0.3
+    chalk: ^4.0.0
+    chokidar: ^3.3.1
+    commander: ^12.0.0
+    cross-fetch: ^4.0.0
+    cross-spawn: ^7.0.3
+    css-loader: ^6.5.1
+    ctrlc-windows: ^2.1.0
+    diff: ^5.0.0
+    esbuild: ^0.20.0
+    esbuild-loader: ^4.0.0
+    eslint: ^8.6.0
+    eslint-config-prettier: ^9.0.0
+    eslint-formatter-friendly: ^7.0.0
+    eslint-plugin-deprecation: ^2.0.0
+    eslint-plugin-import: ^2.25.4
+    eslint-plugin-jest: ^27.0.0
+    eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-react: ^7.28.0
+    eslint-plugin-react-hooks: ^4.3.0
+    eslint-plugin-unused-imports: ^3.0.0
+    eslint-webpack-plugin: ^4.0.0
+    express: ^4.17.1
+    fork-ts-checker-webpack-plugin: ^9.0.0
+    fs-extra: ^11.2.0
+    git-url-parse: ^14.0.0
+    glob: ^7.1.7
+    global-agent: ^3.0.0
+    handlebars: ^4.7.3
+    html-webpack-plugin: ^5.3.1
+    inquirer: ^8.2.0
+    jest: ^29.7.0
+    jest-css-modules: ^2.1.0
+    jest-environment-jsdom: ^29.0.2
+    jest-runtime: ^29.0.2
+    json-schema: ^0.4.0
+    lodash: ^4.17.21
+    mini-css-extract-plugin: ^2.4.2
+    minimatch: ^9.0.0
+    node-fetch: ^2.6.7
+    node-libs-browser: ^2.2.1
+    npm-packlist: ^5.0.0
+    ora: ^5.3.0
+    p-queue: ^6.6.2
+    postcss: ^8.1.0
+    process: ^0.11.10
+    react-dev-utils: ^12.0.0-next.60
+    react-refresh: ^0.14.0
+    recursive-readdir: ^2.2.2
+    rollup: ^2.60.2
+    rollup-plugin-dts: ^4.0.1
+    rollup-plugin-esbuild: ^4.7.2
+    rollup-plugin-postcss: ^4.0.0
+    rollup-pluginutils: ^2.8.2
+    run-script-webpack-plugin: ^0.2.0
+    semver: ^7.5.3
+    style-loader: ^3.3.1
+    sucrase: ^3.20.2
+    swc-loader: ^0.2.3
+    tar: ^6.1.12
+    terser-webpack-plugin: ^5.1.3
+    tsx: ^4.0.0
+    util: ^0.12.3
+    webpack: ^5.70.0
+    webpack-dev-server: ^4.7.3
+    webpack-node-externals: ^3.0.0
+    yaml: ^2.0.0
+    yml-loader: ^2.1.0
+    yn: ^4.0.0
+    zod: ^3.22.4
+  peerDependencies:
+    "@vitejs/plugin-react": ^4.0.4
+    vite: ^4.4.9
+    vite-plugin-html: ^3.2.0
+    vite-plugin-node-polyfills: ^0.21.0
+  peerDependenciesMeta:
+    "@vitejs/plugin-react":
+      optional: true
+    vite:
+      optional: true
+    vite-plugin-html:
+      optional: true
+    vite-plugin-node-polyfills:
+      optional: true
+  bin:
+    backstage-cli: bin/backstage-cli
+  checksum: 762a94181b9cd7311ce3d212f605f58b627792d168d538498ec886aeb5be727ed9fb4a6b2a815c1fdcea136159e15a6bfb3ccde73972b2df770c3ffb602b5c69
   languageName: node
   linkType: hard
 
@@ -3194,7 +3327,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/config-loader@npm:^1.5.3, @backstage/config-loader@npm:^1.6.2, @backstage/config-loader@npm:^1.7.0":
+"@backstage/config-loader@npm:^1.5.3, @backstage/config-loader@npm:^1.6.2, @backstage/config-loader@npm:^1.7.0, @backstage/config-loader@npm:^1.7.0-next.1":
   version: 1.7.0
   resolution: "@backstage/config-loader@npm:1.7.0"
   dependencies:
@@ -3218,7 +3351,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/config@npm:^1.1.1, @backstage/config@npm:^1.2.0":
+"@backstage/config@npm:^1.1.1, @backstage/config@npm:^1.2.0, @backstage/config@npm:^1.2.0-next.1":
   version: 1.2.0
   resolution: "@backstage/config@npm:1.2.0"
   dependencies:
@@ -3353,7 +3486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/errors@npm:^1.2.3, @backstage/errors@npm:^1.2.4":
+"@backstage/errors@npm:^1.2.3, @backstage/errors@npm:^1.2.4, @backstage/errors@npm:^1.2.4-next.0":
   version: 1.2.4
   resolution: "@backstage/errors@npm:1.2.4"
   dependencies:
@@ -3363,7 +3496,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/eslint-plugin@npm:^0.1.6":
+"@backstage/eslint-plugin@npm:^0.1.6, @backstage/eslint-plugin@npm:^0.1.6-next.0":
   version: 0.1.6
   resolution: "@backstage/eslint-plugin@npm:0.1.6"
   dependencies:
@@ -3426,7 +3559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/integration@npm:^1.7.2, @backstage/integration@npm:^1.9.1":
+"@backstage/integration@npm:^1.7.2, @backstage/integration@npm:^1.9.1, @backstage/integration@npm:^1.9.1-next.1, @backstage/integration@npm:^1.9.1-next.2":
   version: 1.9.1
   resolution: "@backstage/integration@npm:1.9.1"
   dependencies:
@@ -4567,7 +4700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-backend-module-github@npm:^0.2.4":
+"@backstage/plugin-scaffolder-backend-module-github@npm:^0.2.4, @backstage/plugin-scaffolder-backend-module-github@npm:^0.2.4-next.1":
   version: 0.2.4
   resolution: "@backstage/plugin-scaffolder-backend-module-github@npm:0.2.4"
   dependencies:
@@ -4672,7 +4805,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-node@npm:^0.4.0":
+"@backstage/plugin-scaffolder-node@npm:^0.4.0, @backstage/plugin-scaffolder-node@npm:^0.4.0-next.1":
   version: 0.4.0
   resolution: "@backstage/plugin-scaffolder-node@npm:0.4.0"
   dependencies:
@@ -6753,6 +6886,21 @@ __metadata:
   checksum: 2fc11503361b5fb4f14714c700c02a3f4c7c93e9acd6b87a29f62c522d90470f364d6161b03d1cc618b979f2ae02aed1106fd29d302695d8927e2fc8165ba8ee
   languageName: node
   linkType: hard
+
+"@internal/backstage-plugin-scaffolder-backend-module-github-pages@^0.1.0, @internal/backstage-plugin-scaffolder-backend-module-github-pages@workspace:plugins/scaffolder-backend-module-github-pages":
+  version: 0.0.0-use.local
+  resolution: "@internal/backstage-plugin-scaffolder-backend-module-github-pages@workspace:plugins/scaffolder-backend-module-github-pages"
+  dependencies:
+    "@backstage/backend-plugin-api": ^0.6.14-next.1
+    "@backstage/cli": ^0.25.3-next.1
+    "@backstage/errors": ^1.2.4-next.0
+    "@backstage/integration": ^1.9.1-next.1
+    "@backstage/plugin-scaffolder-backend-module-github": ^0.2.4-next.1
+    "@backstage/plugin-scaffolder-node": ^0.4.0-next.1
+    octokit: ^3.1.2
+    yaml: ^2.0.0
+  languageName: unknown
+  linkType: soft
 
 "@ioredis/commands@npm:^1.1.1":
   version: 1.2.0
@@ -10145,12 +10293,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@spotify/eslint-config-base@npm:^14.0.0":
+  version: 14.1.6
+  resolution: "@spotify/eslint-config-base@npm:14.1.6"
+  peerDependencies:
+    eslint: ">=7.x"
+  checksum: be620e179dcdb3e95e5825c133193a7194db1829badbdfcf334dd88cbdccf5cc9889facb6a3d3bb4956f7568ded4dd419d3bd3f9c4e6db2c0da977795461bcba
+  languageName: node
+  linkType: hard
+
 "@spotify/eslint-config-base@npm:^15.0.0":
   version: 15.0.0
   resolution: "@spotify/eslint-config-base@npm:15.0.0"
   peerDependencies:
     eslint: ">=7.x"
   checksum: 265a4d807b5236030466a3a8373f41e51a9b4939b450d47ed2cb4704485004a5d64b2f9e024e865b4f5eea61ab6bbe439442e4ca2ac06e52a3b5c7e94c2d6b27
+  languageName: node
+  linkType: hard
+
+"@spotify/eslint-config-react@npm:^14.0.0":
+  version: 14.1.6
+  resolution: "@spotify/eslint-config-react@npm:14.1.6"
+  peerDependencies:
+    eslint: ">=8.x"
+    eslint-plugin-jsx-a11y: 6.x
+    eslint-plugin-react: ">=7.7.0 <8"
+    eslint-plugin-react-hooks: ^4.0.0
+  checksum: e85a52eec656ab7013c7ab8726c4d920b6681a9cc0853276700f340af58675dc1ccf19ec16a81145b1966d0f5aaaf8aaf5c95f19e3cd6d2cf4669d08261ec3ba
   languageName: node
   linkType: hard
 
@@ -10163,6 +10332,17 @@ __metadata:
     eslint-plugin-react: ">=7.7.0 <8"
     eslint-plugin-react-hooks: ^4.0.0
   checksum: 42e16f63d51b2230d2e4eba6524d2d9278d480827c5d2ab32f96253bafd4d8ceb87c37d8429601e36642ff30c86b92011ad4efd26c83db4037478ad118497cce
+  languageName: node
+  linkType: hard
+
+"@spotify/eslint-config-typescript@npm:^14.0.0":
+  version: 14.1.6
+  resolution: "@spotify/eslint-config-typescript@npm:14.1.6"
+  peerDependencies:
+    "@typescript-eslint/eslint-plugin": ">=5"
+    "@typescript-eslint/parser": ">=5"
+    eslint: ">=8.x"
+  checksum: cf29a2c356d40a1e6481b1a87525509127ee7b19cbd40c5f05d57081a3df73735c041117aa0ea3a41c4a6077216c88c98bfaadcd74836e30495f1ffc937321d8
   languageName: node
   linkType: hard
 
@@ -14005,6 +14185,7 @@ __metadata:
     "@backstage/plugin-todo-backend": ^0.3.12
     "@frontside/backstage-plugin-graphql-backend": ^0.1.2
     "@frontside/backstage-plugin-graphql-backend-module-catalog": ^0.2.0
+    "@internal/backstage-plugin-scaffolder-backend-module-github-pages": ^0.1.0
     app: ^0.0.0
     better-sqlite3: ^9.0.0
   languageName: unknown
@@ -17271,7 +17452,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.19.0":
+"esbuild@npm:^0.19.0, esbuild@npm:~0.19.10":
   version: 0.19.12
   resolution: "esbuild@npm:0.19.12"
   dependencies:
@@ -18844,7 +19025,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
+"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2, fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
@@ -18863,7 +19044,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.3#~builtin<compat/fsevents>":
   version: 2.3.3
   resolution: "fsevents@patch:fsevents@npm%3A2.3.3#~builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
@@ -19054,12 +19235,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:^4.7.0":
-  version: 4.7.2
-  resolution: "get-tsconfig@npm:4.7.2"
+"get-tsconfig@npm:^4.7.0, get-tsconfig@npm:^4.7.2":
+  version: 4.7.3
+  resolution: "get-tsconfig@npm:4.7.3"
   dependencies:
     resolve-pkg-maps: ^1.0.0
-  checksum: 172358903250eff0103943f816e8a4e51d29b8e5449058bdf7266714a908a48239f6884308bd3a6ff28b09f692b9533dbebfd183ab63e4e14f073cda91f1bca9
+  checksum: d124e6900f8beb3b71f215941096075223158d0abb09fb5daa8d83299f6c17d5e95a97d12847b387e9e716bb9bd256a473f918fb8020f3b1acc0b1e5c2830bbf
   languageName: node
   linkType: hard
 
@@ -24814,7 +24995,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"octokit@npm:^3.0.0":
+"octokit@npm:^3.0.0, octokit@npm:^3.1.2":
   version: 3.1.2
   resolution: "octokit@npm:3.1.2"
   dependencies:
@@ -30415,6 +30596,22 @@ __metadata:
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
   checksum: 1843f4c1b2e0f975e08c4c21caa4af4f7f65a12ac1b81b3b8489366826259323feb3fc7a243123453d2d1a02314205a7634e048d4a8009921da19f99755cdc48
+  languageName: node
+  linkType: hard
+
+"tsx@npm:^4.0.0":
+  version: 4.7.1
+  resolution: "tsx@npm:4.7.1"
+  dependencies:
+    esbuild: ~0.19.10
+    fsevents: ~2.3.3
+    get-tsconfig: ^4.7.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    tsx: dist/cli.mjs
+  checksum: 7f77294c0eee9a9b203f89eb299ee80b393d6b4bf79ec01b650502213a23ea08d0dfc52e938b302ef27c97b70557f7f5a590c3174a7e3c8f1140c668eea4a3a2
   languageName: node
   linkType: hard
 
