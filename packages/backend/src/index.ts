@@ -41,4 +41,8 @@ backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 backend.add(import('./extensions/docsBuildStrategy'));
 backend.add(import('@backstage-community/plugin-todo-backend'));
 
+backend.add(import('@backstage/plugin-events-backend/alpha'));
+backend.add(import('@backstage/plugin-signals-backend'));
+backend.add(import('@backstage/plugin-notifications-backend'));
+
 backend.start();
