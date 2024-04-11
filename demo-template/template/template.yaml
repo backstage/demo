@@ -1,0 +1,161 @@
+# yaml-language-server: $schema=https://json.schemastore.org/yamllint.json
+
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: demo-template
+  title: Demo Template
+  description: |
+    **tl;dr;** This demo template will ask some basic questions, create a GitHub repository, populate it with a landing page, enable GitHub Pages, 
+    and trigger a GitHub Action to deploy the landing page to GitHub Pages. The contents of the landing page 
+    are driven by the answers provided at the beginning of the template.
+
+    **Details what this template will do**:
+
+    1. To start it will ask for some inputs:
+        1. It will ask some basic questions such as: your name, if you like light or dark more, and what template topics your are 
+    interested in.
+        2. Then it will ask for an owner and repository name, at this point a GitHub popup will be triggered asking for the user's 
+    GitHub credentials as well. 
+    2. Now using the inputs provided it will take the following actions:
+        1. It will then create a GitHub repository using the provided GitHub credentials
+        2. Populate the repository with a [basic HTML landing page](https://github.com/backstage/demo/blob/topic/demo-template/demo-template/template/skeleton/index.html) and a [GitHub Action](https://github.com/backstage/demo/blob/topic/demo-template/demo-template/template/skeleton/.github/workflows/pages.yml). 
+        3. Then it will [enable GitHub Pages](https://github.com/awanlin/demo/blob/topic/demo-template/plugins/scaffolder-backend-module-github-pages/src/actions/pages/createGithubPagesAction.ts) on this new repository 
+        4. Using the included GitHub Action deploy the landing page to GitHub Pages.
+    3. Once completed it will output a link to the new repository and the GitHub Action workflow that was triggered. As well as a text reminder to delete the resulting repository.
+
+    **Note:** You will need to manually delete the resulting repository once you are done.
+spec:
+  owner: backstage/maintainers
+  type: website
+
+  parameters:
+    - title: Answer some questions
+      description: This section has a series of questions that will be used later on to modify the resulting landing page.
+      required:
+        - name
+        - mode
+        - topics
+      properties:
+        name:
+          title: What is your Name?
+          description: Enter your name
+          type: string
+          ui:autofocus: true
+        mode:
+          title: 'What do you prefer: Light or Dark mode?'
+          description: Select the mode your prefer
+          type: string
+          ui:widget: radio
+          enum:
+            - light
+            - dark
+          enumNames:
+            - Light
+            - Dark
+        topics:
+          title: What Software Template topics are you interested in?
+          description: Select one ore more Software Template topics you are interested in
+          type: array
+          uniqueItems: true
+          ui:widget: checkboxes
+          items:
+            type: string
+            enum:
+              - writing-templates
+              - input-examples
+              - builtin-actions
+              - writing-custom-actions
+              - writing-custom-field-extensions
+              - adding-your-own-templates
+            enumNames:
+              - Writing Templates
+              - Input Examples
+              - Builtin Actions
+              - Writing Custom Actions
+              - Writing Custom Field Extensions
+              - Adding Your Own Templates
+
+    - title: Choose a location
+      description: |
+        This section will ask for details about the Owner and Repository name which will then be used 
+        to create a repository in that location using your GitHub credentials.
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Enter an Owner and Repository Name
+          description: |
+            The Owner should be your GitHub username. The Repository name should be a name that is not one that exists already in your GitHub account.
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            requestUserCredentials:
+              secretsKey: USER_OAUTH_TOKEN
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: list-inputs
+      name: List Inputs
+      action: debug:log
+      input:
+        message: |
+          The following inputs were provided: 
+            - Name: ${{ parameters.name }}
+            - Mode: ${{ parameters.mode }}
+            - Topics: ${{ parameters.topics }}
+          The following inputs were pre-selected:
+            - Repo URL: ${{ parameters.repoUrl }}
+            - Owner: ${{ (parameters.repoUrl | parseRepoUrl).owner }}
+            - Repo: ${{ (parameters.repoUrl | parseRepoUrl).repo }}
+    - id: fetch-skeleton
+      name: Fetch Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        token: ${{ secrets.USER_OAUTH_TOKEN or false }}
+        values:
+          name: ${{parameters.name}}
+          mode: ${{parameters.mode}}
+          topics: ${{parameters.topics}}
+          owner: ${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}
+          repo: ${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        repoUrl: ${{ parameters.repoUrl }}
+        token: ${{ secrets.USER_OAUTH_TOKEN or false }}
+        repoVisibility: public
+        defaultBranch: main
+        description: Repository Created by Demo Template
+    - id: enable-pages
+      name: Enable Pages
+      action: github:pages
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        buildType: 'workflow'
+        sourceBranch: main
+        sourcePath: '/'
+        token: ${{ secrets.USER_OAUTH_TOKEN or false }}
+    - id: dispatch-workflow
+      name: Dispatch Github Action Workflow
+      action: github:actions:dispatch
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        workflowId: pages.yml
+        branchOrTagName: main
+        token: ${{ secrets.USER_OAUTH_TOKEN or false }}
+
+  output:
+    links:
+      - url: ${{steps.publish.output.remoteUrl}}
+        title: 'GitHub Repository'
+      - url: https://github.com/${{ parameters.repoUrl | parseRepoUrl | pick('owner') }}/${{ parameters.repoUrl | parseRepoUrl | pick('repo') }}/actions/workflows/pages.yml
+        title: 'Github Action Workflow'
+    text:
+      - title: Reminder to Delete Repository
+        content: |
+          **Note:** You will need to manually delete the resulting repository once you are done.
