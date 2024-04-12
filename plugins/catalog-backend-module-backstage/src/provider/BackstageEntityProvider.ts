@@ -19,7 +19,6 @@ import lodash from 'lodash';
 import yaml from 'yaml';
 import fetch from 'node-fetch';
 import * as uuid from 'uuid';
-import { Logger } from 'winston';
 import { GithubRepository, PackageJson } from '../types';
 import { ComponentEntity, Entity } from '@backstage/catalog-model';
 import { UrlReader } from '@backstage/backend-common';
@@ -27,9 +26,10 @@ import { sync as globSync } from 'glob';
 import fs from 'fs-extra';
 import path from 'path';
 import { defaults } from '../constants';
+import { LoggerService } from '@backstage/backend-plugin-api';
 
 export class BackstageEntityProvider implements EntityProvider {
-  private readonly logger: Logger;
+  private readonly logger: LoggerService;
   private readonly integration: GithubIntegrationConfig;
   private readonly urlReader: UrlReader;
   private readonly scheduleFn: () => Promise<void>;
@@ -40,7 +40,7 @@ export class BackstageEntityProvider implements EntityProvider {
   static fromConfig(
     config: Config,
     options: {
-      logger: Logger;
+      logger: LoggerService;
       urlReader: UrlReader;
       scheduler: PluginTaskScheduler;
     },
@@ -59,7 +59,7 @@ export class BackstageEntityProvider implements EntityProvider {
     );
 
     const taskRunner =
-      options.scheduler!.createScheduledTaskRunner(configSchedule);
+      options.scheduler.createScheduledTaskRunner(configSchedule);
 
     return new BackstageEntityProvider(
       integration,
@@ -72,7 +72,7 @@ export class BackstageEntityProvider implements EntityProvider {
 
   private constructor(
     integration: GithubIntegration,
-    logger: Logger,
+    logger: LoggerService,
     taskRunner: TaskRunner,
     urlReader: UrlReader,
     config: Config,
@@ -89,7 +89,7 @@ export class BackstageEntityProvider implements EntityProvider {
   }
 
   getProviderName(): string {
-    return `BackstageEntityProvider`;
+    return 'BackstageEntityProvider';
   }
 
   async connect(connection: EntityProviderConnection): Promise<void> {
@@ -111,17 +111,14 @@ export class BackstageEntityProvider implements EntityProvider {
           try {
             await this.refresh(logger);
           } catch (error) {
-            logger.error(
-              `${this.getProviderName()} refresh failed, ${error}`,
-              error,
-            );
+            logger.error(`${this.getProviderName()} refresh failed, ${error}`);
           }
         },
       });
     };
   }
 
-  async refresh(logger: Logger) {
+  async refresh(logger: LoggerService) {
     if (!this.connection) {
       throw new Error('Not initialized');
     }
@@ -166,37 +163,39 @@ export class BackstageEntityProvider implements EntityProvider {
         continue;
       }
 
-      for (const catalogInfoFile of catalogInfoFiles) {
-        const catalogInfoDir = path.join(fileDir, catalogInfoFile);
-        const rawEntities = await this.parseEntityYaml(catalogInfoDir);
-        const cleanEntities = this.cleanUpRawEntities(
-          rawEntities,
-          repository,
-          catalogInfoFile,
-        );
+      try {
+        for (const catalogInfoFile of catalogInfoFiles) {
+          const catalogInfoDir = path.join(fileDir, catalogInfoFile);
+          const rawEntities = await this.parseEntityYaml(catalogInfoDir);
+          const cleanEntities = this.cleanUpRawEntities(
+            rawEntities,
+            repository,
+            catalogInfoFile,
+          );
 
-        const mappedEntities: Entity[] = [];
-        for (const cleanEntity of cleanEntities) {
-          switch (cleanEntity.kind) {
-            case 'Component': {
-              const mappedComponent = await this.componentMapper(
-                cleanEntity,
-                repository,
-                catalogInfoDir,
-              );
-              mappedEntities.push(mappedComponent);
-              break;
+          const mappedEntities: Entity[] = [];
+          for (const cleanEntity of cleanEntities) {
+            switch (cleanEntity.kind) {
+              case 'Component': {
+                const mappedComponent = await this.componentMapper(
+                  cleanEntity,
+                  repository,
+                  catalogInfoDir,
+                );
+                mappedEntities.push(mappedComponent);
+                break;
+              }
+
+              default:
+                mappedEntities.push(cleanEntity);
             }
-
-            default:
-              mappedEntities.push(cleanEntity);
           }
+
+          entities.push(...mappedEntities);
         }
-
-        entities.push(...mappedEntities);
+      } finally {
+        await fs.remove(fileDir);
       }
-
-      await fs.remove(fileDir);
     }
 
     if (entities.length > 0) {
@@ -231,7 +230,7 @@ export class BackstageEntityProvider implements EntityProvider {
       url: orgUrl,
     });
 
-    // TODO: (awanlin) - Default page size is 30, there are 22 repos ast of December 9, 2023
+    // TODO: (awanlin) - Default page size is 30, there are 23 repos as of April 12, 2024
     const ghApiUrl = `https://api.github.com/orgs/${defaults.organization}/repos`;
     const response = await fetch(ghApiUrl, {
       headers: {

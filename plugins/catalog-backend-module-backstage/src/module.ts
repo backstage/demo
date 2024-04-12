@@ -2,7 +2,6 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
-import { loggerToWinstonLogger } from '@backstage/backend-common';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
 import { BackstageEntityProvider } from './provider/BackstageEntityProvider';
 
@@ -21,7 +20,7 @@ export const catalogModuleBackstageEntityProvider = createBackendModule({
       async init({ catalog, config, logger, scheduler, urlReader }) {
         catalog.addEntityProvider(
           BackstageEntityProvider.fromConfig(config, {
-            logger: loggerToWinstonLogger(logger),
+            logger: logger,
             urlReader,
             scheduler,
           }),
