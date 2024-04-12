@@ -109,7 +109,13 @@ catalog:
     - type: file
       target: ../../demo-template/template/template.yaml
       rules:
-        - allow: ['Template']   
+        - allow: ['Template']
+  providers:
+    backstage:
+      enabled: false
+      schedule:
+        frequency: { hours: 12 }
+        timeout: { minutes: 30 }
 
 costInsights:
   engineerCost: 200000

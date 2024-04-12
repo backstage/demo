@@ -1,0 +1,1 @@
+export { BackstageEntityProvider } from './BackstageEntityProvider';

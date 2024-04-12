@@ -118,7 +118,12 @@ const routes = (
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/catalog"
-      element={<CatalogIndexPage initiallySelectedFilter="all" />}
+      element={
+        <CatalogIndexPage
+          initiallySelectedFilter="all"
+          initiallySelectedNamespaces={['default']}
+        />
+      }
     />
     <Route
       path="/catalog/:namespace/:kind/:name"
