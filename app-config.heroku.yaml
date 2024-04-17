@@ -8,8 +8,11 @@ backend:
     port: ${PORT}
   auth:
     dangerouslyDisableDefaultAuthPolicy: true
-    keys:
-      - secret: ${BACKEND_AUTH_KEY}
+    externalAccess:
+      - type: legacy
+        options:
+          secret: ${BACKEND_AUTH_KEY}
+          subject: legacy-secret
 
 auth:
   environment: production
