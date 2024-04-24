@@ -1,11 +1,11 @@
 import {
   graphQlBrowseApiRef,
   GraphQLEndpoints,
-} from '@backstage/plugin-graphiql';
+} from '@backstage-community/plugin-graphiql';
 import {
   costInsightsApiRef,
   ExampleCostInsightsClient,
-} from '@backstage/plugin-cost-insights';
+} from '@backstage-community/plugin-cost-insights';
 import {
   ScmAuth,
   ScmIntegrationsApi,
