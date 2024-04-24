@@ -18,7 +18,7 @@ import {
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
 import React from 'react';
-import { ToolSearchResultListItem } from '@backstage/plugin-explore';
+import { ToolSearchResultListItem } from '@backstage-community/plugin-explore';
 import { useApi } from '@backstage/core-plugin-api';
 import {
   catalogApiRef,

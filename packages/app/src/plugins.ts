@@ -1,1 +1,1 @@
-export { badgesPlugin } from '@backstage/plugin-badges';
+export { badgesPlugin } from '@backstage-community/plugin-badges';

@@ -6,13 +6,13 @@ backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-auth-backend'));
 backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
-backend.add(import('@backstage/plugin-badges-backend'));
+backend.add(import('@backstage-community/plugin-badges-backend'));
 backend.add(import('@backstage/plugin-catalog-backend/alpha'));
 backend.add(import('@internal/plugin-catalog-backend-module-backstage'));
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
-backend.add(import('@backstage/plugin-explore-backend'));
+backend.add(import('@backstage-community/plugin-explore-backend'));
 backend.add(import('@frontside/backstage-plugin-graphql-backend'));
 backend.add(
   import('@frontside/backstage-plugin-graphql-backend-module-catalog'),
@@ -32,6 +32,6 @@ backend.add(import('@backstage/plugin-search-backend-module-explore/alpha'));
 
 backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 backend.add(import('./extensions/docsBuildStrategy'));
-backend.add(import('@backstage/plugin-todo-backend'));
+backend.add(import('@backstage-community/plugin-todo-backend'));
 
 backend.start();

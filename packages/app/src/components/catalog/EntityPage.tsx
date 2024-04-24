@@ -24,7 +24,7 @@ import {
   EntityProvidedApisCard,
   EntityProvidingComponentsCard,
 } from '@backstage/plugin-api-docs';
-import { EntityBadgesDialog } from '@backstage/plugin-badges';
+import { EntityBadgesDialog } from '@backstage-community/plugin-badges';
 import {
   EntityAboutCard,
   EntityDependsOnComponentsCard,
@@ -49,7 +49,7 @@ import {
   EntityGithubActionsContent,
   EntityRecentGithubActionsRunsCard,
   isGithubActionsAvailable,
-} from '@backstage/plugin-github-actions';
+} from '@backstage-community/plugin-github-actions';
 import {
   EntityGroupProfileCard,
   EntityMembersListCard,
@@ -57,10 +57,13 @@ import {
   EntityUserProfileCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EntityTodoContent } from '@backstage/plugin-todo';
+import { EntityTodoContent } from '@backstage-community/plugin-todo';
 import { EmptyState } from '@backstage/core-components';
 import { EntityCatalogGraphCard } from '@backstage/plugin-catalog-graph';
-import { EntityKubernetesContent, isKubernetesAvailable } from '@backstage/plugin-kubernetes';
+import {
+  EntityKubernetesContent,
+  isKubernetesAvailable,
+} from '@backstage/plugin-kubernetes';
 
 const EntityLayoutWrapper = (props: { children?: React.ReactNode }) => {
   const [badgesDialogOpen, setBadgesDialogOpen] = useState(false);
@@ -180,7 +183,11 @@ const serviceEntityPage = (
       {overviewContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/kubernetes" title="Kubernetes" if={isKubernetesAvailable}>
+    <EntityLayout.Route
+      path="/kubernetes"
+      title="Kubernetes"
+      if={isKubernetesAvailable}
+    >
       <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
 
@@ -226,7 +233,11 @@ const websiteEntityPage = (
       {overviewContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/kubernetes" title="Kubernetes" if={isKubernetesAvailable}>
+    <EntityLayout.Route
+      path="/kubernetes"
+      title="Kubernetes"
+      if={isKubernetesAvailable}
+    >
       <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
 

@@ -10,7 +10,7 @@ import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import { NavLink } from 'react-router-dom';
-import { GraphiQLIcon } from '@backstage/plugin-graphiql';
+import { GraphiQLIcon } from '@backstage-community/plugin-graphiql';
 import {
   Settings as SidebarSettings,
   UserSettingsSignInAvatar,

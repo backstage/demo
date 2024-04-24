@@ -19,8 +19,8 @@ import {
   CostInsightsLabelDataflowInstructionsPage,
   CostInsightsPage,
   CostInsightsProjectGrowthInstructionsPage,
-} from '@backstage/plugin-cost-insights';
-import { ExplorePage } from '@backstage/plugin-explore';
+} from '@backstage-community/plugin-cost-insights';
+import { ExplorePage } from '@backstage-community/plugin-explore';
 import { Navigate, Route } from 'react-router';
 import {
   TechDocsIndexPage,
@@ -30,11 +30,11 @@ import {
 import { UnifiedThemeProvider, themes } from '@backstage/theme';
 
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import { GraphiQLPage } from '@backstage/plugin-graphiql';
+import { GraphiQLPage } from '@backstage-community/plugin-graphiql';
 import React from 'react';
 import { Root } from './components/Root';
 import { SearchPage } from '@backstage/plugin-search';
-import { TechRadarPage } from '@backstage/plugin-tech-radar';
+import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apertureTheme } from './theme/aperture';
 import { apis } from './apis';
