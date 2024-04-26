@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: 20.x
           registry-url: https://registry.npmjs.org/ # Needed for auth
+      - name: enable corepack
+        run: corepack enable
       - name: cache all node_modules
         id: cache-modules
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
@@ -68,11 +70,11 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
 
-      # Post notification to Discord Announcements channel  
+      # Post notification to Discord Announcements channel
       - name: 'Check if last commit is a release'
         id: check_if_release
-        run: node scripts/check-if-release.js ${{ github.sha }} 
-      
+        run: node scripts/check-if-release.js ${{ github.sha }}
+
       - name: Discord notification
         uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9 # 0.3.2
         if: steps.check_if_release.outputs.is_release == 'true'
@@ -80,4 +82,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
           CURRENT_VERSION: ${{ steps.check_if_release.outputs.current_version }}
         with:
-          args: 'The Backstage Demo site has been upgraded to release {{CURRENT_VERSION}} go check it out: https://demo.backstage.io'  
+          args: 'The Backstage Demo site has been upgraded to release {{CURRENT_VERSION}} go check it out: https://demo.backstage.io'
