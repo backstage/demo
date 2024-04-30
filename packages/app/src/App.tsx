@@ -1,4 +1,4 @@
-import { badgesPlugin } from './plugins';
+import { badgesPlugin, signalsPlugin } from './plugins';
 
 import {
   AlertDisplay,
@@ -47,10 +47,11 @@ import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
+import { NotificationsPage } from '@backstage/plugin-notifications';
 
 const app = createApp({
   apis,
-  plugins: [badgesPlugin],
+  plugins: [badgesPlugin, signalsPlugin],
   components: {
     SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
   },
@@ -156,6 +157,7 @@ const routes = (
       element={<TechRadarPage width={1500} height={800} />}
     />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
+    <Route path="/notifications" element={<NotificationsPage />} />
   </FlatRoutes>
 );
 
