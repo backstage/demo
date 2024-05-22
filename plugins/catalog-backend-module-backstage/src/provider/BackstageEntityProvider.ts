@@ -1,8 +1,3 @@
-import {
-  PluginTaskScheduler,
-  TaskRunner,
-  readTaskScheduleDefinitionFromConfig,
-} from '@backstage/backend-tasks';
 import { Config } from '@backstage/config';
 import {
   GithubCredentialsProvider,
@@ -26,7 +21,12 @@ import { sync as globSync } from 'glob';
 import fs from 'fs-extra';
 import path from 'path';
 import { defaults } from '../constants';
-import { LoggerService } from '@backstage/backend-plugin-api';
+import {
+  LoggerService,
+  SchedulerService,
+  SchedulerServiceTaskRunner,
+  readSchedulerServiceTaskScheduleDefinitionFromConfig,
+} from '@backstage/backend-plugin-api';
 
 export class BackstageEntityProvider implements EntityProvider {
   private readonly logger: LoggerService;
@@ -42,7 +42,7 @@ export class BackstageEntityProvider implements EntityProvider {
     options: {
       logger: LoggerService;
       urlReader: UrlReader;
-      scheduler: PluginTaskScheduler;
+      scheduler: SchedulerService;
     },
   ): BackstageEntityProvider {
     const integrations = ScmIntegrations.fromConfig(config);
@@ -54,7 +54,7 @@ export class BackstageEntityProvider implements EntityProvider {
       );
     }
 
-    const configSchedule = readTaskScheduleDefinitionFromConfig(
+    const configSchedule = readSchedulerServiceTaskScheduleDefinitionFromConfig(
       config.getConfig('catalog.providers.backstage.schedule'),
     );
 
@@ -73,7 +73,7 @@ export class BackstageEntityProvider implements EntityProvider {
   private constructor(
     integration: GithubIntegration,
     logger: LoggerService,
-    taskRunner: TaskRunner,
+    taskRunner: SchedulerServiceTaskRunner,
     urlReader: UrlReader,
     config: Config,
   ) {
@@ -97,7 +97,9 @@ export class BackstageEntityProvider implements EntityProvider {
     return await this.scheduleFn();
   }
 
-  private createScheduleFn(taskRunner: TaskRunner): () => Promise<void> {
+  private createScheduleFn(
+    taskRunner: SchedulerServiceTaskRunner,
+  ): () => Promise<void> {
     return async () => {
       const taskId = `${this.getProviderName()}:refresh`;
       return taskRunner.run({
