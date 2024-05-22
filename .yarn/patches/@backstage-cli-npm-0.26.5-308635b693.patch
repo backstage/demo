@@ -1,0 +1,679 @@
+diff --git a/dist/cjs/index-CnxI4f69.cjs.js b/dist/cjs/index-CnxI4f69.cjs.js
+index 8a06acd46b76cf791bad1fc69a03e633b6e7ce05..e70ad0008da77709b1f3e5787925e585f0f9077b 100644
+--- a/dist/cjs/index-CnxI4f69.cjs.js
++++ b/dist/cjs/index-CnxI4f69.cjs.js
+@@ -1,78 +1,81 @@
+-'use strict';
++"use strict";
+ 
+-var role = require('./role-DK6uMK7-.cjs.js');
+-var fs = require('fs-extra');
+-var index = require('./index-kzCSxaBD.cjs.js');
+-var webpack = require('webpack');
+-var packageDetection = require('./packageDetection-RcZ3WmUr.cjs.js');
+-require('yn');
+-var path = require('path');
+-require('react-dev-utils/FileSizeReporter');
+-require('react-dev-utils/formatWebpackMessages');
+-require('eslint-webpack-plugin');
+-require('fork-ts-checker-webpack-plugin');
+-require('html-webpack-plugin');
+-require('@backstage/cli-common');
+-require('react-dev-utils/ModuleScopePlugin');
+-require('run-script-webpack-plugin');
+-require('@manypkg/get-packages');
+-require('webpack-node-externals');
+-require('lodash/pickBy');
+-require('./run-DFWF3wvX.cjs.js');
+-require('mini-css-extract-plugin');
+-require('@pmmmwh/react-refresh-webpack-plugin');
+-var chalk = require('chalk');
+-var cliNode = require('@backstage/cli-node');
+-var uniq = require('lodash/uniq');
+-var openBrowser = require('react-dev-utils/openBrowser');
+-var WebpackDevServer = require('webpack-dev-server');
+-require('semver');
+-require('@yarnpkg/parsers');
+-require('@yarnpkg/lockfile');
+-require('minimatch');
+-require('./yarn-Ukl9MOS0.cjs.js');
+-require('lodash/partition');
+-require('@backstage/config-loader');
+-require('@backstage/config');
+-var chokidar = require('chokidar');
+-var ctrlcWindows = require('ctrlc-windows');
+-var errors = require('@backstage/errors');
+-var debounce = require('lodash/debounce');
+-var url = require('url');
+-var spawn = require('cross-spawn');
+-var lint = require('./lint-Befy7j7B.cjs.js');
+-var config = require('./config-r5N0sIuh.cjs.js');
+-var Lockfile = require('./Lockfile-C7rtIlD6.cjs.js');
+-require('commander');
+-require('./entryPoints-CoHH4lBA.cjs.js');
+-require('./svgrTemplate-BTjBQ3by.cjs.js');
+-require('p-queue');
+-require('child_process');
+-require('util');
++var role = require("./role-DK6uMK7-.cjs.js");
++var fs = require("fs-extra");
++var index = require("./index-kzCSxaBD.cjs.js");
++var webpack = require("webpack");
++var packageDetection = require("./packageDetection-RcZ3WmUr.cjs.js");
++require("yn");
++var path = require("path");
++require("react-dev-utils/FileSizeReporter");
++require("react-dev-utils/formatWebpackMessages");
++require("eslint-webpack-plugin");
++require("fork-ts-checker-webpack-plugin");
++require("html-webpack-plugin");
++require("@backstage/cli-common");
++require("react-dev-utils/ModuleScopePlugin");
++require("run-script-webpack-plugin");
++require("@manypkg/get-packages");
++require("webpack-node-externals");
++require("lodash/pickBy");
++require("./run-DFWF3wvX.cjs.js");
++require("mini-css-extract-plugin");
++require("@pmmmwh/react-refresh-webpack-plugin");
++var chalk = require("chalk");
++var cliNode = require("@backstage/cli-node");
++var uniq = require("lodash/uniq");
++var openBrowser = require("react-dev-utils/openBrowser");
++var WebpackDevServer = require("webpack-dev-server");
++require("semver");
++require("@yarnpkg/parsers");
++require("@yarnpkg/lockfile");
++require("minimatch");
++require("./yarn-Ukl9MOS0.cjs.js");
++require("lodash/partition");
++require("@backstage/config-loader");
++require("@backstage/config");
++var chokidar = require("chokidar");
++var ctrlcWindows = require("ctrlc-windows");
++var errors = require("@backstage/errors");
++var debounce = require("lodash/debounce");
++var url = require("url");
++var spawn = require("cross-spawn");
++var lint = require("./lint-Befy7j7B.cjs.js");
++var config = require("./config-r5N0sIuh.cjs.js");
++var Lockfile = require("./Lockfile-C7rtIlD6.cjs.js");
++const { alias } = require("commander");
++require("commander");
++require("./entryPoints-CoHH4lBA.cjs.js");
++require("./svgrTemplate-BTjBQ3by.cjs.js");
++require("p-queue");
++require("child_process");
++require("util");
+ 
+-function _interopDefaultCompat (e) { return e && typeof e === 'object' && 'default' in e ? e : { default: e }; }
++function _interopDefaultCompat(e) {
++  return e && typeof e === "object" && "default" in e ? e : { default: e };
++}
+ 
+-var fs__default = /*#__PURE__*/_interopDefaultCompat(fs);
+-var webpack__default = /*#__PURE__*/_interopDefaultCompat(webpack);
+-var chalk__default = /*#__PURE__*/_interopDefaultCompat(chalk);
+-var uniq__default = /*#__PURE__*/_interopDefaultCompat(uniq);
+-var openBrowser__default = /*#__PURE__*/_interopDefaultCompat(openBrowser);
+-var WebpackDevServer__default = /*#__PURE__*/_interopDefaultCompat(WebpackDevServer);
+-var debounce__default = /*#__PURE__*/_interopDefaultCompat(debounce);
+-var spawn__default = /*#__PURE__*/_interopDefaultCompat(spawn);
++var fs__default = /*#__PURE__*/ _interopDefaultCompat(fs);
++var webpack__default = /*#__PURE__*/ _interopDefaultCompat(webpack);
++var chalk__default = /*#__PURE__*/ _interopDefaultCompat(chalk);
++var uniq__default = /*#__PURE__*/ _interopDefaultCompat(uniq);
++var openBrowser__default = /*#__PURE__*/ _interopDefaultCompat(openBrowser);
++var WebpackDevServer__default =
++  /*#__PURE__*/ _interopDefaultCompat(WebpackDevServer);
++var debounce__default = /*#__PURE__*/ _interopDefaultCompat(debounce);
++var spawn__default = /*#__PURE__*/ _interopDefaultCompat(spawn);
+ 
+ async function serveBackend(options) {
+   const paths = packageDetection.resolveBundlingPaths(options);
+   const config = await packageDetection.createBackendConfig(paths, {
+     ...options,
+-    isDev: true
++    isDev: true,
+   });
+   process.env.NODE_ENV = "development";
+   const compiler = webpack__default.default(config, (err) => {
+     if (err) {
+       console.error(err);
+-    } else
+-      console.log("Build succeeded");
++    } else console.log("Build succeeded");
+   });
+   const waitForExit = async () => {
+     for (const signal of ["SIGINT", "SIGTERM"]) {
+@@ -80,8 +83,7 @@ async function serveBackend(options) {
+         compiler.close(() => process.exit());
+       });
+     }
+-    return new Promise(() => {
+-    });
++    return new Promise(() => {});
+   };
+   return waitForExit;
+ }
+@@ -98,9 +100,11 @@ async function serveBundle(options) {
+       filter: lint.includedFilter,
+       localPackages: cliNode.PackageGraph.fromPackages(
+         await cliNode.PackageGraph.listTargetPackages()
+-      )
++      ),
+     });
+-    const problemPackages = [...result.newVersions, ...result.newRanges].map(({ name: name2 }) => name2).filter(lint.forbiddenDuplicatesFilter);
++    const problemPackages = [...result.newVersions, ...result.newRanges]
++      .map(({ name: name2 }) => name2)
++      .filter(lint.forbiddenDuplicatesFilter);
+     if (problemPackages.length > 1) {
+       console.log(
+         chalk__default.default.yellow(
+@@ -119,7 +123,19 @@ async function serveBundle(options) {
+         )
+       );
+     }
+-    if (((_b = (_a = targetPkg.dependencies) == null ? void 0 : _a["react-router"]) == null ? void 0 : _b.includes("beta")) || ((_d = (_c = targetPkg.dependencies) == null ? void 0 : _c["react-router-dom"]) == null ? void 0 : _d.includes("beta"))) {
++    if (
++      ((_b =
++        (_a = targetPkg.dependencies) == null ? void 0 : _a["react-router"]) ==
++      null
++        ? void 0
++        : _b.includes("beta")) ||
++      ((_d =
++        (_c = targetPkg.dependencies) == null
++          ? void 0
++          : _c["react-router-dom"]) == null
++        ? void 0
++        : _d.includes("beta"))
++    ) {
+       console.warn(
+         chalk__default.default.yellow(`
+ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be removed in a future release.
+@@ -130,7 +146,9 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+     }
+   }
+   checkReactVersion();
+-  const { name } = await fs__default.default.readJson(index.paths.resolveTarget("package.json"));
++  const { name } = await fs__default.default.readJson(
++    index.paths.resolveTarget("package.json")
++  );
+   let webpackServer = void 0;
+   let viteServer = void 0;
+   let latestFrontendAppConfigs = [];
+@@ -142,11 +160,12 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+       latestFrontendAppConfigs = appConfigs;
+       webpackServer == null ? void 0 : webpackServer.invalidate();
+       viteServer == null ? void 0 : viteServer.restart();
+-    }
++    },
+   });
+   latestFrontendAppConfigs = cliConfig.frontendAppConfigs;
+   const appBaseUrl = cliConfig.frontendConfig.getOptionalString("app.baseUrl");
+-  const backendBaseUrl = cliConfig.frontendConfig.getOptionalString("backend.baseUrl");
++  const backendBaseUrl =
++    cliConfig.frontendConfig.getOptionalString("backend.baseUrl");
+   if (appBaseUrl && appBaseUrl === backendBaseUrl) {
+     console.log(
+       chalk__default.default.yellow(
+@@ -164,16 +183,21 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+   }
+   const { frontendConfig, fullConfig } = cliConfig;
+   const url = packageDetection.resolveBaseUrl(frontendConfig);
+-  const host = frontendConfig.getOptionalString("app.listen.host") || url.hostname;
+-  const port = frontendConfig.getOptionalNumber("app.listen.port") || Number(url.port) || (url.protocol === "https:" ? 443 : 80);
+-  const detectedModulesEntryPoint = await packageDetection.createDetectedModulesEntryPoint({
+-    config: fullConfig,
+-    targetPath: paths.targetPath,
+-    watch() {
+-      webpackServer == null ? void 0 : webpackServer.invalidate();
+-      viteServer == null ? void 0 : viteServer.restart();
+-    }
+-  });
++  const host =
++    frontendConfig.getOptionalString("app.listen.host") || url.hostname;
++  const port =
++    frontendConfig.getOptionalNumber("app.listen.port") ||
++    Number(url.port) ||
++    (url.protocol === "https:" ? 443 : 80);
++  const detectedModulesEntryPoint =
++    await packageDetection.createDetectedModulesEntryPoint({
++      config: fullConfig,
++      targetPath: paths.targetPath,
++      watch() {
++        webpackServer == null ? void 0 : webpackServer.invalidate();
++        viteServer == null ? void 0 : viteServer.restart();
++      },
++    });
+   const commonConfigOptions = {
+     ...options,
+     checksEnabled: options.checksEnabled,
+@@ -182,17 +206,17 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+     frontendConfig,
+     getFrontendAppConfigs: () => {
+       return latestFrontendAppConfigs;
+-    }
++    },
+   };
+   const config$1 = await packageDetection.createConfig(paths, {
+     ...commonConfigOptions,
+-    additionalEntryPoints: detectedModulesEntryPoint
++    additionalEntryPoints: detectedModulesEntryPoint,
+   });
+   if (process.env.EXPERIMENTAL_VITE) {
+-    const vite = await import('vite');
+-    const { default: viteReact } = await import('@vitejs/plugin-react');
+-    const { nodePolyfills: viteNodePolyfills } = await import('vite-plugin-node-polyfills');
+-    const { createHtmlPlugin: viteHtml } = await import('vite-plugin-html');
++    const vite = await import("vite");
++    const { default: viteReact } = await import("@vitejs/plugin-react");
++    const { default: fills } = await import("rollup-plugin-node-polyfills");
++    const { createHtmlPlugin: viteHtml } = await import("vite-plugin-html");
+     viteServer = await vite.createServer({
+       define: {
+         global: "window",
+@@ -200,11 +224,36 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+         "process.env.APP_CONFIG": JSON.stringify(cliConfig.frontendAppConfigs),
+         // This allows for conditional imports of react-dom/client, since there's no way
+         // to check for presence of it in source code without module resolution errors.
+-        "process.env.HAS_REACT_DOM_CLIENT": JSON.stringify(packageDetection.hasReactDomClient())
++        "process.env.HAS_REACT_DOM_CLIENT": JSON.stringify(
++          packageDetection.hasReactDomClient()
++        ),
++      },
++      resolve: {
++        alias: {
++          util: "util",
++          sys: "util",
++          events: "rollup-plugin-node-polyfills/polyfills/events",
++          stream: "rollup-plugin-node-polyfills/polyfills/stream",
++          path: "rollup-plugin-node-polyfills/polyfills/path",
++          querystring: "rollup-plugin-node-polyfills/polyfills/qs",
++          punycode: "rollup-plugin-node-polyfills/polyfills/punycode",
++          url: "rollup-plugin-node-polyfills/polyfills/url",
++          http: "rollup-plugin-node-polyfills/polyfills/http",
++          https: "rollup-plugin-node-polyfills/polyfills/http",
++          os: "rollup-plugin-node-polyfills/polyfills/os",
++          assert: "rollup-plugin-node-polyfills/polyfills/assert",
++          constants: "rollup-plugin-node-polyfills/polyfills/constants",
++          timers: "rollup-plugin-node-polyfills/polyfills/timers",
++          console: "rollup-plugin-node-polyfills/polyfills/console",
++          vm: "rollup-plugin-node-polyfills/polyfills/vm",
++          zlib: "rollup-plugin-node-polyfills/polyfills/zlib",
++          tty: "rollup-plugin-node-polyfills/polyfills/tty",
++          domain: "rollup-plugin-node-polyfills/polyfills/domain",
++        },
+       },
+       plugins: [
+         viteReact(),
+-        viteNodePolyfills(),
++        fills(),
+         viteHtml({
+           entry: paths.targetEntry,
+           // todo(blam): we should look at contributing to thPe plugin here
+@@ -213,22 +262,23 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+           inject: {
+             data: {
+               config: frontendConfig,
+-              publicPath: (_e = config$1.output) == null ? void 0 : _e.publicPath
+-            }
+-          }
+-        })
++              publicPath:
++                (_e = config$1.output) == null ? void 0 : _e.publicPath,
++            },
++          },
++        }),
+       ],
+       server: {
+         host,
+-        port
++        port,
+       },
+       publicDir: paths.targetPublic,
+-      root: paths.targetPath
++      root: paths.targetPath,
+     });
+   } else {
+     const publicPaths = await packageDetection.resolveOptionalBundlingPaths({
+       entry: "src/index-public-experimental",
+-      dist: "dist/public"
++      dist: "dist/public",
+     });
+     if (publicPaths) {
+       console.log(
+@@ -237,40 +287,53 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+         )
+       );
+     }
+-    const compiler = publicPaths ? webpack__default.default([config$1, await packageDetection.createConfig(publicPaths, commonConfigOptions)]) : webpack__default.default(config$1);
++    const compiler = publicPaths
++      ? webpack__default.default([
++          config$1,
++          await packageDetection.createConfig(publicPaths, commonConfigOptions),
++        ])
++      : webpack__default.default(config$1);
+     webpackServer = new WebpackDevServer__default.default(
+       {
+         hot: !process.env.CI,
+         devMiddleware: {
+           publicPath: (_f = config$1.output) == null ? void 0 : _f.publicPath,
+-          stats: "errors-warnings"
++          stats: "errors-warnings",
+         },
+-        static: paths.targetPublic ? {
+-          publicPath: (_g = config$1.output) == null ? void 0 : _g.publicPath,
+-          directory: paths.targetPublic
+-        } : void 0,
++        static: paths.targetPublic
++          ? {
++              publicPath:
++                (_g = config$1.output) == null ? void 0 : _g.publicPath,
++              directory: paths.targetPublic,
++            }
++          : void 0,
+         historyApiFallback: {
+           // Paths with dots should still use the history fallback.
+           // See https://github.com/facebookincubator/create-react-app/issues/387.
+           disableDotRule: true,
+           // The index needs to be rewritten relative to the new public path, including subroutes.
+-          index: `${(_h = config$1.output) == null ? void 0 : _h.publicPath}index.html`
++          index: `${
++            (_h = config$1.output) == null ? void 0 : _h.publicPath
++          }index.html`,
+         },
+-        server: url.protocol === "https:" ? {
+-          type: "https",
+-          options: {
+-            cert: fullConfig.getString("app.https.certificate.cert"),
+-            key: fullConfig.getString("app.https.certificate.key")
+-          }
+-        } : {},
++        server:
++          url.protocol === "https:"
++            ? {
++                type: "https",
++                options: {
++                  cert: fullConfig.getString("app.https.certificate.cert"),
++                  key: fullConfig.getString("app.https.certificate.key"),
++                },
++              }
++            : {},
+         host,
+         port,
+         proxy: targetPkg.proxy,
+         // When the dev server is behind a proxy, the host and public hostname differ
+         allowedHosts: [url.hostname],
+         client: {
+-          webSocketURL: "auto://0.0.0.0:0/ws"
+-        }
++          webSocketURL: "auto://0.0.0.0:0/ws",
++        },
+       },
+       compiler
+     );
+@@ -298,15 +361,14 @@ DEPRECATION WARNING: React Router Beta is deprecated and support for it will be
+         process.exit();
+       });
+     }
+-    return new Promise(() => {
+-    });
++    return new Promise(() => {});
+   };
+   return waitForExit;
+ }
+ function checkReactVersion() {
+   try {
+     const reactPkgPath = require.resolve("react/package.json", {
+-      paths: [index.paths.targetRoot]
++      paths: [index.paths.targetRoot],
+     });
+     const reactPkg = require(reactPkgPath);
+     if (reactPkg.version.startsWith("16.")) {
+@@ -321,13 +383,11 @@ function checkReactVersion() {
+         )
+       );
+     }
+-  } catch {
+-  }
++  } catch {}
+ }
+ 
+ var __accessCheck = (obj, member, msg) => {
+-  if (!member.has(obj))
+-    throw TypeError("Cannot " + msg);
++  if (!member.has(obj)) throw TypeError("Cannot " + msg);
+ };
+ var __privateGet = (obj, member, getter) => {
+   __accessCheck(obj, member, "read from private field");
+@@ -349,7 +409,7 @@ var __privateWrapper = (obj, member, setter, getter) => ({
+   },
+   get _() {
+     return __privateGet(obj, member, getter);
+-  }
++  },
+ });
+ var _generation, _methods;
+ const requestType = "@backstage/cli/channel/request";
+@@ -377,24 +437,27 @@ class IpcServer {
+           id: request.id,
+           error: {
+             name: "NotFoundError",
+-            message: `No handler registered for method ${request.method}`
+-          }
++            message: `No handler registered for method ${request.method}`,
++          },
+         });
+         return;
+       }
+-      Promise.resolve().then(() => handler(request.body, { generation })).then(
+-        (response) => sendMessage({
+-          type: responseType,
+-          id: request.id,
+-          body: response
+-        })
+-      ).catch(
+-        (error) => sendMessage({
+-          type: responseType,
+-          id: request.id,
+-          error: errors.serializeError(error)
+-        })
+-      );
++      Promise.resolve()
++        .then(() => handler(request.body, { generation }))
++        .then((response) =>
++          sendMessage({
++            type: responseType,
++            id: request.id,
++            body: response,
++          })
++        )
++        .catch((error) =>
++          sendMessage({
++            type: responseType,
++            id: request.id,
++            error: errors.serializeError(error),
++          })
++        );
+     };
+     child.addListener("message", messageListener);
+     child.addListener("exit", () => {
+@@ -433,20 +496,17 @@ class ServerDataStore {
+         return { saved: true };
+       }
+     );
+-    server.registerMethod(
+-      "DevDataStore.load",
+-      async (request) => {
+-        const item = store.get(request.key);
+-        return { loaded: Boolean(item), data: item == null ? void 0 : item.data };
+-      }
+-    );
++    server.registerMethod("DevDataStore.load", async (request) => {
++      const item = store.get(request.key);
++      return { loaded: Boolean(item), data: item == null ? void 0 : item.data };
++    });
+   }
+ }
+ 
+ const loaderArgs = [
+   "--enable-source-maps",
+   "--require",
+-  require.resolve("@backstage/cli/config/nodeTransform.cjs")
++  require.resolve("@backstage/cli/config/nodeTransform.cjs"),
+   // TODO: Support modules, although there's currently no way to load them since import() is transpiled tp require()
+ ];
+ async function startBackendExperimental(options) {
+@@ -488,16 +548,24 @@ async function startBackendExperimental(options) {
+     }
+     const optionArgs = new Array();
+     if (options.inspectEnabled) {
+-      const inspect = typeof options.inspectEnabled === "string" ? `--inspect=${options.inspectEnabled}` : "--inspect";
++      const inspect =
++        typeof options.inspectEnabled === "string"
++          ? `--inspect=${options.inspectEnabled}`
++          : "--inspect";
+       optionArgs.push(inspect);
+     } else if (options.inspectBrkEnabled) {
+-      const inspect = typeof options.inspectBrkEnabled === "string" ? `--inspect-brk=${options.inspectBrkEnabled}` : "--inspect-brk";
++      const inspect =
++        typeof options.inspectBrkEnabled === "string"
++          ? `--inspect-brk=${options.inspectBrkEnabled}`
++          : "--inspect-brk";
+       optionArgs.push(inspect);
+     }
+     if (options.require) {
+       optionArgs.push(`--require=${options.require}`);
+     }
+-    const userArgs = process.argv.slice(["node", "backstage-cli", "package", "start"].length).filter((arg) => !optionArgs.includes(arg));
++    const userArgs = process.argv
++      .slice(["node", "backstage-cli", "package", "start"].length)
++      .filter((arg) => !optionArgs.includes(arg));
+     child = spawn__default.default(
+       process.execPath,
+       [...loaderArgs, ...optionArgs, options.entry, ...userArgs],
+@@ -506,9 +574,9 @@ async function startBackendExperimental(options) {
+         env: {
+           ...process.env,
+           BACKSTAGE_CLI_CHANNEL: "1",
+-          ESBK_TSCONFIG_PATH: index.paths.resolveTargetRoot("tsconfig.json")
++          ESBK_TSCONFIG_PATH: index.paths.resolveTargetRoot("tsconfig.json"),
+         },
+-        serialization: "advanced"
++        serialization: "advanced",
+       }
+     );
+     server.addChild(child);
+@@ -516,7 +584,10 @@ async function startBackendExperimental(options) {
+       if (!watcher) {
+         return;
+       }
+-      if (typeof data === "object" && (data == null ? void 0 : data.type) === "watch") {
++      if (
++        typeof data === "object" &&
++        (data == null ? void 0 : data.type) === "watch"
++      ) {
+         let path$1 = data.path;
+         if (path$1.startsWith("file:")) {
+           path$1 = url.fileURLToPath(path$1);
+@@ -529,11 +600,13 @@ async function startBackendExperimental(options) {
+     });
+   }, 100);
+   restart();
+-  watcher = chokidar.watch(["./package.json"], {
+-    cwd: process.cwd(),
+-    ignoreInitial: true,
+-    ignorePermissionErrors: true
+-  }).on("all", restart);
++  watcher = chokidar
++    .watch(["./package.json"], {
++      cwd: process.cwd(),
++      ignoreInitial: true,
++      ignorePermissionErrors: true,
++    })
++    .on("all", restart);
+   process.stdin.on("data", restart);
+   const exitPromise = new Promise((resolveExitPromise) => {
+     async function handleSignal(signal) {
+@@ -560,7 +633,7 @@ async function startBackend(options) {
+       // not supported
+       inspectEnabled: options.inspectEnabled,
+       inspectBrkEnabled: options.inspectBrkEnabled,
+-      require: options.require
++      require: options.require,
+     });
+     await waitForExit();
+   } else {
+@@ -569,7 +642,7 @@ async function startBackend(options) {
+       checksEnabled: options.checksEnabled,
+       inspectEnabled: options.inspectEnabled,
+       inspectBrkEnabled: options.inspectBrkEnabled,
+-      require: options.require
++      require: options.require,
+     });
+     await waitForExit();
+   }
+@@ -584,7 +657,9 @@ async function startBackendPlugin(options) {
+     );
+     if (!hasDevIndexEntry && !hasSrcIndexEntry) {
+       console.warn(
+-        hasSrcIndexEntry ? `The 'dev' directory is missing. The plugin might not be updated for the new backend system. To run, use "LEGACY_BACKEND_START=1 yarn start".` : `The 'dev' directory is missing. Please create a proper dev/index.ts in order to start the plugin.`
++        hasSrcIndexEntry
++          ? `The 'dev' directory is missing. The plugin might not be updated for the new backend system. To run, use "LEGACY_BACKEND_START=1 yarn start".`
++          : `The 'dev' directory is missing. Please create a proper dev/index.ts in order to start the plugin.`
+       );
+       return;
+     }
+@@ -594,11 +669,13 @@ async function startBackendPlugin(options) {
+       // not supported
+       inspectEnabled: options.inspectEnabled,
+       inspectBrkEnabled: options.inspectBrkEnabled,
+-      require: options.require
++      require: options.require,
+     });
+     await waitForExit();
+   } else {
+-    const hasEntry = await fs__default.default.pathExists(index.paths.resolveTarget("src", "run.ts"));
++    const hasEntry = await fs__default.default.pathExists(
++      index.paths.resolveTarget("src", "run.ts")
++    );
+     if (!hasEntry) {
+       console.warn(
+         `src/run.ts is missing. Please create the file or run the command without LEGACY_BACKEND_START`
+@@ -610,7 +687,7 @@ async function startBackendPlugin(options) {
+       checksEnabled: options.checksEnabled,
+       inspectEnabled: options.inspectEnabled,
+       inspectBrkEnabled: options.inspectBrkEnabled,
+-      require: options.require
++      require: options.require,
+     });
+     await waitForExit();
+   }
+@@ -625,7 +702,7 @@ async function startFrontend(options) {
+     entry: options.entry,
+     checksEnabled: options.checksEnabled,
+     configPaths: options.configPaths,
+-    verifyVersions: options.verifyVersions
++    verifyVersions: options.verifyVersions,
+   });
+   await waitForExit();
+ }
+@@ -637,7 +714,7 @@ async function command(opts) {
+     checksEnabled: Boolean(opts.check),
+     inspectEnabled: opts.inspect,
+     inspectBrkEnabled: opts.inspectBrk,
+-    require: opts.require
++    require: opts.require,
+   };
+   switch (role$1) {
+     case "backend":
+@@ -650,7 +727,7 @@ async function command(opts) {
+       return startFrontend({
+         ...options,
+         entry: "src/index",
+-        verifyVersions: true
++        verifyVersions: true,
+       });
+     case "web-library":
+     case "frontend-plugin":
