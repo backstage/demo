@@ -16,7 +16,7 @@ import fetch from 'node-fetch';
 import * as uuid from 'uuid';
 import { GithubRepository, PackageJson } from '../types';
 import { ComponentEntity, Entity } from '@backstage/catalog-model';
-import { UrlReader } from '@backstage/backend-common';
+import { UrlReaderService } from '@backstage/backend-plugin-api';
 import { sync as globSync } from 'glob';
 import fs from 'fs-extra';
 import path from 'path';
@@ -31,7 +31,7 @@ import {
 export class BackstageEntityProvider implements EntityProvider {
   private readonly logger: LoggerService;
   private readonly integration: GithubIntegrationConfig;
-  private readonly urlReader: UrlReader;
+  private readonly urlReader: UrlReaderService;
   private readonly scheduleFn: () => Promise<void>;
   private connection?: EntityProviderConnection;
   private readonly githubCredentialsProvider: GithubCredentialsProvider;
@@ -41,7 +41,7 @@ export class BackstageEntityProvider implements EntityProvider {
     config: Config,
     options: {
       logger: LoggerService;
-      urlReader: UrlReader;
+      urlReader: UrlReaderService;
       scheduler: SchedulerService;
     },
   ): BackstageEntityProvider {
@@ -74,7 +74,7 @@ export class BackstageEntityProvider implements EntityProvider {
     integration: GithubIntegration,
     logger: LoggerService,
     taskRunner: SchedulerServiceTaskRunner,
-    urlReader: UrlReader,
+    urlReader: UrlReaderService,
     config: Config,
   ) {
     this.integration = integration.config;
