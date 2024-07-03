@@ -32,6 +32,8 @@ import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
 import CategoryIcon from '@material-ui/icons/Category';
+import { MyGroupsSidebarItem } from '@backstage/plugin-org';
+import GroupIcon from '@material-ui/icons/People';
 
 const useSidebarLogoStyles = makeStyles<Theme, { themeId: string }>({
   root: {
@@ -83,6 +85,11 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       <SidebarGroup label="Menu" icon={<MenuIcon />}>
         <SidebarItem icon={HomeIcon} to="home" text="Home" />
         <SidebarItem icon={CategoryIcon} to="/" text="Catalog" />
+        <MyGroupsSidebarItem
+          singularTitle="My Group"
+          pluralTitle="My Groups"
+          icon={GroupIcon}
+        />
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
         <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
