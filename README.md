@@ -102,3 +102,21 @@ You can see our Renovate configuration in the [`renovate.json`](https://github.c
 > Note: you may not see any Pull Request as we very much like to stay on top of them, clicking on the "Closed" option will let you see examples that have been merged in the past.
 
 To learn how to get started with Renovate we recommend reading the [Installing and onboarding Renovate into repositories](https://docs.renovatebot.com/getting-started/installing-onboarding/) documentation.
+
+## Maintenance
+
+The following section(s) outline steps and/or commands that you might need to use or follow as part of the maintenance of this repo.
+
+### Local Docker Build
+
+To build a local docker image run:
+
+```bash
+docker image build .  -t demo --build-arg ENVIRONMENT_CONFIG=local
+```
+
+To run the image run:
+
+```bash
+docker run -it -p 7007:7007 demo
+```
