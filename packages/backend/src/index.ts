@@ -14,10 +14,16 @@ backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
 backend.add(import('@backstage-community/plugin-explore-backend'));
+
+// TODO:(awanlin) removeed when this has been resolved
+// https://github.com/thefrontside/playhouse/issues/405
+// eslint-disable-next-line
 backend.add(import('@frontside/backstage-plugin-graphql-backend'));
+// eslint-disable-next-line
 backend.add(
   import('@frontside/backstage-plugin-graphql-backend-module-catalog'),
 );
+
 backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
