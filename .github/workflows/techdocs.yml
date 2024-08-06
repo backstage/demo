@@ -56,7 +56,7 @@ jobs:
         run: techdocs-cli generate --no-docker --legacyCopyReadmeMdToIndexMd --verbose
 
       - name: Login to Google Cloud Services
-        uses: 'google-github-actions/auth@71fee32a0bb7e97b4d33d548e7d957010649d8fa' # v2
+        uses: 'google-github-actions/auth@f112390a2df9932162083945e46d439060d66ec2' # v2
         with:
           credentials_json: ${{ secrets.TECHDOCS_GCS_CREDENTIALS_JSON }}
 
