@@ -35,6 +35,12 @@ The following plugins have been added to help better illustrate Backstage featur
 - [Tech Radar](https://demo.backstage.io/tech-radar)
 - [To Do](https://demo.backstage.io/catalog/default/component/backstage-demo/todos)
 
+### Alpha features
+
+The following plugins are considered alpha and still under heavy development. They have been added to the Demo site to showcase them.
+
+- [Notifications](https://demo.backstage.io/notifications)
+
 ## Code Customization
 
 We have made some code customization as well. The following sections go into detail about them.
