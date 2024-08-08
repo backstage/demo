@@ -12,25 +12,23 @@ To be able to use Mermaid diagrams with TechDocs you'll need to follow this guid
 
 Here is an example:
 
-```kroki-mermaid
+```mermaid
 sequenceDiagram
     Alice->>John: Hello John, how are you?
     John-->>Alice: Great!
     Alice-)John: See you later!
 ```
-
->Note: For this example we are using [Kroki.io](https://kroki.io/), but you may which to run your own server to protect TechDocs with sensitive content. More details on this topic are in the previously linked guide.
 
 ## Markdown
 
 Here is the Markdown:
 
 ```markdown
-kroki-mermaid
+mermaid
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
-    Alice-)John: See you later!
+Alice->>John: Hello John, how are you?
+John-->>Alice: Great!
+Alice-)John: See you later!
 ```
 
->Note: in order to prevent Mermaid from rendering the diagram above the backticks (\`) have been removed. You'll want to add 3 backticks on line 1 before `kroki-mermaid` and then another 3 backticks on a new line below line 5.
+> Note: in order to prevent Mermaid from rendering the diagram above the backticks (\`) have been removed. You'll want to add 3 backticks on line 1 before `mermaid` and then another 3 backticks on a new line below line 5.
