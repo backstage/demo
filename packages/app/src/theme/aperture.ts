@@ -249,7 +249,6 @@ export const apertureTheme = createUnifiedTheme({
         }),
       },
     },
-    // TODO: (awanlin) - we get a type error for `root`, need to investigate
     MuiSelect: {
       styleOverrides: {
         select: {
