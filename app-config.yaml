@@ -49,12 +49,6 @@ backend:
         paths:
           - /api/graphql/schema
 
-# TODO:(awanlin) Remove in the next, next release
-# https://github.com/backstage/backstage/pull/26293
-database:
-  client: better-sqlite3
-  connection: ':memory:'
-
 integrations:
   github:
     - host: github.com
