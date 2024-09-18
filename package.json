@@ -6,7 +6,7 @@
     "node": "18 || 20"
   },
   "scripts": {
-    "dev": "concurrently \"yarn start\" \"yarn start-backend\"",
+    "dev": "yarn workspaces foreach -A --include backend --include app --parallel -v -i run start",
     "start": "yarn workspace app start",
     "start-backend": "yarn workspace backend start",
     "build:backend": "yarn workspace backend build",
@@ -41,13 +41,12 @@
     "react-router-dom": "6.26.2"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.27.1-next.2",
+    "@backstage/cli": "^0.27.1",
     "@backstage/e2e-test-utils": "^0.1.1",
     "@playwright/test": "^1.32.3",
     "@spotify/prettier-config": "^15.0.0",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.5",
-    "concurrently": "^9.0.0",
     "eslint": "^8.6.0",
     "fs-extra": "11.2.0",
     "husky": "^9.0.0",
