@@ -20,7 +20,7 @@ FROM node:20-bookworm-slim@sha256:df85129996d6b7a4ec702ebf2142cfa683f28b1d33446f
 ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
-ENV PYTHON /usr/bin/python3
+ENV PYTHON=/usr/bin/python3
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
@@ -54,7 +54,7 @@ FROM node:20-bookworm-slim@sha256:df85129996d6b7a4ec702ebf2142cfa683f28b1d33446f
 ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
-ENV PYTHON /usr/bin/python3
+ENV PYTHON=/usr/bin/python3
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
@@ -103,12 +103,12 @@ COPY --chown=node:node app-config.yaml app-config.*.yaml ./
 
 # Heroku will assign the port dynamically; the default value here will be overridden by what Heroku passes in
 # For local development the default will be used
-ENV PORT 7007
+ENV PORT=7007
 # This switches many Node.js dependencies to production mode.
-ENV NODE_ENV production
+ENV NODE_ENV=production
 # Sets the max memory size of V8's old memory section
 # Also disables node snapshot for Node 20 to work with the Scaffolder
-ENV NODE_OPTIONS "--max-old-space-size=1000 --no-node-snapshot"
+ENV NODE_OPTIONS="--max-old-space-size=1000 --no-node-snapshot"
 
 # Default is 'heroku', for local testing pass in 'local'
 ENV ENVIRONMENT_CONFIG=${ENVIRONMENT_CONFIG}
