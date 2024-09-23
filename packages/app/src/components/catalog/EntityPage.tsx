@@ -64,6 +64,14 @@ import {
   EntityKubernetesContent,
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
+import {
+  ExpandableNavigation,
+  LightBox,
+  ReportIssue,
+  TextSize,
+} from '@backstage/plugin-techdocs-module-addons-contrib';
+import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 
 const EntityLayoutWrapper = (props: { children?: React.ReactNode }) => {
   const [badgesDialogOpen, setBadgesDialogOpen] = useState(false);
@@ -154,6 +162,18 @@ const cicdCard = (
   </EntitySwitch>
 );
 
+const techdocsContentWithAddons = (
+  <EntityTechdocsContent>
+    <TechDocsAddons>
+      <ExpandableNavigation />
+      <LightBox />
+      <ReportIssue />
+      <TextSize />
+      <Mermaid />
+    </TechDocsAddons>
+  </EntityTechdocsContent>
+);
+
 const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     {entityWarningContent}
@@ -218,7 +238,7 @@ const serviceEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/docs" title="Docs">
-      <EntityTechdocsContent />
+      {techdocsContentWithAddons}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todos" title="TODOs">
@@ -257,7 +277,7 @@ const websiteEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/docs" title="Docs">
-      <EntityTechdocsContent />
+      {techdocsContentWithAddons}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todos" title="TODOs">
@@ -273,7 +293,7 @@ const defaultEntityPage = (
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/docs" title="Docs">
-      <EntityTechdocsContent />
+      {techdocsContentWithAddons}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todos" title="TODOs">
