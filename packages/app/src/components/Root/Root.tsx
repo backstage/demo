@@ -28,11 +28,7 @@ import {
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import {
-  appThemeApiRef,
-  IconComponent,
-  useApi,
-} from '@backstage/core-plugin-api';
+import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
 import CategoryIcon from '@material-ui/icons/Category';
@@ -103,13 +99,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       <SidebarDivider />
       <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
       <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
-      // TODO:(awanlin) remove once this is updated upstream in
-      @backstage-community/plugin-graphiql
-      <SidebarItem
-        icon={GraphiQLIcon as IconComponent}
-        to="graphiql"
-        text="GraphiQL"
-      />
+      <SidebarItem icon={GraphiQLIcon} to="graphiql" text="GraphiQL" />
       <SidebarSpace />
       <SidebarDivider />
       <NotificationsSidebarItem />
