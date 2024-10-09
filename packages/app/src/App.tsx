@@ -1,4 +1,4 @@
-import { badgesPlugin, signalsPlugin } from './plugins';
+import { badgesPlugin } from './plugins';
 
 import {
   AlertDisplay,
@@ -48,10 +48,11 @@ import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { NotificationsPage } from '@backstage/plugin-notifications';
+import { SignalsDisplay } from '@backstage/plugin-signals';
 
 const app = createApp({
   apis,
-  plugins: [badgesPlugin, signalsPlugin],
+  plugins: [badgesPlugin],
   components: {
     SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
   },
@@ -165,6 +166,7 @@ export default app.createRoot(
   <>
     <AlertDisplay />
     <OAuthRequestDialog />
+    <SignalsDisplay />
     <AppRouter>
       <VisitListener />
       <Root>{routes}</Root>
