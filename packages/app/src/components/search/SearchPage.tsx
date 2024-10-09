@@ -16,7 +16,10 @@ import {
   useSearch,
 } from '@backstage/plugin-search-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
-import { Grid, List, makeStyles, Paper, Theme } from '@material-ui/core';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import Paper from '@mui/material/Paper';
+import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { ToolSearchResultListItem } from '@backstage-community/plugin-explore';
 import { useApi } from '@backstage/core-plugin-api';
@@ -24,9 +27,9 @@ import {
   catalogApiRef,
   CATALOG_FILTER_EXISTS,
 } from '@backstage/plugin-catalog-react';
-import BuildIcon from '@material-ui/icons/Build';
+import BuildIcon from '@mui/icons-material/Build';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(theme => ({
   bar: {
     padding: theme.spacing(1, 0),
   },
