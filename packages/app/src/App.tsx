@@ -48,6 +48,14 @@ import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { NotificationsPage } from '@backstage/plugin-notifications';
+import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
+import {
+  ExpandableNavigation,
+  LightBox,
+  ReportIssue,
+  TextSize,
+} from '@backstage/plugin-techdocs-module-addons-contrib';
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 
 const app = createApp({
@@ -146,7 +154,16 @@ const routes = (
     <Route
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
-    />
+    >
+      <TechDocsAddons>
+        <ExpandableNavigation />
+        <LightBox />
+        <ReportIssue />
+        <TextSize />
+        <Mermaid />
+      </TechDocsAddons>
+    </Route>
+    ;
     <Route path="/explore" element={<ExplorePage />} />
     <Route path="/graphiql" element={<GraphiQLPage />} />
     <Route path="/search" element={<SearchPage />}>
