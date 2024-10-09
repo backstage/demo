@@ -1,12 +1,13 @@
 import React, { PropsWithChildren } from 'react';
-import { Link, Theme, makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import MapIcon from '@material-ui/icons/MyLocation';
-import LayersIcon from '@material-ui/icons/Layers';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
-import MoneyIcon from '@material-ui/icons/MonetizationOn';
+import Link from '@mui/material/Link';
+import makeStyles from '@mui/styles/makeStyles';
+import HomeIcon from '@mui/icons-material/Home';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import MapIcon from '@mui/icons-material/MyLocation';
+import LayersIcon from '@mui/icons-material/Layers';
+import LibraryBooks from '@mui/icons-material/LibraryBooks';
+import CreateComponentIcon from '@mui/icons-material/AddCircleOutline';
+import MoneyIcon from '@mui/icons-material/MonetizationOn';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import { NavLink } from 'react-router-dom';
@@ -26,15 +27,16 @@ import {
   SidebarGroup,
   useSidebarOpenState,
 } from '@backstage/core-components';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
-import CategoryIcon from '@material-ui/icons/Category';
+import CategoryIcon from '@mui/icons-material/Category';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
-import GroupIcon from '@material-ui/icons/People';
+import GroupIcon from '@mui/icons-material/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { Theme } from '@mui/material/styles';
 
 const useSidebarLogoStyles = makeStyles<Theme, { themeId: string }>({
   root: {
