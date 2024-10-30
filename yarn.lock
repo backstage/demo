@@ -3424,10 +3424,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-tech-radar@npm:^0.7.6":
-  version: 0.7.11
-  resolution: "@backstage-community/plugin-tech-radar@npm:0.7.11"
+"@backstage-community/plugin-tech-radar-common@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@backstage-community/plugin-tech-radar-common@npm:1.0.0"
   dependencies:
+    zod: "npm:^3.20.0"
+  checksum: 10/92a335f537f3f41e5236c60dbde2368a091c9b5e73237c10d2e72d48dd0593ab8278fab307607a7154c1c9802d09419c7153a95ab66aec87743e5f4d3129fbaa
+  languageName: node
+  linkType: hard
+
+"@backstage-community/plugin-tech-radar@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@backstage-community/plugin-tech-radar@npm:1.0.0"
+  dependencies:
+    "@backstage-community/plugin-tech-radar-common": "npm:^1.0.0"
     "@backstage/core-compat-api": "npm:^0.3.1"
     "@backstage/core-components": "npm:^0.15.1"
     "@backstage/core-plugin-api": "npm:^1.10.0"
@@ -3442,7 +3452,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10/26b9af15d5c8fa3f1bf11ae27b084189e4b45353c4ee7b72d6025d3f19ef0e5926f225083f99915a1e400cbb437f42bc0c9cc82d2dcdea796bb1e0f989541440
+  checksum: 10/ea85343ea11042c4af2c237e80f693809362e1f4c07bed9af46c03d1688455d23fc82a7cd16c1c6af670c41d3e3b9033a656afecd5b833534fa696059e7c7f50
   languageName: node
   linkType: hard
 
@@ -15588,7 +15598,7 @@ __metadata:
     "@backstage-community/plugin-explore": "npm:^0.5.2"
     "@backstage-community/plugin-github-actions": "npm:^0.6.19"
     "@backstage-community/plugin-graphiql": "npm:^0.3.9"
-    "@backstage-community/plugin-tech-radar": "npm:^0.7.6"
+    "@backstage-community/plugin-tech-radar": "npm:^1.0.0"
     "@backstage-community/plugin-todo": "npm:^0.2.40"
     "@backstage/app-defaults": "npm:^1.5.13-next.0"
     "@backstage/cli": "npm:^0.29.0-next.0"
@@ -35415,10 +35425,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.4":
-  version: 3.22.4
-  resolution: "zod@npm:3.22.4"
-  checksum: 10/73622ca36a916f785cf528fe612a884b3e0f183dbe6b33365a7d0fc92abdbedf7804c5e2bd8df0a278e1472106d46674281397a3dd800fa9031dc3429758c6ac
+"zod@npm:^3.20.0, zod@npm:^3.22.4":
+  version: 3.23.8
+  resolution: "zod@npm:3.23.8"
+  checksum: 10/846fd73e1af0def79c19d510ea9e4a795544a67d5b34b7e1c4d0425bf6bfd1c719446d94cdfa1721c1987d891321d61f779e8236fde517dc0e524aa851a6eff1
   languageName: node
   linkType: hard
 
