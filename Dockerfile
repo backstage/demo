@@ -6,7 +6,7 @@ FROM node:20-bookworm-slim@sha256:ec35a66c9a0a275b027debde05247c081f8b2f0c43d739
 ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY backstage.json package.json yarn.lock ./
 COPY .yarn ./.yarn
 COPY .yarnrc.yml ./
 
