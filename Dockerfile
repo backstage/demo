@@ -2,7 +2,7 @@
 ARG ENVIRONMENT_CONFIG=heroku
 
 # Stage 1 - Create yarn install skeleton layer
-FROM node:20-bookworm-slim@sha256:28fbbb764069c698ead61d6a739a7615e8f0e07a4b8fe1473ceca70c1c3d6aaa AS packages
+FROM node:20-bookworm-slim@sha256:a0196893dffad1f1a5723a8c817b45681402be549a8f196bf9c93a5bc30628e3 AS packages
 ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY plugins plugins
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM node:20-bookworm-slim@sha256:28fbbb764069c698ead61d6a739a7615e8f0e07a4b8fe1473ceca70c1c3d6aaa AS build
+FROM node:20-bookworm-slim@sha256:a0196893dffad1f1a5723a8c817b45681402be549a8f196bf9c93a5bc30628e3 AS build
 ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
@@ -51,7 +51,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:20-bookworm-slim@sha256:28fbbb764069c698ead61d6a739a7615e8f0e07a4b8fe1473ceca70c1c3d6aaa
+FROM node:20-bookworm-slim@sha256:a0196893dffad1f1a5723a8c817b45681402be549a8f196bf9c93a5bc30628e3
 ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
