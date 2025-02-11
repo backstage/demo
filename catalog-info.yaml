@@ -2,28 +2,13 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: backstage-demo
-  description: An example deployment of a Backstage application.
+  description: An example component showcasing GitHub Actions workflows.
   annotations:
+    # **GitHub repository identifier**; used by the GitHub Actions plugin to locate your repo.
     github.com/project-slug: backstage/demo
-    backstage.io/techdocs-ref: dir:.
-    demo.backstage.io/techdocs-builder: local
+    # Optionally, add the managed-by-location annotation to point to your GitHub repo.
+    backstage.io/managed-by-location: url:https://github.com/backstage/demo?ref=main
 spec:
-  type: website
-  owner: backstage/maintainers
+  type: service
+  owner: bhavik-moodys
   lifecycle: experimental
-  consumesApis:
-    - demo-graphql
----
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-  name: demo-graphql
-  description: GraphQL Backend Plugin
-spec:
-  type: graphql
-  lifecycle: production
-  owner: backstage/maintainers
-  apiConsumedBy:
-    - backstage-demo
-  definition:
-     $file: ./schema.graphql
