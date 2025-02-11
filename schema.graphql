@@ -1,0 +1,1093 @@
+directive @field(at: _DirectiveArgument_, default: _DirectiveArgument_) on FIELD_DEFINITION
+
+directive @discriminates(with: _DirectiveArgument_, opaqueType: String) on INTERFACE
+
+directive @discriminationAlias(value: String!, type: String!) repeatable on INTERFACE
+
+directive @implements(interface: String!) on OBJECT | INTERFACE
+
+directive @resolve(at: _DirectiveArgument_, nodeType: String, from: String) on FIELD_DEFINITION
+
+directive @relation(name: String, nodeType: String, kind: String) on FIELD_DEFINITION
+
+directive @sourceType(name: String!) on FIELD_DEFINITION
+
+scalar _DirectiveArgument_
+
+interface Node {
+  id: ID!
+}
+
+interface Connection {
+  pageInfo: PageInfo!
+  edges: [Edge!]!
+  count: Int
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+interface Edge {
+  cursor: String!
+  node: Node!
+}
+
+type Query {
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  entity(kind: String!, name: String!, namespace: String): Entity
+  entities(first: Int, after: String, last: Int, before: String, filter: EntityFilter, rawFilter: EntityRawFilter): EntityConnection
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+type EntityConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [EntityEdge!]!
+  count: Int
+}
+
+type EntityEdge implements Edge {
+  cursor: String!
+  node: Entity!
+}
+
+input EntityOrderField {
+  name: OrderDirection
+  kind: OrderDirection
+  namespace: OrderDirection
+  apiVersion: OrderDirection
+  title: OrderDirection
+  description: OrderDirection
+  labels: [EntityRawOrderField!]
+  annotations: [EntityRawOrderField!]
+  tags: OrderDirection
+  links: [EntityOrderField_Links!]
+  relations: [EntityOrderField_Relations!]
+  type: OrderDirection
+  target: OrderDirection
+  targets: OrderDirection
+  presence: OrderDirection
+  lifecycle: OrderDirection
+  definition: OrderDirection
+  parameters: [EntityRawOrderField!]
+  steps: [EntityOrderField_Steps!]
+  profile: [EntityOrderField_Profile!]
+}
+
+input EntityOrderField_Links {
+  url: OrderDirection
+  title: OrderDirection
+  icon: OrderDirection
+  type: OrderDirection
+}
+
+input EntityOrderField_Relations {
+  type: OrderDirection
+  targetRef: OrderDirection
+}
+
+input EntityOrderField_Steps {
+  id: OrderDirection
+  name: OrderDirection
+  action: OrderDirection
+  input: [EntityRawOrderField!]
+  if: OrderDirection
+}
+
+input EntityOrderField_Profile {
+  displayName: OrderDirection
+  email: OrderDirection
+  picture: OrderDirection
+}
+
+input EntityTextFilterFields {
+  name: Boolean
+  kind: Boolean
+  namespace: Boolean
+  apiVersion: Boolean
+  title: Boolean
+  description: Boolean
+  labels: [String!]
+  annotations: [String!]
+  tags: Boolean
+  links: EntityTextFilterFields_Links
+  relations: EntityTextFilterFields_Relations
+  type: Boolean
+  target: Boolean
+  targets: Boolean
+  presence: Boolean
+  lifecycle: Boolean
+  definition: Boolean
+  parameters: [String!]
+  steps: EntityTextFilterFields_Steps
+  profile: EntityTextFilterFields_Profile
+}
+
+input EntityTextFilterFields_Links {
+  url: Boolean
+  title: Boolean
+  icon: Boolean
+  type: Boolean
+}
+
+input EntityTextFilterFields_Relations {
+  type: Boolean
+  targetRef: Boolean
+}
+
+input EntityTextFilterFields_Steps {
+  id: Boolean
+  name: Boolean
+  action: Boolean
+  input: [String!]
+  if: Boolean
+}
+
+input EntityTextFilterFields_Profile {
+  displayName: Boolean
+  email: Boolean
+  picture: Boolean
+}
+
+input EntityTextFilter {
+  term: String!
+  fields: EntityTextFilterFields
+}
+
+input EntityFilterExpression {
+  name: [JSON!]
+  kind: [JSON!]
+  namespace: [JSON!]
+  apiVersion: [JSON!]
+  title: [JSON!]
+  description: [JSON!]
+  labels: [EntityRawFilterField!]
+  annotations: [EntityRawFilterField!]
+  tags: [JSON!]
+  links: EntityFilterExpression_Links
+  relations: EntityFilterExpression_Relations
+  type: [JSON!]
+  target: [JSON!]
+  targets: [JSON!]
+  presence: [JSON!]
+  lifecycle: [JSON!]
+  definition: [JSON!]
+  parameters: [EntityRawFilterField!]
+  steps: EntityFilterExpression_Steps
+  profile: EntityFilterExpression_Profile
+}
+
+input EntityFilterExpression_Links {
+  url: [JSON!]
+  title: [JSON!]
+  icon: [JSON!]
+  type: [JSON!]
+}
+
+input EntityFilterExpression_Relations {
+  type: [JSON!]
+  targetRef: [JSON!]
+}
+
+input EntityFilterExpression_Steps {
+  id: [JSON!]
+  name: [JSON!]
+  action: [JSON!]
+  input: [EntityRawFilterField!]
+  if: [JSON!]
+}
+
+input EntityFilterExpression_Profile {
+  displayName: [JSON!]
+  email: [JSON!]
+  picture: [JSON!]
+}
+
+"""
+{
+  order: [
+    { fieldA: ASC }
+    { fieldB: DESC }
+    { fieldC: [{ fieldD: ASC }] }
+    { fieldE: { order: ASC } }
+    {
+      fieldE: {
+        fields: [{ fieldF: DESC }, { fieldG: ASC }]
+      }
+    }
+    { annotations: [{ field: "backstage.io/source-location", order: ASC }] }
+  ]
+  search: {
+    term: "substring"
+    fields: {
+      fieldA: true
+      fieldB: true
+      fieldC: { fieldD: true }
+      fieldE: {
+        include: true
+        fields: { fieldF: true, fieldG: true }
+      }
+    }
+  }
+  match: [
+    { fieldA: ["value1", "value2"], fieldB: ["value3"] }
+    { fieldC: { fieldD: ["value4"] } }
+    {
+      fieldE: {
+        values: ["value5", "value6"],
+        fields: { fieldF: ["value7"], fieldG: ["value8"] }
+      }
+    }
+  ]
+}
+"""
+input EntityFilter {
+  order: [EntityOrderField!]
+  search: EntityTextFilter
+  match: [EntityFilterExpression!]
+}
+
+input EntityRawFilterField {
+  key: String!
+  values: [JSON!]!
+}
+
+input EntityRawFilterExpression {
+  fields: [EntityRawFilterField!]!
+}
+
+input EntityRawOrderField {
+  field: String!
+  order: OrderDirection!
+}
+
+input EntityRawTextFilter {
+  term: String!
+  fields: [String!]
+}
+
+input EntityRawFilter {
+  filter: [EntityRawFilterExpression!]
+  orderFields: [EntityRawOrderField!]
+  fullTextFilter: EntityRawTextFilter
+}
+
+interface Entity implements Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+}
+
+type KeyValuePair {
+  key: String!
+  value: String!
+}
+
+interface Ownable implements Node {
+  id: ID!
+}
+
+interface Dependency implements Node {
+  id: ID!
+}
+
+union Owner = User | Team | SubDepartment | Department | Organization | OpaqueGroup
+
+type EntityLink {
+  url: String!
+  title: String
+  icon: String
+  type: String
+}
+
+type Relation {
+  type: String!
+  targetRef: EntityRef
+}
+
+type EntityRef {
+  kind: String!
+  namespace: String!
+  name: String!
+}
+
+interface Location implements Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String
+  target: String
+  targets: [String!]
+  presence: String
+}
+
+interface API implements Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  definition: String!
+  system: System
+  apiConsumedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+  apiProvidedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type ComponentConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [ComponentEdge!]!
+  count: Int
+}
+
+type ComponentEdge implements Edge {
+  cursor: String!
+  node: Component!
+}
+
+interface Component implements Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  system: System
+  subComponentOf: Component
+  providesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  consumesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  components(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type APIConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [APIEdge!]!
+  count: Int
+}
+
+type APIEdge implements Edge {
+  cursor: String!
+  node: API!
+}
+
+type DependencyConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [DependencyEdge!]!
+  count: Int
+}
+
+type DependencyEdge implements Edge {
+  cursor: String!
+  node: Dependency!
+}
+
+type Domain implements Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  owner: Owner!
+  systems(first: Int, after: String, last: Int, before: String): SystemConnection
+}
+
+type SystemConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SystemEdge!]!
+  count: Int
+}
+
+type SystemEdge implements Edge {
+  cursor: String!
+  node: System!
+}
+
+interface Resource implements Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  owner: Owner!
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  system: System
+}
+
+type System implements Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  owner: Owner!
+  domain: Domain
+  apis(first: Int, after: String, last: Int, before: String): APIConnection
+  components(first: Int, after: String, last: Int, before: String): ComponentConnection
+  resources(first: Int, after: String, last: Int, before: String): ResourceConnection
+}
+
+type ResourceConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [ResourceEdge!]!
+  count: Int
+}
+
+type ResourceEdge implements Edge {
+  cursor: String!
+  node: Resource!
+}
+
+type Step {
+  id: String
+  name: String
+  action: String!
+  input: JSONObject
+  if: JSON
+}
+
+interface Template implements Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  parameters: JSONObject
+  steps: [Step!]!
+  owner: Owner
+}
+
+type GroupProfile {
+  displayName: String
+  email: String
+  picture: String
+}
+
+interface Group implements Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  profile: GroupProfile
+  parent: Group
+  children(first: Int, after: String, last: Int, before: String): GroupConnection
+  members(first: Int, after: String, last: Int, before: String): UserConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
+
+type GroupConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [GroupEdge!]!
+  count: Int
+}
+
+type GroupEdge implements Edge {
+  cursor: String!
+  node: Group!
+}
+
+type UserConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+  count: Int
+}
+
+type UserEdge implements Edge {
+  cursor: String!
+  node: User!
+}
+
+type OwnableConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [OwnableEdge!]!
+  count: Int
+}
+
+type OwnableEdge implements Edge {
+  cursor: String!
+  node: Ownable!
+}
+
+type UserProfile {
+  displayName: String
+  email: String
+  picture: String
+}
+
+type User implements Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  profile: UserProfile
+  memberOf(first: Int, after: String, last: Int, before: String): GroupConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
+
+type OpaqueEntity implements Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+}
+
+type URLLocation implements Location & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String
+  target: String
+  targets: [String!]
+  presence: String
+}
+
+type FileLocation implements Location & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String
+  target: String
+  targets: [String!]
+  presence: String
+}
+
+type OpaqueLocation implements Location & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String
+  target: String
+  targets: [String!]
+  presence: String
+}
+
+type OpenAPI implements API & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  definition: String!
+  system: System
+  apiConsumedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+  apiProvidedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type AsyncAPI implements API & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  definition: String!
+  system: System
+  apiConsumedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+  apiProvidedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type GraphQL implements API & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  definition: String!
+  system: System
+  apiConsumedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+  apiProvidedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type GRPC implements API & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  definition: String!
+  system: System
+  apiConsumedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+  apiProvidedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type OpaqueAPI implements API & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  definition: String!
+  system: System
+  apiConsumedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+  apiProvidedBy(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type Service implements Component & Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  system: System
+  subComponentOf: Component
+  providesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  consumesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  components(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type Website implements Component & Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  system: System
+  subComponentOf: Component
+  providesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  consumesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  components(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type Library implements Component & Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  system: System
+  subComponentOf: Component
+  providesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  consumesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  components(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type OpaqueComponent implements Component & Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  lifecycle: String!
+  owner: Owner!
+  system: System
+  subComponentOf: Component
+  providesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  consumesApis(first: Int, after: String, last: Int, before: String): APIConnection
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  components(first: Int, after: String, last: Int, before: String): ComponentConnection
+}
+
+type Database implements Resource & Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  owner: Owner!
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  system: System
+}
+
+type OpaqueResource implements Resource & Entity & Node & Dependency & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  owner: Owner!
+  dependsOn(first: Int, after: String, last: Int, before: String): DependencyConnection
+  dependencyOf(first: Int, after: String, last: Int, before: String): DependencyConnection
+  system: System
+}
+
+type ServiceTemplate implements Template & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  parameters: JSONObject
+  steps: [Step!]!
+  owner: Owner
+}
+
+type OpaqueTemplate implements Template & Entity & Node & Ownable {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  parameters: JSONObject
+  steps: [Step!]!
+  owner: Owner
+}
+
+type Team implements Group & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  profile: GroupProfile
+  parent: Group
+  children(first: Int, after: String, last: Int, before: String): GroupConnection
+  members(first: Int, after: String, last: Int, before: String): UserConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
+
+type SubDepartment implements Group & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  profile: GroupProfile
+  parent: Group
+  children(first: Int, after: String, last: Int, before: String): GroupConnection
+  members(first: Int, after: String, last: Int, before: String): UserConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
+
+type Department implements Group & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  profile: GroupProfile
+  parent: Group
+  children(first: Int, after: String, last: Int, before: String): GroupConnection
+  members(first: Int, after: String, last: Int, before: String): UserConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
+
+type Organization implements Group & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  profile: GroupProfile
+  parent: Group
+  children(first: Int, after: String, last: Int, before: String): GroupConnection
+  members(first: Int, after: String, last: Int, before: String): UserConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
+
+type OpaqueGroup implements Group & Entity & Node {
+  id: ID!
+  name: String!
+  kind: String!
+  namespace: String!
+  apiVersion: String!
+  title: String
+  description: String
+  labels: [KeyValuePair!]
+  annotations: [KeyValuePair!]
+  tags: [String!]
+  links: [EntityLink!]
+  relations: [Relation!]
+  type: String!
+  profile: GroupProfile
+  parent: Group
+  children(first: Int, after: String, last: Int, before: String): GroupConnection
+  members(first: Int, after: String, last: Int, before: String): UserConnection
+  ownerOf(first: Int, after: String, last: Int, before: String): OwnableConnection
+}
