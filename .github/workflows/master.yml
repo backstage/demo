@@ -23,7 +23,7 @@ jobs:
           registry-url: https://registry.npmjs.org/ # Needed for auth
       - name: cache all node_modules
         id: cache-modules
-        uses: actions/cache@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
@@ -32,7 +32,7 @@ jobs:
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
       - name: cache global yarn cache
-        uses: actions/cache@0c907a75c2c80ebcb7f088228285e798b750cf8f # v4
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4
         if: steps.cache-modules.outputs.cache-hit != 'true'
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
