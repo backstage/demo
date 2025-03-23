@@ -151,6 +151,16 @@ spec:
         workflowId: pages.yml
         branchOrTagName: main
         token: ${{ secrets.USER_OAUTH_TOKEN or false }}
+    - id: notify
+      name: Notify
+      action: notification:send
+      input:
+        recipients: entity
+        entityRefs:
+          - user:default/guest
+        title: 'Template executed'
+        info: 'Your template has been executed'
+        severity: 'normal'
 
   output:
     links:

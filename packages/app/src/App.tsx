@@ -35,7 +35,10 @@ import React from 'react';
 import { Root } from './components/Root';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';
-import { UserSettingsPage } from '@backstage/plugin-user-settings';
+import {
+  SettingsLayout,
+  UserSettingsPage,
+} from '@backstage/plugin-user-settings';
 import { apertureTheme } from './theme/aperture';
 import { apis } from './apis';
 import { createApp } from '@backstage/app-defaults';
@@ -57,6 +60,7 @@ import {
 } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { SignalsDisplay } from '@backstage/plugin-signals';
+import { NotificationSettings } from './components/settings/NotificationSettings';
 
 const app = createApp({
   apis,
@@ -169,7 +173,11 @@ const routes = (
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
-    <Route path="/settings" element={<UserSettingsPage />} />
+    <Route path="/settings" element={<UserSettingsPage />}>
+      <SettingsLayout.Route path="/notifications" title="Notifications">
+        <NotificationSettings />
+      </SettingsLayout.Route>
+    </Route>
     <Route
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}
