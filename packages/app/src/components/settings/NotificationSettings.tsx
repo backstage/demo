@@ -8,7 +8,7 @@ import {
 } from '@backstage/core-plugin-api';
 
 import { InfoCard } from '@backstage/core-components';
-import React from 'react';
+
 import { UserNotificationSettingsCard } from '@backstage/plugin-notifications';
 
 export const NotificationSettings = () => {

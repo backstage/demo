@@ -1,6 +1,5 @@
 import { TemplateBackstageLogoIcon } from '@backstage/plugin-home';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 
 export const useLogoStyles = makeStyles(theme => ({
   container: {
