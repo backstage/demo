@@ -10,7 +10,7 @@ import {
 import { HomePageSearchBar } from '@backstage/plugin-search';
 import { SearchContextProvider } from '@backstage/plugin-search-react';
 import { Grid, makeStyles } from '@material-ui/core';
-import React from 'react';
+
 import { tools, useLogoStyles } from './shared';
 
 const useStyles = makeStyles(theme => ({

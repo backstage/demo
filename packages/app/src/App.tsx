@@ -31,7 +31,7 @@ import { UnifiedThemeProvider, themes } from '@backstage/theme';
 
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
 import { GraphiQLPage } from '@backstage-community/plugin-graphiql';
-import React from 'react';
+
 import { Root } from './components/Root';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage-community/plugin-tech-radar';

@@ -11,7 +11,7 @@ import {
 } from '@backstage/plugin-home';
 import { HomePageSearchBar } from '@backstage/plugin-search';
 import { Grid } from '@material-ui/core';
-import React from 'react';
+
 import { tools, useLogoStyles } from './shared';
 
 const defaultConfig = [
