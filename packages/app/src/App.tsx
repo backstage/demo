@@ -178,10 +178,7 @@ const routes = (
         <NotificationSettings />
       </SettingsLayout.Route>
     </Route>
-    <Route
-      path="/tech-radar"
-      element={<TechRadarPage width={1500} height={800} />}
-    />
+    <Route path="/tech-radar" element={<TechRadarPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
   </FlatRoutes>
