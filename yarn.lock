@@ -21479,6 +21479,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fd-package-json@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "fd-package-json@npm:1.2.0"
+  dependencies:
+    walk-up-path: "npm:^3.0.1"
+  checksum: 10/043a9b5bbec41d2e452b6c81943b235f0f89358acb1f0fbcfa7ecba80df53434f8e1d663d964c919447fbd0c6f8f8e7dc477fd31a1dd1d7217bfaeeae14fcbb0
+  languageName: node
+  linkType: hard
+
 "fdir@npm:^6.4.2":
   version: 6.4.2
   resolution: "fdir@npm:6.4.2"
@@ -21809,6 +21818,17 @@ __metadata:
   version: 0.2.2
   resolution: "format@npm:0.2.2"
   checksum: 10/5f878b8fc1a672c8cbefa4f293bdd977c822862577d70d53456a48b4169ec9b51677c0c995bf62c633b4e5cd673624b7c273f57923b28735a6c0c0a72c382a4a
+  languageName: node
+  linkType: hard
+
+"formatly@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "formatly@npm:0.2.3"
+  dependencies:
+    fd-package-json: "npm:^1.2.0"
+  bin:
+    formatly: bin/index.mjs
+  checksum: 10/1fdb4ada5d1f5511ab7ad54b37746d74058c782c789813e0471d9348000338f6a64cc48b08719bda02b31e0d8fb3bcf9f78551392a1ba3b0fdfb3caab347bb09
   languageName: node
   linkType: hard
 
@@ -25654,12 +25674,13 @@ __metadata:
   linkType: hard
 
 "knip@npm:^5.0.0":
-  version: 5.53.0
-  resolution: "knip@npm:5.53.0"
+  version: 5.55.1
+  resolution: "knip@npm:5.55.1"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     enhanced-resolve: "npm:^5.18.1"
     fast-glob: "npm:^3.3.3"
+    formatly: "npm:^0.2.3"
     jiti: "npm:^2.4.2"
     js-yaml: "npm:^4.1.0"
     minimist: "npm:^1.2.8"
@@ -25675,7 +25696,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/50e5e890d247ef2c9625b53c6863c4d2fac1713b7901812fc9863a32489a868e64c49ffe1de420d9be2924d386cfca35f06a32a943b7c705f748f49d98304e6b
+  checksum: 10/85fb71d75cf70f825351e93bc4082b83b842755eadd2fa3451a9fbf70639f12bb6ff34d5502af565d65d5e39a312b3284ee3699bf026282f09fe2c0296e8b214
   languageName: node
   linkType: hard
 
@@ -35036,6 +35057,13 @@ __metadata:
   dependencies:
     xml-name-validator: "npm:^5.0.0"
   checksum: 10/d78f59e6b4f924aa53b6dfc56949959229cae7fe05ea9374eb38d11edcec01398b7f5d7a12576bd5acc57ff446abb5c9115cd83b9d882555015437cf858d42f0
+  languageName: node
+  linkType: hard
+
+"walk-up-path@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "walk-up-path@npm:3.0.1"
+  checksum: 10/9ffca02fe30fb65f6db531260582988c5e766f4c739cf86a6109380a7f791236b5d0b92b1dce37a6f73e22dca6bc9d93bf3700413e16251b2bd6bbd1ca2be316
   languageName: node
   linkType: hard
 
