@@ -43,7 +43,9 @@ The following plugins are considered alpha and still under heavy development. Th
 
 ## New Frontend System
 
-The Demo site currently uses the currently default Legacy Frontend System. The New Frontend System is still currently in Alpha. For those looking for a working example we have added an `app-migrated` to showcase the current state of the New Frontend System. You can see the code for this in `/packages/app-migrated` and you can run this version locally by running: `yarn start:app-migrated`.
+The Demo site currently uses the currently default Legacy Frontend System as of 2025-05-19 as the New Frontend System is still currently in Alpha. For those looking for a working example of a migrated "app" we have added an `app-migrated` to showcase this. You can see the code for this in `/packages/app-migrated` and you can run this version locally by running: `yarn start:app-migrated`.
+
+The `app-migrated` example is in a state where the ["Switching out `createApp`"](https://backstage.io/docs/frontend-system/building-apps/migrating/#switching-out-createapp) and the ["Migrating `createApp` Options"](https://backstage.io/docs/frontend-system/building-apps/migrating/#migrating-createapp-options) steps of the [Migrating Apps](https://backstage.io/docs/frontend-system/building-apps/migrating/) guide have been completed.
 
 ## Code Customization
 
