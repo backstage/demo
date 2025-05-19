@@ -69,6 +69,11 @@ import {
   convertLegacyRouteRef,
   convertLegacyRouteRefs,
 } from '@backstage/core-compat-api';
+import {
+  createFrontendModule,
+  SignInPageBlueprint,
+  ThemeBlueprint,
+} from '@backstage/frontend-plugin-api';
 
 const routes = (
   <FlatRoutes>
@@ -155,13 +160,22 @@ const legacyFeatures = convertLegacyApp(
 );
 
 const optionsModule = convertLegacyAppOptions({
-  apis,
+  // TODO:(awanlin) the badges plugin doesn't support the new frontend system yet
   plugins: [badgesPlugin],
-  components: {
-    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
+});
+
+const proxiedSignInPage = SignInPageBlueprint.make({
+  params: {
+    loader: async () => props => (
+      <ProxiedSignInPage {...props} provider="guest" />
+    ),
   },
-  themes: [
-    {
+});
+
+const lightThemeExtension = ThemeBlueprint.make({
+  name: 'light',
+  params: {
+    theme: {
       id: 'light',
       title: 'Light',
       variant: 'light',
@@ -169,7 +183,13 @@ const optionsModule = convertLegacyAppOptions({
         <UnifiedThemeProvider theme={themes.light} children={children} />
       ),
     },
-    {
+  },
+});
+
+const darkThemeExtension = ThemeBlueprint.make({
+  name: 'dark',
+  params: {
+    theme: {
       id: 'dark',
       title: 'Dark',
       variant: 'dark',
@@ -177,7 +197,13 @@ const optionsModule = convertLegacyAppOptions({
         <UnifiedThemeProvider theme={themes.dark} children={children} />
       ),
     },
-    {
+  },
+});
+
+const apertureThemeExtension = ThemeBlueprint.make({
+  name: 'aperture',
+  params: {
+    theme: {
       id: 'aperture',
       title: 'Aperture',
       variant: 'light',
@@ -188,11 +214,24 @@ const optionsModule = convertLegacyAppOptions({
         </UnifiedThemeProvider>
       ),
     },
-  ],
+  },
 });
 
 const app = createApp({
-  features: [optionsModule, ...legacyFeatures],
+  features: [
+    optionsModule,
+    ...legacyFeatures,
+    createFrontendModule({
+      pluginId: 'app',
+      extensions: [
+        ...apis,
+        proxiedSignInPage,
+        lightThemeExtension,
+        darkThemeExtension,
+        apertureThemeExtension,
+      ],
+    }),
+  ],
   bindRoutes({ bind }) {
     bind(convertLegacyRouteRefs(catalogPlugin.externalRoutes), {
       createComponent: convertLegacyRouteRef(scaffolderPlugin.routes.root),
