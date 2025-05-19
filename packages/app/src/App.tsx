@@ -61,6 +61,16 @@ import {
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { NotificationSettings } from './components/settings/NotificationSettings';
+import {
+  EntityKindPicker,
+  EntityLifecyclePicker,
+  EntityNamespacePicker,
+  EntityOwnerPicker,
+  EntityProcessingStatusPicker,
+  EntityTagPicker,
+  EntityTypePicker,
+  UserListPicker,
+} from '@backstage/plugin-catalog-react';
 
 const app = createApp({
   apis,
@@ -134,8 +144,20 @@ const routes = (
       path="/catalog"
       element={
         <CatalogIndexPage
-          initiallySelectedFilter="all"
-          initiallySelectedNamespaces={['default']}
+          filters={
+            <>
+              <EntityKindPicker />
+              <EntityTypePicker />
+              <UserListPicker initialFilter="all" />
+              <EntityOwnerPicker />
+              <EntityLifecyclePicker
+                initialFilter={['production', 'experimental']}
+              />
+              <EntityTagPicker />
+              <EntityProcessingStatusPicker />
+              <EntityNamespacePicker />
+            </>
+          }
         />
       }
     />

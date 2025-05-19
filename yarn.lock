@@ -4875,7 +4875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/integration@backstage:^::backstage=1.39.0-next.3&npm=1.17.0-next.3, @backstage/integration@npm:1.17.0-next.3, @backstage/integration@npm:^1.17.0-next.3":
+"@backstage/integration@npm:1.17.0-next.3":
   version: 1.17.0-next.3
   resolution: "@backstage/integration@npm:1.17.0-next.3"
   dependencies:
@@ -5218,6 +5218,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/plugin-catalog-backend-module-github@backstage:^::backstage=1.39.0-next.3&npm=0.9.0-next.3, @backstage/plugin-catalog-backend-module-github@npm:^0.9.0-next.3":
+  version: 0.9.0-next.3
+  resolution: "@backstage/plugin-catalog-backend-module-github@npm:0.9.0-next.3"
+  dependencies:
+    "@backstage/backend-plugin-api": "npm:1.3.1-next.2"
+    "@backstage/catalog-client": "npm:1.10.0-next.0"
+    "@backstage/catalog-model": "npm:1.7.3"
+    "@backstage/config": "npm:1.3.2"
+    "@backstage/integration": "npm:1.17.0-next.3"
+    "@backstage/plugin-catalog-backend": "npm:2.0.0-next.3"
+    "@backstage/plugin-catalog-common": "npm:1.1.4-next.0"
+    "@backstage/plugin-catalog-node": "npm:1.17.0-next.2"
+    "@backstage/plugin-events-node": "npm:0.4.11-next.2"
+    "@octokit/core": "npm:^5.2.0"
+    "@octokit/graphql": "npm:^7.0.2"
+    "@octokit/plugin-throttling": "npm:^8.1.3"
+    "@octokit/rest": "npm:^19.0.3"
+    git-url-parse: "npm:^15.0.0"
+    lodash: "npm:^4.17.21"
+    minimatch: "npm:^9.0.0"
+    uuid: "npm:^11.0.0"
+  checksum: 10/bf6342f110d094e8c48b0263a0a1ce729c26040cef8382b36765eb53a379f83f09087254bc6da55a5eac804b0af79ddedcd23565f956295c15fa75d731778e33
+  languageName: node
+  linkType: hard
+
 "@backstage/plugin-catalog-backend-module-logs@backstage:^::backstage=1.39.0-next.3&npm=0.1.10-next.3, @backstage/plugin-catalog-backend-module-logs@npm:^0.1.10-next.3":
   version: 0.1.10-next.3
   resolution: "@backstage/plugin-catalog-backend-module-logs@npm:0.1.10-next.3"
@@ -5281,7 +5306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-common@npm:1.1.4-next.0":
+"@backstage/plugin-catalog-common@backstage:^::backstage=1.39.0-next.3&npm=1.1.4-next.0, @backstage/plugin-catalog-common@npm:1.1.4-next.0, @backstage/plugin-catalog-common@npm:^1.1.4-next.0":
   version: 1.1.4-next.0
   resolution: "@backstage/plugin-catalog-common@npm:1.1.4-next.0"
   dependencies:
@@ -5492,6 +5517,23 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10/07e3c11ff194f2799ab45171bcb8e3c17e967e13597ea6bad1091cbf4456471f9d27933c28f347cfcd3f5b7026f30423fbfb878723291c78a8642224be7f27d0
+  languageName: node
+  linkType: hard
+
+"@backstage/plugin-events-backend-module-github@backstage:^::backstage=1.39.0-next.3&npm=0.4.0-next.3, @backstage/plugin-events-backend-module-github@npm:^0.4.0-next.3":
+  version: 0.4.0-next.3
+  resolution: "@backstage/plugin-events-backend-module-github@npm:0.4.0-next.3"
+  dependencies:
+    "@backstage/backend-plugin-api": "npm:1.3.1-next.2"
+    "@backstage/config": "npm:1.3.2"
+    "@backstage/integration": "npm:1.17.0-next.3"
+    "@backstage/plugin-events-node": "npm:0.4.11-next.2"
+    "@backstage/types": "npm:1.2.1"
+    "@octokit/auth-callback": "npm:^5.0.0"
+    "@octokit/webhooks-methods": "npm:^3.0.0"
+    lodash: "npm:^4.17.21"
+    octokit: "npm:^3.0.0"
+  checksum: 10/f935cab9659f4c981d41d28cb3f2460a62f820015c959853df2be6a70404c8de0bc2aaaa99a7e311e29e196b07faee378d0a4430299ff230d0a4f5a8884b17b4
   languageName: node
   linkType: hard
 
@@ -8762,25 +8804,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@internal/plugin-catalog-backend-module-backstage@workspace:^, @internal/plugin-catalog-backend-module-backstage@workspace:plugins/catalog-backend-module-backstage":
+"@internal/plugin-catalog-backend-module-example-processor@workspace:^, @internal/plugin-catalog-backend-module-example-processor@workspace:plugins/catalog-backend-module-example-processor":
   version: 0.0.0-use.local
-  resolution: "@internal/plugin-catalog-backend-module-backstage@workspace:plugins/catalog-backend-module-backstage"
+  resolution: "@internal/plugin-catalog-backend-module-example-processor@workspace:plugins/catalog-backend-module-example-processor"
   dependencies:
     "@backstage/backend-plugin-api": "backstage:^"
     "@backstage/catalog-model": "backstage:^"
     "@backstage/cli": "backstage:^"
-    "@backstage/config": "backstage:^"
-    "@backstage/integration": "backstage:^"
+    "@backstage/plugin-catalog-common": "backstage:^"
     "@backstage/plugin-catalog-node": "backstage:^"
-    "@types/fs-extra": "npm:^11.0.4"
-    "@types/glob": "npm:^8.1.0"
-    "@types/uuid": "npm:^10.0.0"
-    fs-extra: "npm:^11.2.0"
-    glob: "npm:^10.3.10"
-    lodash: "npm:^4.17.21"
-    node-fetch: "npm:^2.6.7"
-    uuid: "npm:^10.0.0"
-    yaml: "npm:^2.3.4"
   languageName: unknown
   linkType: soft
 
@@ -10314,6 +10346,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/auth-callback@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "@octokit/auth-callback@npm:5.0.1"
+  checksum: 10/afa2fd71e1cc238c4fc09a1a8cc3b5c8d2f231aecdb8f8be2384857cde893aa4ac697f7c6aa0b61e4d5fa1f00d41fb349ceffb938977c02ee317d5432247f6ef
+  languageName: node
+  linkType: hard
+
 "@octokit/auth-oauth-app@npm:^5.0.0":
   version: 5.0.6
   resolution: "@octokit/auth-oauth-app@npm:5.0.6"
@@ -10460,6 +10499,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/core@npm:^5.2.0":
+  version: 5.2.1
+  resolution: "@octokit/core@npm:5.2.1"
+  dependencies:
+    "@octokit/auth-token": "npm:^4.0.0"
+    "@octokit/graphql": "npm:^7.1.0"
+    "@octokit/request": "npm:^8.4.1"
+    "@octokit/request-error": "npm:^5.1.1"
+    "@octokit/types": "npm:^13.0.0"
+    before-after-hook: "npm:^2.2.0"
+    universal-user-agent: "npm:^6.0.0"
+  checksum: 10/9d95da740f350811dc5aadbf6670f3ddb8735f7c80029add497311ca0b13c4919fea473110e3fd9e85929e51ee64797fad8732e2f31703d55d80bdab1fdc846b
+  languageName: node
+  linkType: hard
+
 "@octokit/endpoint@npm:^7.0.0":
   version: 7.0.6
   resolution: "@octokit/endpoint@npm:7.0.6"
@@ -10478,6 +10532,16 @@ __metadata:
     "@octokit/types": "npm:^12.0.0"
     universal-user-agent: "npm:^6.0.0"
   checksum: 10/7df35c96f2b5628fe5b3f44a72614be9b439779c06b4dd1bb72283b3cb2ea53e59e1f9a108798efe5404b6856f4380a4c5be12d93255d854f0683cd6e22f3a27
+  languageName: node
+  linkType: hard
+
+"@octokit/endpoint@npm:^9.0.6":
+  version: 9.0.6
+  resolution: "@octokit/endpoint@npm:9.0.6"
+  dependencies:
+    "@octokit/types": "npm:^13.1.0"
+    universal-user-agent: "npm:^6.0.0"
+  checksum: 10/2bf776423365ee926bf3f722a664e52f1070758eff4a176279fb132103fd0c76e3541f83ace49bbad9a64f9c9b8de453be565ca8d6136989e9514dea65380ecf
   languageName: node
   linkType: hard
 
@@ -10510,6 +10574,17 @@ __metadata:
     "@octokit/types": "npm:^12.0.0"
     universal-user-agent: "npm:^6.0.0"
   checksum: 10/f5dcc51fed5304f65dab83fcea4c2a569107d3b71e8d084199dc44f0d0cfc852c9e1f341b06ae66601f9da4af3aad416b0c62dcd0567ac7568f072d8d90d502e
+  languageName: node
+  linkType: hard
+
+"@octokit/graphql@npm:^7.0.2, @octokit/graphql@npm:^7.1.0":
+  version: 7.1.1
+  resolution: "@octokit/graphql@npm:7.1.1"
+  dependencies:
+    "@octokit/request": "npm:^8.4.1"
+    "@octokit/types": "npm:^13.0.0"
+    universal-user-agent: "npm:^6.0.0"
+  checksum: 10/9a7a65fa84df795b0acb5315dae5a4a5a042a01dde0c88974df180a1c02b9b8e61cae013be32461b11ee1d507a8f778f3b7f37dfa3b371771332cb8efcd01f29
   languageName: node
   linkType: hard
 
@@ -10614,6 +10689,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/openapi-types@npm:^24.2.0":
+  version: 24.2.0
+  resolution: "@octokit/openapi-types@npm:24.2.0"
+  checksum: 10/000897ebc6e247c2591049d6081e95eb5636f73798dadd695ee6048496772b58065df88823e74a760201828545a7ac601dd3c1bcd2e00079a62a9ee9d389409c
+  languageName: node
+  linkType: hard
+
 "@octokit/plugin-paginate-graphql@npm:^4.0.0":
   version: 4.0.0
   resolution: "@octokit/plugin-paginate-graphql@npm:4.0.0"
@@ -10713,6 +10795,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@octokit/plugin-throttling@npm:^8.1.3":
+  version: 8.2.0
+  resolution: "@octokit/plugin-throttling@npm:8.2.0"
+  dependencies:
+    "@octokit/types": "npm:^12.2.0"
+    bottleneck: "npm:^2.15.3"
+  peerDependencies:
+    "@octokit/core": ^5.0.0
+  checksum: 10/7e95461c168c166f7101e27117499d5a84fd8185465965ca006ef43646015b1dce4accff234418666e3f55eadb01f6bc022d89eec2b71d95355b0f88224f4cd7
+  languageName: node
+  linkType: hard
+
 "@octokit/request-error@npm:^3.0.0, @octokit/request-error@npm:^3.0.3":
   version: 3.0.3
   resolution: "@octokit/request-error@npm:3.0.3"
@@ -10732,6 +10826,17 @@ __metadata:
     deprecation: "npm:^2.0.0"
     once: "npm:^1.4.0"
   checksum: 10/a21a4614c46cb173e4ba73fa048576204f1ddc541dee3e7c938ef36088566e3b25e04ca1f96f375ec2e3cc29b7ba970b3b078a89a20bc50cdcdbed879db94573
+  languageName: node
+  linkType: hard
+
+"@octokit/request-error@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@octokit/request-error@npm:5.1.1"
+  dependencies:
+    "@octokit/types": "npm:^13.1.0"
+    deprecation: "npm:^2.0.0"
+    once: "npm:^1.4.0"
+  checksum: 10/6ad98626407ba57bb33fa197611be74bee1dd9abc8d5d845648d6a2a04aa6840c0eb7f4be341d55dfcab5bc19181ad5fd25194869a7aaac6245f74b3a14d9662
   languageName: node
   linkType: hard
 
@@ -10758,6 +10863,18 @@ __metadata:
     "@octokit/types": "npm:^12.0.0"
     universal-user-agent: "npm:^6.0.0"
   checksum: 10/aebea1c33d607d23c70f663cd5f8279a8bd932ab77b4ca5cca3b33968a347b4adb47476c886086f3a9aa1acefab3b79adac78ee7aa2dacd67eb1f2a05e272618
+  languageName: node
+  linkType: hard
+
+"@octokit/request@npm:^8.4.1":
+  version: 8.4.1
+  resolution: "@octokit/request@npm:8.4.1"
+  dependencies:
+    "@octokit/endpoint": "npm:^9.0.6"
+    "@octokit/request-error": "npm:^5.1.1"
+    "@octokit/types": "npm:^13.1.0"
+    universal-user-agent: "npm:^6.0.0"
+  checksum: 10/2b2c9131cc9b608baeeef8ce2943768cc9db5fbe36a665f734a099bd921561c760e4391fbdf39d5aefb725db26742db1488c65624940ef7cec522e10863caa5e
   languageName: node
   linkType: hard
 
@@ -10804,6 +10921,15 @@ __metadata:
   dependencies:
     "@octokit/openapi-types": "npm:^22.2.0"
   checksum: 10/d2aeebc1d8684c4e950f054a52b484e898b72d9f5f8433bcf010161716eea20d1132820d922212f19557a8f147354f2674d1a27b22941308b7c298bdd2674ffa
+  languageName: node
+  linkType: hard
+
+"@octokit/types@npm:^13.1.0":
+  version: 13.10.0
+  resolution: "@octokit/types@npm:13.10.0"
+  dependencies:
+    "@octokit/openapi-types": "npm:^24.2.0"
+  checksum: 10/32f8f5010d7faae128b0cdd0c221f0ca8c3781fe44483ecd87162b3da507db667f7369acda81340f6e2c9c374d9a938803409c6085c2c01d98210b6c58efb99a
   languageName: node
   linkType: hard
 
@@ -14653,30 +14779,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/fs-extra@npm:^11.0.4":
-  version: 11.0.4
-  resolution: "@types/fs-extra@npm:11.0.4"
-  dependencies:
-    "@types/jsonfile": "npm:*"
-    "@types/node": "npm:*"
-  checksum: 10/acc4c1eb0cde7b1f23f3fe6eb080a14832d8fa9dc1761aa444c5e2f0f6b6fa657ed46ebae32fb580a6700fc921b6165ce8ac3e3ba030c3dd15f10ad4dd4cae98
-  languageName: node
-  linkType: hard
-
 "@types/geojson@npm:*":
   version: 7946.0.14
   resolution: "@types/geojson@npm:7946.0.14"
   checksum: 10/ae511bee6488ae3bd5a3a3347aedb0371e997b14225b8983679284e22fa4ebd88627c6e3ff8b08bf4cc35068cb29310c89427311ffc9322c255615821a922e71
-  languageName: node
-  linkType: hard
-
-"@types/glob@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "@types/glob@npm:8.1.0"
-  dependencies:
-    "@types/minimatch": "npm:^5.1.2"
-    "@types/node": "npm:*"
-  checksum: 10/9101f3a9061e40137190f70626aa0e202369b5ec4012c3fabe6f5d229cce04772db9a94fa5a0eb39655e2e4ad105c38afbb4af56a56c0996a8c7d4fc72350e3d
   languageName: node
   linkType: hard
 
@@ -14814,15 +14920,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsonfile@npm:*":
-  version: 6.1.4
-  resolution: "@types/jsonfile@npm:6.1.4"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10/309fda20eb5f1cf68f2df28931afdf189c5e7e6bec64ac783ce737bb98908d57f6f58757ad5da9be37b815645a6f914e2d4f3ac66c574b8fe1ba6616284d0e97
-  languageName: node
-  linkType: hard
-
 "@types/jsonwebtoken@npm:^9.0.0":
   version: 9.0.5
   resolution: "@types/jsonwebtoken@npm:9.0.5"
@@ -14873,13 +14970,6 @@ __metadata:
   version: 1.3.5
   resolution: "@types/mime@npm:1.3.5"
   checksum: 10/e29a5f9c4776f5229d84e525b7cd7dd960b51c30a0fb9a028c0821790b82fca9f672dab56561e2acd9e8eed51d431bde52eafdfef30f643586c4162f1aecfc78
-  languageName: node
-  linkType: hard
-
-"@types/minimatch@npm:^5.1.2":
-  version: 5.1.2
-  resolution: "@types/minimatch@npm:5.1.2"
-  checksum: 10/94db5060d20df2b80d77b74dd384df3115f01889b5b6c40fa2dfa27cfc03a68fb0ff7c1f2a0366070263eb2e9d6bfd8c87111d4bc3ae93c3f291297c1bf56c85
   languageName: node
   linkType: hard
 
@@ -16810,9 +16900,11 @@ __metadata:
     "@backstage/plugin-auth-backend-module-github-provider": "backstage:^"
     "@backstage/plugin-auth-backend-module-guest-provider": "backstage:^"
     "@backstage/plugin-catalog-backend": "backstage:^"
+    "@backstage/plugin-catalog-backend-module-github": "backstage:^"
     "@backstage/plugin-catalog-backend-module-logs": "backstage:^"
     "@backstage/plugin-catalog-backend-module-scaffolder-entity-model": "backstage:^"
     "@backstage/plugin-events-backend": "backstage:^"
+    "@backstage/plugin-events-backend-module-github": "backstage:^"
     "@backstage/plugin-kubernetes-backend": "backstage:^"
     "@backstage/plugin-notifications-backend": "backstage:^"
     "@backstage/plugin-proxy-backend": "backstage:^"
@@ -16827,7 +16919,7 @@ __metadata:
     "@backstage/plugin-techdocs-node": "backstage:^"
     "@frontside/backstage-plugin-graphql-backend": "npm:^0.1.2"
     "@frontside/backstage-plugin-graphql-backend-module-catalog": "npm:^0.3.0"
-    "@internal/plugin-catalog-backend-module-backstage": "workspace:^"
+    "@internal/plugin-catalog-backend-module-example-processor": "workspace:^"
     "@internal/plugin-notifications-tester-backend": "workspace:^"
     app: "npm:^0.0.0"
     better-sqlite3: "npm:^11.0.0"
@@ -35876,7 +35968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.0.0, yaml@npm:^2.2.1, yaml@npm:^2.2.2, yaml@npm:^2.3.4, yaml@npm:^2.7.1":
+"yaml@npm:^2.0.0, yaml@npm:^2.2.1, yaml@npm:^2.2.2, yaml@npm:^2.7.1":
   version: 2.8.0
   resolution: "yaml@npm:2.8.0"
   bin:
