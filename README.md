@@ -41,6 +41,10 @@ The following plugins are considered alpha and still under heavy development. Th
 
 - [Notifications](https://demo.backstage.io/notifications)
 
+## New Frontend System
+
+The Demo site currently uses the currently default Legacy Frontend System. The New Frontend System is still currently in Alpha. For those looking for a working example we have added an `app-migrated` to showcase the current state of the New Frontend System. You can see the code for this in `/packages/app-migrated` and you can run this version locally by running: `yarn start:app-migrated`.
+
 ## Code Customization
 
 We have made some code customization as well. The following sections go into detail about them.
