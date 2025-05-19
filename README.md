@@ -107,6 +107,10 @@ The Search plugin has been expanded to include results from the Explore plugins 
 
 More information on adjusting search can be found in the [Customizing Search](https://backstage.io/docs/features/search/getting-started#customizing-search) documentation.
 
+### OpenTelemetry
+
+We've setup the Demo to expose the OpenTelemetry metrics following the [Setup OpenTelemetry](https://backstage.io/docs/tutorials/setup-opentelemetry) tutorial. These metrics are only available when you run the project locally after running `yarn start` and then accessing them from <http://localhost:9464/metrics>.
+
 ## Upgrading
 
 This Demo site is kept in-sync with the weekly `next` release line as defined in the [Release Lines](https://backstage.io/docs/overview/versioning-policy#release-lines) documentation. Upgrading the Demo site has been automated so that a Pull Request with the latest changes is created the day after the weekly `next` release is published. This allows us to easily stay up to date!
