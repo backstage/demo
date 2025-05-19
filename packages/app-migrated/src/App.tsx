@@ -5,7 +5,7 @@ import {
   OAuthRequestDialog,
   ProxiedSignInPage,
 } from '@backstage/core-components';
-import { AppRouter, FeatureFlagged, FlatRoutes } from '@backstage/core-app-api';
+import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
   CatalogEntityPage,
   CatalogIndexPage,
@@ -41,13 +41,12 @@ import {
 } from '@backstage/plugin-user-settings';
 import { apertureTheme } from './theme/aperture';
 import { apis } from './apis';
-import { createApp } from '@backstage/app-defaults';
+
 import { entityPage } from './components/catalog/EntityPage';
 import { orgPlugin } from '@backstage/plugin-org';
 import { searchPage } from './components/search/SearchPage';
 import { CssBaseline } from '@material-ui/core';
 import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
-import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { NotificationsPage } from '@backstage/plugin-notifications';
@@ -62,63 +61,22 @@ import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { NotificationSettings } from './components/settings/NotificationSettings';
 
-const app = createApp({
-  apis,
-  plugins: [badgesPlugin],
-  components: {
-    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
-  },
-  bindRoutes({ bind }) {
-    bind(catalogPlugin.externalRoutes, {
-      createComponent: scaffolderPlugin.routes.root,
-      viewTechDoc: techdocsPlugin.routes.docRoot,
-      createFromTemplate: scaffolderPlugin.routes.selectedTemplate,
-    });
-    bind(scaffolderPlugin.externalRoutes, {
-      viewTechDoc: techdocsPlugin.routes.docRoot,
-    });
-    bind(catalogGraphPlugin.externalRoutes, {
-      catalogEntity: catalogPlugin.routes.catalogEntity,
-    });
-    bind(orgPlugin.externalRoutes, {
-      catalogIndex: catalogPlugin.routes.catalogIndex,
-    });
-  },
-  themes: [
-    {
-      id: 'light',
-      title: 'Light',
-      variant: 'light',
-      Provider: ({ children }) => (
-        <UnifiedThemeProvider theme={themes.light} children={children} />
-      ),
-    },
-    {
-      id: 'dark',
-      title: 'Dark',
-      variant: 'dark',
-      Provider: ({ children }) => (
-        <UnifiedThemeProvider theme={themes.dark} children={children} />
-      ),
-    },
-    {
-      id: 'aperture',
-      title: 'Aperture',
-      variant: 'light',
-      Provider: ({ children }) => (
-        <UnifiedThemeProvider theme={apertureTheme} noCssBaseline>
-          <CssBaseline />
-          {children}
-        </UnifiedThemeProvider>
-      ),
-    },
-  ],
-});
+// New Frontend System Imports
+import { createApp } from '@backstage/frontend-defaults';
+import {
+  convertLegacyApp,
+  convertLegacyAppOptions,
+  convertLegacyRouteRef,
+  convertLegacyRouteRefs,
+} from '@backstage/core-compat-api';
 
 const routes = (
   <FlatRoutes>
     <Route path="/" element={<Navigate to="catalog" />} />
-    <FeatureFlagged with="customizable-home-page-preview">
+    <Route path="/home" element={<HomepageCompositionRoot />}>
+      <CustomizableHomePage />
+    </Route>
+    {/* <FeatureFlagged with="customizable-home-page-preview">
       <Route path="/home" element={<HomepageCompositionRoot />}>
         <CustomizableHomePage />
       </Route>
@@ -127,7 +85,7 @@ const routes = (
       <Route path="/home" element={<HomepageCompositionRoot />}>
         <HomePage />
       </Route>
-    </FeatureFlagged>
+    </FeatureFlagged> */}
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
@@ -167,7 +125,7 @@ const routes = (
         <Mermaid />
       </TechDocsAddons>
     </Route>
-    ;
+
     <Route path="/explore" element={<ExplorePage />} />
     <Route path="/graphiql" element={<GraphiQLPage />} />
     <Route path="/search" element={<SearchPage />}>
@@ -184,7 +142,7 @@ const routes = (
   </FlatRoutes>
 );
 
-export default app.createRoot(
+const legacyFeatures = convertLegacyApp(
   <>
     <AlertDisplay />
     <OAuthRequestDialog />
@@ -195,3 +153,64 @@ export default app.createRoot(
     </AppRouter>
   </>,
 );
+
+const optionsModule = convertLegacyAppOptions({
+  apis,
+  plugins: [badgesPlugin],
+  components: {
+    SignInPage: props => <ProxiedSignInPage {...props} provider="guest" />,
+  },
+  themes: [
+    {
+      id: 'light',
+      title: 'Light',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <UnifiedThemeProvider theme={themes.light} children={children} />
+      ),
+    },
+    {
+      id: 'dark',
+      title: 'Dark',
+      variant: 'dark',
+      Provider: ({ children }) => (
+        <UnifiedThemeProvider theme={themes.dark} children={children} />
+      ),
+    },
+    {
+      id: 'aperture',
+      title: 'Aperture',
+      variant: 'light',
+      Provider: ({ children }) => (
+        <UnifiedThemeProvider theme={apertureTheme} noCssBaseline>
+          <CssBaseline />
+          {children}
+        </UnifiedThemeProvider>
+      ),
+    },
+  ],
+});
+
+const app = createApp({
+  features: [optionsModule, ...legacyFeatures],
+  bindRoutes({ bind }) {
+    bind(convertLegacyRouteRefs(catalogPlugin.externalRoutes), {
+      createComponent: convertLegacyRouteRef(scaffolderPlugin.routes.root),
+      viewTechDoc: convertLegacyRouteRef(techdocsPlugin.routes.docRoot),
+      createFromTemplate: convertLegacyRouteRef(
+        scaffolderPlugin.routes.selectedTemplate,
+      ),
+    });
+    bind(convertLegacyRouteRefs(scaffolderPlugin.externalRoutes), {
+      viewTechDoc: convertLegacyRouteRef(techdocsPlugin.routes.docRoot),
+    });
+    bind(convertLegacyRouteRefs(catalogGraphPlugin.externalRoutes), {
+      catalogEntity: convertLegacyRouteRef(catalogPlugin.routes.catalogEntity),
+    });
+    bind(convertLegacyRouteRefs(orgPlugin.externalRoutes), {
+      catalogIndex: convertLegacyRouteRef(catalogPlugin.routes.catalogIndex),
+    });
+  },
+});
+
+export default app.createRoot();

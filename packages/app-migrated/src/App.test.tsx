@@ -1,5 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
-import App from './App';
+import app from './App';
 import { v4 } from 'uuid';
 
 describe('App', () => {
@@ -16,14 +16,8 @@ describe('App', () => {
       APP_CONFIG: [
         {
           data: {
-            app: {
-              title: 'Test',
-              support: { url: 'http://localhost:7007/support' },
-            },
+            app: { title: 'Test' },
             backend: { baseUrl: 'http://localhost:7007' },
-            lighthouse: {
-              baseUrl: 'http://localhost:3003',
-            },
             techdocs: {
               storageUrl: 'http://localhost:7007/api/techdocs/static/docs',
             },
@@ -33,7 +27,7 @@ describe('App', () => {
       ] as any,
     };
 
-    const rendered = render(<App />);
+    const rendered = render(app);
     await waitFor(() => {
       expect(rendered.baseElement).toBeInTheDocument();
     });
