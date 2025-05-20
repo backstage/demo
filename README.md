@@ -20,7 +20,18 @@ Here are the core features that come with Backstage and links to examples in the
 - [TechDocs](https://demo.backstage.io/docs)
 - [Kubernetes plugin](https://demo.backstage.io/catalog/default/component/dice-roller)
 
-> Note: the Kubernetes plugin does need to be installed but is considered a core feature
+### Catalog Ingestion
+
+The Demo site Catalog is populated via a few methods. We ingest [some entities](https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples) using [static configuration](https://github.com/backstage/demo/blob/97167e53786c158499a53c13b1c1a9592b61161d/app-config.yaml#L74).
+
+We also ingest entities from the [Backstage & Community Plugins repos](https://github.com/backstage/demo/blob/97167e53786c158499a53c13b1c1a9592b61161d/app-config.yaml#L117) using the [GitHub Entity provider](https://backstage.io/docs/integrations/github/discovery). We use the events support for this provider to handle updates and also run it on a daily schedule as a reconciliation backup for any events that might have been dropped for various reasons - network issues, downstream outages, etc. A [GitHub WebHook](https://docs.github.com/en/webhooks/about-webhooks) has been added to the respective repos as part of this setup.
+
+The flow of events happens as follows:
+
+1. The GitHub WebHook fires an event to `https://demo.backstage.io/api/events/http/github`
+2. The event is initially captured by the `@backstage/plugin-events-backend` based on [the `events.http.topics` configuration](https://github.com/backstage/demo/blob/97167e53786c158499a53c13b1c1a9592b61161d/app-config.yaml#L195)
+3. Then the event is validated by `@backstage/plugin-events-backend-module-github` to further classify the topic with a subtopic and republishes the event
+4. The event with the updated topic then gets [picked up by `@backstage/plugin-catalog-backend-module-github`](https://github.com/backstage/backstage/blob/5cc0ca32e1a2f62420d3bccf209f7d428e8765d9/plugins/catalog-backend-module-github/src/providers/GithubEntityProvider.ts#L169-L173) which then [updates the entity/entities](https://github.com/backstage/backstage/blob/5cc0ca32e1a2f62420d3bccf209f7d428e8765d9/plugins/catalog-backend-module-github/src/providers/GithubEntityProvider.ts#L325).
 
 ## Additional Plugins
 
