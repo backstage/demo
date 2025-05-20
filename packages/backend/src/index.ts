@@ -9,7 +9,10 @@ backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 backend.add(import('@backstage-community/plugin-badges-backend'));
 backend.add(import('@backstage/plugin-catalog-backend'));
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
-backend.add(import('@internal/plugin-catalog-backend-module-backstage'));
+backend.add(import('@backstage/plugin-catalog-backend-module-github'));
+backend.add(
+  import('@internal/plugin-catalog-backend-module-example-processor'),
+);
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
@@ -40,8 +43,10 @@ backend.add(import('./extensions/docsBuildStrategy'));
 backend.add(import('@backstage-community/plugin-todo-backend'));
 
 backend.add(import('@backstage/plugin-events-backend'));
+backend.add(import('@backstage/plugin-events-backend-module-github'));
+
 backend.add(import('@backstage/plugin-signals-backend'));
 backend.add(import('@backstage/plugin-notifications-backend'));
-
 backend.add(import('@internal/plugin-notifications-tester-backend'));
+
 backend.start();

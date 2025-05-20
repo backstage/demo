@@ -1,11 +1,11 @@
 {
-  "name": "@internal/plugin-catalog-backend-module-backstage",
-  "description": "The backstage backend module for the catalog plugin.",
+  "name": "@internal/plugin-catalog-backend-module-example-processor",
   "version": "0.1.0",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "license": "Apache-2.0",
   "private": true,
+  "description": "The example-processor backend module for the catalog plugin.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
   "publishConfig": {
     "access": "public",
     "main": "dist/index.cjs.js",
@@ -26,25 +26,13 @@
   "dependencies": {
     "@backstage/backend-plugin-api": "backstage:^",
     "@backstage/catalog-model": "backstage:^",
-    "@backstage/config": "backstage:^",
-    "@backstage/integration": "backstage:^",
-    "@backstage/plugin-catalog-node": "backstage:^",
-    "fs-extra": "^11.2.0",
-    "glob": "^10.3.10",
-    "lodash": "^4.17.21",
-    "node-fetch": "^2.6.7",
-    "uuid": "^10.0.0",
-    "yaml": "^2.3.4"
+    "@backstage/plugin-catalog-common": "backstage:^",
+    "@backstage/plugin-catalog-node": "backstage:^"
   },
   "devDependencies": {
-    "@backstage/cli": "backstage:^",
-    "@types/fs-extra": "^11.0.4",
-    "@types/glob": "^8.1.0",
-    "@types/uuid": "^10.0.0"
+    "@backstage/cli": "backstage:^"
   },
   "files": [
-    "dist",
-    "config.d.ts"
-  ],
-  "configSchema": "config.d.ts"
+    "dist"
+  ]
 }

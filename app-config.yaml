@@ -114,11 +114,23 @@ catalog:
       rules:
         - allow: [Template]
   providers:
-    backstage:
-      enabled: false
-      schedule:
-        frequency: { hours: 12 }
-        timeout: { minutes: 30 }
+    github:
+      backstageRepo:
+        organization: 'backstage'
+        catalogPath: '**/catalog-info.yaml'
+        filters:
+          repository: 'backstage'
+        schedule:
+          frequency: { days: 1 }
+          timeout: { minutes: 5 }
+      communityPluginsRepo:
+        organization: 'backstage'
+        catalogPath: '**/catalog-info.yaml'
+        filters:
+          repository: 'community-plugins'
+        schedule:
+          frequency: { days: 1 }
+          timeout: { minutes: 5 }
 
 costInsights:
   engineerCost: 200000
@@ -176,3 +188,11 @@ explore:
 
 notificationsTester:
   enabled: true
+
+events:
+  http:
+    topics:
+      - github
+  modules:
+    github:
+      webhookSecret: ${GITHUB_WEBHOOK_SECRET}
