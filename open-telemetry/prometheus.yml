@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      # This target address specifically works on Docker for MacOS - you may
+      # need to change it to another host depending on your OS and Docker
+      # engine.
+      - targets: ['host.docker.internal:9464']

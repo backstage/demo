@@ -101,6 +101,9 @@ COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 # Copy any other files that we need at runtime
 COPY --chown=node:node app-config.yaml app-config.*.yaml ./
 
+# Copy the instrumentation.js needed to expose the OpenTelemetry data
+COPY --chown=node:node packages/backend/src/instrumentation.js ./
+
 # Heroku will assign the port dynamically; the default value here will be overridden by what Heroku passes in
 # For local development the default will be used
 ENV PORT=7007
@@ -113,4 +116,4 @@ ENV NODE_OPTIONS="--max-old-space-size=1000 --no-node-snapshot"
 # Default is 'heroku', for local testing pass in 'local'
 ENV ENVIRONMENT_CONFIG=${ENVIRONMENT_CONFIG}
 
-CMD ["sh", "-c", "node packages/backend --config app-config.yaml --config app-config.${ENVIRONMENT_CONFIG}.yaml"]
+CMD ["sh", "-c", "node --require ./instrumentation.js packages/backend --config app-config.yaml --config app-config.${ENVIRONMENT_CONFIG}.yaml"]
