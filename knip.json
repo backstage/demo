@@ -1,6 +1,11 @@
 {
   "$schema": "https://unpkg.com/knip@3/schema.json",
-  "ignore": ["**/setupTests.ts", "**/.eslintrc.js", "**/config.d.ts"],
+  "ignore": [
+    "**/setupTests.ts",
+    "**/.eslintrc.js",
+    "**/config.d.ts",
+    "packages/backend/src/instrumentation.js"
+  ],
   "ignoreDependencies": [
     "better-sqlite3",
     "app",
@@ -9,6 +14,9 @@
     "lint-staged",
     "@types/lodash",
     "@types/d3",
-    "@types/glob"
+    "@types/glob",
+    "@opentelemetry/auto-instrumentations-node",
+    "@opentelemetry/exporter-prometheus",
+    "@opentelemetry/sdk-node"
   ]
 }

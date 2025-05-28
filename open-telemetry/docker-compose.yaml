@@ -1,0 +1,32 @@
+# Helpful links:
+# http://localhost:9464/metrics - Backstage metrics
+# http://localhost:9090 - Prometheus
+# http://localhost:3001 - Grafana
+
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3001:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/backstage.json
+    volumes:
+      - ./dashboards/:/etc/grafana/provisioning/dashboards/
+      - ./datasources/:/etc/grafana/provisioning/datasources/
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    external: true
