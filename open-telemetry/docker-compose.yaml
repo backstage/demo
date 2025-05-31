@@ -6,7 +6,7 @@
 version: '3'
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus@sha256:9abc6cf6aea7710d163dbb28d8eeb7dc5baef01e38fa4cd146a406dd9f07f70d
     ports:
       - 9090:9090
     volumes:
@@ -15,7 +15,7 @@ services:
       - monitoring
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana@sha256:06dc8d60e184705e5dc00e051a6d92342a44010d7d5e538d0a36339e85abb9b7
     ports:
       - 3001:3000
     environment:
