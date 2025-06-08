@@ -7,12 +7,20 @@ if (isMainThread) {
     getNodeAutoInstrumentations,
   } = require('@opentelemetry/auto-instrumentations-node');
   const { PrometheusExporter } = require('@opentelemetry/exporter-prometheus');
+  const {
+    OTLPTraceExporter,
+  } = require('@opentelemetry/exporter-trace-otlp-http');
+
+  // const { ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-node');
 
   // By default exports the metrics on localhost:9464/metrics
   const prometheusExporter = new PrometheusExporter();
+  const otlpTraceExporter = new OTLPTraceExporter();
+  // const consoleSpanExporter = new ConsoleSpanExporter();
   const sdk = new NodeSDK({
-    // You can add a traceExporter field here too
     metricReader: prometheusExporter,
+    traceExporter: otlpTraceExporter,
+    // traceExporter: consoleSpanExporter,
     instrumentations: [getNodeAutoInstrumentations()],
   });
 
