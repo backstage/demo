@@ -11,16 +11,15 @@ if (isMainThread) {
     OTLPTraceExporter,
   } = require('@opentelemetry/exporter-trace-otlp-http');
 
-  // const { ConsoleSpanExporter } = require('@opentelemetry/sdk-trace-node');
-
   // By default exports the metrics on localhost:9464/metrics
   const prometheusExporter = new PrometheusExporter();
-  const otlpTraceExporter = new OTLPTraceExporter();
-  // const consoleSpanExporter = new ConsoleSpanExporter();
+  // We export the traces to localhost:4318/v1/traces
+  const otlpTraceExporter = new OTLPTraceExporter({
+    url: 'http://localhost:4318/v1/traces',
+  });
   const sdk = new NodeSDK({
     metricReader: prometheusExporter,
     traceExporter: otlpTraceExporter,
-    // traceExporter: consoleSpanExporter,
     instrumentations: [getNodeAutoInstrumentations()],
   });
 
