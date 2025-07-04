@@ -1,4 +1,3 @@
-import { PropsWithChildren } from 'react';
 import { Link, Theme, makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
@@ -18,7 +17,6 @@ import {
 import { SidebarSearchModal } from '@backstage/plugin-search';
 import {
   Sidebar,
-  SidebarPage,
   sidebarConfig,
   SidebarItem,
   SidebarDivider,
@@ -35,6 +33,11 @@ import CategoryIcon from '@material-ui/icons/Category';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { compatWrapper } from '@backstage/core-compat-api';
+import {
+  coreExtensionData,
+  createExtension,
+} from '@backstage/frontend-plugin-api';
 
 const useSidebarLogoStyles = makeStyles<Theme, { themeId: string }>({
   root: {
@@ -75,43 +78,59 @@ const SidebarLogo = () => {
   );
 };
 
-export const Root = ({ children }: PropsWithChildren<{}>) => (
-  <SidebarPage>
-    <Sidebar>
-      <SidebarLogo />
-      <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-        <SidebarSearchModal />
-      </SidebarGroup>
-      <SidebarDivider />
-      <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="home" text="Home" />
-        <SidebarItem icon={CategoryIcon} to="/" text="Catalog" />
-        <MyGroupsSidebarItem
-          singularTitle="My Group"
-          pluralTitle="My Groups"
-          icon={GroupIcon}
-        />
-        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
-        <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
-        <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
-      </SidebarGroup>
-      <SidebarDivider />
-      <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-      <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
-      <SidebarItem icon={GraphiQLIcon} to="graphiql" text="GraphiQL" />
-      <SidebarSpace />
-      <SidebarDivider />
-      <NotificationsSidebarItem />
-      <SidebarDivider />
-      <SidebarGroup
-        label="Settings"
-        icon={<UserSettingsSignInAvatar />}
-        to="/settings"
-      >
-        <SidebarSettings />
-      </SidebarGroup>
-    </Sidebar>
-    {children}
-  </SidebarPage>
-);
+export const rootNav = createExtension({
+  name: 'nav',
+  attachTo: { id: 'app/layout', input: 'nav' },
+  output: [coreExtensionData.reactElement],
+  factory() {
+    return [
+      coreExtensionData.reactElement(
+        compatWrapper(
+          <Sidebar>
+            <SidebarLogo />
+            <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
+              <SidebarSearchModal />
+            </SidebarGroup>
+            <SidebarDivider />
+            <SidebarGroup label="Menu" icon={<MenuIcon />}>
+              <SidebarItem icon={HomeIcon} to="home" text="Home" />
+              <SidebarItem icon={CategoryIcon} to="/" text="Catalog" />
+              <MyGroupsSidebarItem
+                singularTitle="My Group"
+                pluralTitle="My Groups"
+                icon={GroupIcon}
+              />
+              <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+              <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
+              <SidebarItem
+                icon={CreateComponentIcon}
+                to="create"
+                text="Create..."
+              />
+              <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+            </SidebarGroup>
+            <SidebarDivider />
+            <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
+            <SidebarItem
+              icon={MoneyIcon}
+              to="cost-insights"
+              text="Cost Insights"
+            />
+            <SidebarItem icon={GraphiQLIcon} to="graphiql" text="GraphiQL" />
+            <SidebarSpace />
+            <SidebarDivider />
+            <NotificationsSidebarItem />
+            <SidebarDivider />
+            <SidebarGroup
+              label="Settings"
+              icon={<UserSettingsSignInAvatar />}
+              to="/settings"
+            >
+              <SidebarSettings />
+            </SidebarGroup>
+          </Sidebar>,
+        ),
+      ),
+    ];
+  },
+});

@@ -1,1 +1,1 @@
-export { Root } from './Root';
+export { rootNav } from './Root';
