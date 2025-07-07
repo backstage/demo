@@ -109,7 +109,32 @@ More information on adjusting search can be found in the [Customizing Search](ht
 
 ### OpenTelemetry
 
-We've setup the Demo to expose the OpenTelemetry metrics following the [Setup OpenTelemetry](https://backstage.io/docs/tutorials/setup-opentelemetry) tutorial. These metrics are only available when you run the project locally after running `yarn start` and then accessing them from <http://localhost:9464/metrics>.
+We've setup the Demo to expose the OpenTelemetry metrics and traces following the [Setup OpenTelemetry tutorial](https://backstage.io/docs/tutorials/setup-opentelemetry). These metrics and traces are only available when you run the project locally. To give you a full picture of what this looks like we have a basic observability stack setup using Prometheus Grafana to showcase the metrics and Jaeger to showcase the traces. Here's how you can launch this:
+
+1. Clone this repo
+2. Run `yarn install`
+3. In one terminal tab run `yarn start:otel-prerequisites`
+4. Then in a new terminal tab, different from the one in the above step, run `yarn start`
+5. From here you can open the following links:
+   - Prometheus: <http://localhost:9090>
+   - Grafana: <http://localhost:3001> (default user name and pass word is admin, this is purely for demo usage and not a recommended pattern to follow)
+   - Jaeger: <http://localhost:16686>
+
+You should be getting metrics pretty quickly. Feel free to click around the local Backstage instance to generate more. You'll need to run the Demo Software Template to see any of the Scaffolder related metrics.
+
+We've included some basic examples in the showcase Grafana dashboard if you are looking for how you might use these metrics.
+
+Prometheus example:
+
+![Prometheus example](./docs/images/opentelemetry-prometheus.png)
+
+Grafana example:
+
+![Grafana example](./docs/images/opentelemetry-grafana.png)
+
+Jaeger example:
+
+![Jaeger example](./docs/images/opentelemetry-jaeger.png)
 
 ## Upgrading
 
