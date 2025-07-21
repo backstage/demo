@@ -64,7 +64,7 @@ We have made some code customizations as well. The following sections go into de
 
 ### Custom Theme
 
-We have created a custom theme called `APERTURE` to help showcase what some of the possibilities are that a custom theme can allow and to have a working example.
+We have created a custom theme called `Aperture` to help showcase what some of the possibilities are that a custom theme can allow and to have a working example.
 
 > Note: This theme is just an example and not intended to be copied as is.
 
@@ -165,4 +165,14 @@ The Dockerfile in this repo can be built locally using the following command:
 
 ```bash
 docker image build .  -t demo --build-arg ENVIRONMENT_CONFIG=local
+```
+
+This will build the image with your `app-config.local.yaml` included this allows you to include any config you might want to have in place for local testing.
+
+Using `--progress=plain --no-cache` can also be helpful with testing changes.
+
+You can then run it with this command:
+
+```bash
+docker run -it -p 7007:7007 demo
 ```
