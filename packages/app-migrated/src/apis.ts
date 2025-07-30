@@ -13,7 +13,6 @@ import {
 } from '@backstage/integration-react';
 
 import {
-  createApiFactory,
   githubAuthApiRef,
   discoveryApiRef,
   oauthRequestApiRef,
@@ -30,26 +29,23 @@ import { ApiBlueprint } from '@backstage/frontend-plugin-api';
 
 const scmIntegrationsApi = ApiBlueprint.make({
   name: 'scm-integrations',
-  params: {
-    factory: createApiFactory({
+  params: define =>
+    define({
       api: scmIntegrationsApiRef,
       deps: { configApi: configApiRef },
       factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
     }),
-  },
 });
 
 const scmAuthApi = ApiBlueprint.make({
   name: 'scm-auth',
-  params: {
-    factory: ScmAuth.createDefaultApiFactory(),
-  },
+  params: define => define(ScmAuth.createDefaultApiFactory()),
 });
 
 const githubAuthApi = ApiBlueprint.make({
   name: 'github-auth',
-  params: {
-    factory: createApiFactory({
+  params: define =>
+    define({
       api: githubAuthApiRef,
       deps: {
         configApi: configApiRef,
@@ -64,13 +60,12 @@ const githubAuthApi = ApiBlueprint.make({
           environment: configApi.getString('auth.environment'),
         }),
     }),
-  },
 });
 
 const graphQlBrowseApi = ApiBlueprint.make({
   name: 'graphql-browse',
-  params: {
-    factory: createApiFactory({
+  params: define =>
+    define({
       api: graphQlBrowseApiRef,
       deps: {
         errorApi: errorApiRef,
@@ -102,23 +97,22 @@ const graphQlBrowseApi = ApiBlueprint.make({
           }),
         ]),
     }),
-  },
 });
 
 const costInsightsApi = ApiBlueprint.make({
   name: 'cost-insights',
-  params: {
-    factory: createApiFactory(
-      costInsightsApiRef,
-      new ExampleCostInsightsClient(),
-    ),
-  },
+  params: define =>
+    define({
+      api: costInsightsApiRef,
+      deps: {},
+      factory: ({}) => new ExampleCostInsightsClient(),
+    }),
 });
 
 const visitsApi = ApiBlueprint.make({
   name: 'visits',
-  params: {
-    factory: createApiFactory({
+  params: define =>
+    define({
       api: visitsApiRef,
       deps: {
         identityApi: identityApiRef,
@@ -127,7 +121,6 @@ const visitsApi = ApiBlueprint.make({
       factory: ({ identityApi, errorApi }) =>
         VisitsWebStorageApi.create({ identityApi, errorApi }),
     }),
-  },
 });
 
 export const apis = [
