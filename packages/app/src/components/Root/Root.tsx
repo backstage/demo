@@ -25,6 +25,7 @@ import {
   SidebarSpace,
   SidebarGroup,
   useSidebarOpenState,
+  SidebarScrollWrapper,
 } from '@backstage/core-components';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -35,6 +36,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import GroupIcon from '@material-ui/icons/People';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { NavContentComponentProps } from '@backstage/frontend-plugin-api';
 
 const useSidebarLogoStyles = makeStyles<Theme, { themeId: string }>({
   root: {
@@ -75,43 +77,54 @@ const SidebarLogo = () => {
   );
 };
 
+export const Sidebar2 = (props: NavContentComponentProps) => (
+  <Sidebar>
+    <SidebarLogo />
+    <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
+      <SidebarSearchModal />
+    </SidebarGroup>
+    <SidebarDivider />
+    <SidebarGroup label="Menu" icon={<MenuIcon />}>
+      <SidebarItem icon={HomeIcon} to="home" text="Home" />
+      <SidebarItem icon={CategoryIcon} to="/" text="Catalog" />
+      <MyGroupsSidebarItem
+        singularTitle="My Group"
+        pluralTitle="My Groups"
+        icon={GroupIcon}
+      />
+      <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+      <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
+      <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+      <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+    </SidebarGroup>
+    <SidebarDivider />
+    <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
+    <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
+    <SidebarItem icon={GraphiQLIcon} to="graphiql" text="GraphiQL" />
+    <SidebarSpace />
+    <SidebarGroup label="Menu" icon={<MenuIcon />}>
+      <SidebarScrollWrapper>
+        {props.items.map((item, index) => (
+          <SidebarItem {...item} key={index} />
+        ))}
+      </SidebarScrollWrapper>
+    </SidebarGroup>
+    <SidebarDivider />
+    <NotificationsSidebarItem />
+    <SidebarDivider />
+    <SidebarGroup
+      label="Settings"
+      icon={<UserSettingsSignInAvatar />}
+      to="/settings"
+    >
+      <SidebarSettings />
+    </SidebarGroup>
+  </Sidebar>
+);
+
 export const Root = ({ children }: PropsWithChildren<{}>) => (
   <SidebarPage>
-    <Sidebar>
-      <SidebarLogo />
-      <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
-        <SidebarSearchModal />
-      </SidebarGroup>
-      <SidebarDivider />
-      <SidebarGroup label="Menu" icon={<MenuIcon />}>
-        <SidebarItem icon={HomeIcon} to="home" text="Home" />
-        <SidebarItem icon={CategoryIcon} to="/" text="Catalog" />
-        <MyGroupsSidebarItem
-          singularTitle="My Group"
-          pluralTitle="My Groups"
-          icon={GroupIcon}
-        />
-        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
-        <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
-        <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
-      </SidebarGroup>
-      <SidebarDivider />
-      <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-      <SidebarItem icon={MoneyIcon} to="cost-insights" text="Cost Insights" />
-      <SidebarItem icon={GraphiQLIcon} to="graphiql" text="GraphiQL" />
-      <SidebarSpace />
-      <SidebarDivider />
-      <NotificationsSidebarItem />
-      <SidebarDivider />
-      <SidebarGroup
-        label="Settings"
-        icon={<UserSettingsSignInAvatar />}
-        to="/settings"
-      >
-        <SidebarSettings />
-      </SidebarGroup>
-    </Sidebar>
+    <Sidebar2 items={[]} />
     {children}
   </SidebarPage>
 );

@@ -2,10 +2,7 @@ import {
   graphQlBrowseApiRef,
   GraphQLEndpoints,
 } from '@backstage-community/plugin-graphiql';
-import {
-  costInsightsApiRef,
-  ExampleCostInsightsClient,
-} from '@backstage-community/plugin-cost-insights';
+
 import {
   ScmAuth,
   ScmIntegrationsApi,
@@ -80,7 +77,6 @@ export const apis: AnyApiFactory[] = [
         }),
       ]),
   }),
-  createApiFactory(costInsightsApiRef, new ExampleCostInsightsClient()),
   createApiFactory({
     api: visitsApiRef,
     deps: {

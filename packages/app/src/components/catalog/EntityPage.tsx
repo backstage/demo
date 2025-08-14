@@ -46,20 +46,13 @@ import {
   isOrphan,
 } from '@backstage/plugin-catalog';
 import {
-  EntityGithubActionsContent,
-  EntityRecentGithubActionsRunsCard,
-  isGithubActionsAvailable,
-} from '@backstage-community/plugin-github-actions';
-import {
   EntityGroupProfileCard,
   EntityMembersListCard,
   EntityOwnershipCard,
   EntityUserProfileCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EntityTodoContent } from '@backstage-community/plugin-todo';
 import { EmptyState } from '@backstage/core-components';
-import { EntityCatalogGraphCard } from '@backstage/plugin-catalog-graph';
 import {
   EntityKubernetesContent,
   isKubernetesAvailable,
@@ -72,6 +65,7 @@ import {
 } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
+import { EntityCatalogGraphCard } from '@backstage/plugin-catalog-graph';
 
 const EntityLayoutWrapper = (props: { children?: React.ReactNode }) => {
   const [badgesDialogOpen, setBadgesDialogOpen] = useState(false);
@@ -129,8 +123,8 @@ const entityWarningContent = (
 
 const cicdContent = (
   <EntitySwitch>
-    <EntitySwitch.Case if={isGithubActionsAvailable}>
-      <EntityGithubActionsContent />
+    <EntitySwitch.Case if={() => true}>
+      <div>HELLO</div>
     </EntitySwitch.Case>
 
     <EntitySwitch.Case>
@@ -154,9 +148,9 @@ const cicdContent = (
 
 const cicdCard = (
   <EntitySwitch>
-    <EntitySwitch.Case if={isGithubActionsAvailable}>
+    <EntitySwitch.Case if={() => true}>
       <Grid item xs={12} sm={6}>
-        <EntityRecentGithubActionsRunsCard limit={4} variant="gridItem" />
+        <div>goodbye</div>
       </Grid>
     </EntitySwitch.Case>
   </EntitySwitch>
@@ -182,7 +176,7 @@ const overviewContent = (
     </Grid>
 
     <Grid item md={6} xs={12}>
-      <EntityCatalogGraphCard variant="gridItem" height={400} />
+      <div>asd</div>
     </Grid>
 
     <Grid item xs={12} md={4} sm={6}>
@@ -201,6 +195,7 @@ const serviceEntityPage = (
   <EntityLayoutWrapper>
     <EntityLayout.Route path="/" title="Overview">
       {overviewContent}
+      <EntityCatalogGraphCard />
     </EntityLayout.Route>
 
     <EntityLayout.Route
@@ -237,12 +232,8 @@ const serviceEntityPage = (
       </Grid>
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/docs" title="Docs">
-      {techdocsContentWithAddons}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/todos" title="TODOs">
-      <EntityTodoContent />
+      <div>HELLO</div>
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );
@@ -276,12 +267,8 @@ const websiteEntityPage = (
       </Grid>
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/docs" title="Docs">
-      {techdocsContentWithAddons}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/todos" title="TODOs">
-      <EntityTodoContent />
+      <div>HELLO</div>
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );
@@ -292,12 +279,8 @@ const defaultEntityPage = (
       {overviewContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/docs" title="Docs">
-      {techdocsContentWithAddons}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/todos" title="TODOs">
-      <EntityTodoContent />
+      <div>HELLO</div>
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );
@@ -325,7 +308,7 @@ const apiPage = (
           <EntityAboutCard variant="gridItem" />
         </Grid>
         <Grid item md={6} xs={12}>
-          <EntityCatalogGraphCard variant="gridItem" height={400} />
+          <div>asd</div>
         </Grid>
         <Grid container item md={12}>
           <Grid item xs={12} md={6}>
@@ -406,7 +389,7 @@ const systemPage = (
       </Grid>
     </EntityLayout.Route>
     <EntityLayout.Route path="/diagram" title="Diagram">
-      <EntityCatalogGraphCard />
+      <div>asd</div>
     </EntityLayout.Route>
   </EntityLayoutWrapper>
 );
