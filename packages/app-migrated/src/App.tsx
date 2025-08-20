@@ -64,7 +64,7 @@ import { NotificationSettings } from './components/settings/NotificationSettings
 // New Frontend System Imports
 import { createApp } from '@backstage/frontend-defaults';
 import {
-  convertLegacyApp,
+  convertLegacyAppRoot,
   convertLegacyAppOptions,
   convertLegacyRouteRef,
   convertLegacyRouteRefs,
@@ -147,7 +147,7 @@ const routes = (
   </FlatRoutes>
 );
 
-const legacyFeatures = convertLegacyApp(
+const legacyFeatures = convertLegacyAppRoot(
   <>
     <AlertDisplay />
     <OAuthRequestDialog />
