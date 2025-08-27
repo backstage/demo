@@ -2275,13 +2275,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-explore-common@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@backstage-community/plugin-explore-common@npm:0.5.0"
-  checksum: 10/258dd4102f64220b28803db3825e52bb2974cad5704ca134a75b7924dd95a601c92fd8d6606cc3bcd949feace420a407a85ff32f4bd782c8e45ab728b62cda46
-  languageName: node
-  linkType: hard
-
 "@backstage-community/plugin-explore-common@npm:^0.7.0":
   version: 0.7.0
   resolution: "@backstage-community/plugin-explore-common@npm:0.7.0"
@@ -2392,6 +2385,19 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: 10/51a1bba3a69bf82354cc01b0c4867676ba6e61fec187169a5747fcbe7dee78ab964d9113ddeb010efcae2baa4addddb33f95acc7a40e8f81a501dfe587c3ac9c
+  languageName: node
+  linkType: hard
+
+"@backstage-community/plugin-search-backend-module-explore@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@backstage-community/plugin-search-backend-module-explore@npm:0.4.0"
+  dependencies:
+    "@backstage-community/plugin-explore-common": "npm:^0.7.0"
+    "@backstage/backend-plugin-api": "npm:^1.4.2"
+    "@backstage/config": "npm:^1.3.3"
+    "@backstage/plugin-search-backend-node": "npm:^1.3.14"
+    "@backstage/plugin-search-common": "npm:^1.2.19"
+  checksum: 10/4e1b6fddfb20c2e7067f6d921788dd18f7f64ed9e0f16910210d0ea11e9b86c50b114047de45e308c290707d34e3e95b8e57a90c5557421d1cd263e46fe44244
   languageName: node
   linkType: hard
 
@@ -4744,19 +4750,6 @@ __metadata:
     "@backstage/plugin-search-backend-node": "npm:^1.3.14"
     "@backstage/plugin-search-common": "npm:^1.2.19"
   checksum: 10/1a4c845a768293e4157be73a6991fbcf2e3ffdf8be443903d35047309b99535b056926272a42e895f40cda050db8a5108b62b76a9d3adeb153278f9a59780eda
-  languageName: node
-  linkType: hard
-
-"@backstage/plugin-search-backend-module-explore@backstage:^::backstage=1.42.2&npm=0.3.5, @backstage/plugin-search-backend-module-explore@npm:^0.3.5":
-  version: 0.3.5
-  resolution: "@backstage/plugin-search-backend-module-explore@npm:0.3.5"
-  dependencies:
-    "@backstage-community/plugin-explore-common": "npm:^0.5.0"
-    "@backstage/backend-plugin-api": "npm:^1.4.2"
-    "@backstage/config": "npm:^1.3.3"
-    "@backstage/plugin-search-backend-node": "npm:^1.3.14"
-    "@backstage/plugin-search-common": "npm:^1.2.19"
-  checksum: 10/2f900926a5d59895e483e202337e99d9cabb4198ab18d49c58d75c472a2468edc44f89e715e043e4205580e890127898a582d09e78f0e5d2e337f98f60f831ae
   languageName: node
   linkType: hard
 
@@ -17580,6 +17573,7 @@ __metadata:
   dependencies:
     "@backstage-community/plugin-badges-backend": "npm:^0.14.0"
     "@backstage-community/plugin-explore-backend": "npm:^0.9.0"
+    "@backstage-community/plugin-search-backend-module-explore": "npm:^0.4.0"
     "@backstage-community/plugin-todo-backend": "npm:^0.12.0"
     "@backstage/backend-defaults": "backstage:^"
     "@backstage/backend-plugin-api": "backstage:^"
@@ -17602,7 +17596,6 @@ __metadata:
     "@backstage/plugin-scaffolder-backend-module-notifications": "backstage:^"
     "@backstage/plugin-search-backend": "backstage:^"
     "@backstage/plugin-search-backend-module-catalog": "backstage:^"
-    "@backstage/plugin-search-backend-module-explore": "backstage:^"
     "@backstage/plugin-signals-backend": "backstage:^"
     "@backstage/plugin-techdocs-backend": "backstage:^"
     "@backstage/plugin-techdocs-node": "backstage:^"

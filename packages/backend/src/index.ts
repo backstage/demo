@@ -32,7 +32,9 @@ backend.add(
 );
 backend.add(import('@backstage/plugin-search-backend'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog'));
-backend.add(import('@backstage/plugin-search-backend-module-explore'));
+backend.add(
+  import('@backstage-community/plugin-search-backend-module-explore'),
+);
 
 // TODO:(awanlin) enable when issue causing crashes is resolved
 // https://github.com/backstage/backstage/issues/23047
