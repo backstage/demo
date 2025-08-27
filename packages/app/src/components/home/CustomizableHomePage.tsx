@@ -65,7 +65,7 @@ export const CustomizableHomePage = () => {
           />
         </Grid>
 
-        <CustomHomepageGrid config={defaultConfig}>
+        <CustomHomepageGrid config={defaultConfig} preventCollision={false}>
           <HomePageSearchBar />
           <HomePageRecentlyVisited />
           <HomePageTopVisited />
