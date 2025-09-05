@@ -95,7 +95,7 @@ jobs:
           git push origin topic/v${{ steps.set_release_name.outputs.release_version }}
       - name: 'Create Pull Request'
         if: ${{ steps.check_for_changes.outputs.HAS_CHANGES == 1 }}
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           github-token: ${{secrets.GH_SERVICE_ACCOUNT_TOKEN}}
           script: |
