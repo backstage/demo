@@ -45,7 +45,6 @@ import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { orgPlugin } from '@backstage/plugin-org';
 import { searchPage } from './components/search/SearchPage';
-import { CssBaseline } from '@material-ui/core';
 import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
@@ -208,8 +207,7 @@ const apertureThemeExtension = ThemeBlueprint.make({
       title: 'Aperture',
       variant: 'light',
       Provider: ({ children }) => (
-        <UnifiedThemeProvider theme={apertureTheme} noCssBaseline>
-          <CssBaseline />
+        <UnifiedThemeProvider theme={apertureTheme}>
           {children}
         </UnifiedThemeProvider>
       ),

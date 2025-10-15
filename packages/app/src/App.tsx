@@ -45,7 +45,6 @@ import { createApp } from '@backstage/app-defaults';
 import { entityPage } from './components/catalog/EntityPage';
 import { orgPlugin } from '@backstage/plugin-org';
 import { searchPage } from './components/search/SearchPage';
-import { CssBaseline } from '@material-ui/core';
 import { HomepageCompositionRoot, VisitListener } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
@@ -116,8 +115,7 @@ const app = createApp({
       title: 'Aperture',
       variant: 'light',
       Provider: ({ children }) => (
-        <UnifiedThemeProvider theme={apertureTheme} noCssBaseline>
-          <CssBaseline />
+        <UnifiedThemeProvider theme={apertureTheme}>
           {children}
         </UnifiedThemeProvider>
       ),
