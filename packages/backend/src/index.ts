@@ -18,10 +18,11 @@ backend.add(
 );
 backend.add(import('@backstage-community/plugin-explore-backend'));
 
-backend.add(import('@frontside/backstage-plugin-graphql-backend'));
-backend.add(
-  import('@frontside/backstage-plugin-graphql-backend-module-catalog'),
-);
+// TODO:(awanlin) enabled when TypeScript errors upstream have been corrected
+// backend.add(import('@frontside/backstage-plugin-graphql-backend'));
+// backend.add(
+//   import('@frontside/backstage-plugin-graphql-backend-module-catalog'),
+// );
 
 backend.add(import('@backstage/plugin-kubernetes-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
