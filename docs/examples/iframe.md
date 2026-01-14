@@ -12,14 +12,12 @@ To be able to use iframes with TechDocs you'll need to follow this guide: [How t
 
 Here is an example:
 
-<iframe width="672" height="378" src="https://www.youtube.com/embed/85TQEpNCaU0" title="YouTube video player" frameborder="0" allow="picture-in-picture" allowfullscreen></iframe>
+<iframe width="672" height="378" src="https://www.youtube.com/embed/85TQEpNCaU0" title="YouTube video player" frameborder="0" allow="picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
 
 ## Markdown
 
 Here is the Markdown:
 
 ```markdown
-<iframe width="672" height="378" frameborder="0"
-src="https://www.youtube.com/embed/85TQEpNCaU0" title="YouTube video player" 
-allow="picture-in-picture" allowfullscreen></iframe>
+<iframe width="672" height="378" src="https://www.youtube.com/embed/85TQEpNCaU0" title="YouTube video player" frameborder="0" allow="picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
 ```
