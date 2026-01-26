@@ -70,11 +70,12 @@ import {
   convertLegacyRouteRef,
   convertLegacyRouteRefs,
 } from '@backstage/core-compat-api';
+import { createFrontendModule } from '@backstage/frontend-plugin-api';
+
 import {
-  createFrontendModule,
   SignInPageBlueprint,
   ThemeBlueprint,
-} from '@backstage/frontend-plugin-api';
+} from '@backstage/plugin-app-react';
 
 const routes = (
   <FlatRoutes>
