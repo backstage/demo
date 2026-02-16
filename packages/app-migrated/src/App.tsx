@@ -56,9 +56,7 @@ import {
   ReportIssue,
   TextSize,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
-// TODO:(awanlin) enabled once TypeScript errors are resolved
-// https://github.com/johanneswuerbach/backstage-plugin-techdocs-addon-mermaid/issues/78
-// import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { NotificationSettings } from './components/settings/NotificationSettings';
 
@@ -129,6 +127,7 @@ const routes = (
         <LightBox />
         <ReportIssue />
         <TextSize />
+        <Mermaid />
       </TechDocsAddons>
     </Route>
 

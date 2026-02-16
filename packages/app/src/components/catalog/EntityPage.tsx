@@ -71,9 +71,7 @@ import {
   TextSize,
 } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-// TODO:(awanlin) enabled once TypeScript errors are resolved
-// https://github.com/johanneswuerbach/backstage-plugin-techdocs-addon-mermaid/issues/78
-// import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 
 const EntityLayoutWrapper = (props: { children?: React.ReactNode }) => {
   const [badgesDialogOpen, setBadgesDialogOpen] = useState(false);
@@ -171,6 +169,7 @@ const techdocsContentWithAddons = (
       <LightBox />
       <ReportIssue />
       <TextSize />
+      <Mermaid />
     </TechDocsAddons>
   </EntityTechdocsContent>
 );
