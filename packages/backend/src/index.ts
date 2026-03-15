@@ -52,4 +52,6 @@ backend.add(import('@backstage/plugin-signals-backend'));
 backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@internal/plugin-notifications-tester-backend'));
 
+backend.add(import('@backstage/plugin-mcp-actions-backend'));
+
 backend.start();

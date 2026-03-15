@@ -13,6 +13,13 @@ backend:
         options:
           secret: ${BACKEND_AUTH_KEY}
           subject: legacy-secret
+      - type: static
+        options:
+          token: ${MCP_TOKEN}
+          subject: mcp-clients
+        accessRestrictions:
+          - plugin: mcp-actions
+          - plugin: catalog
 
 auth:
   environment: production
