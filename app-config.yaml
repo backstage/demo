@@ -48,6 +48,11 @@ backend:
       - host: demo.backstage.io
         paths:
           - /api/graphql/schema
+  actions:
+    pluginSources:
+      - 'auth'
+      - 'catalog'
+      - 'scaffolder'
 
 integrations:
   github:
@@ -193,3 +198,9 @@ events:
   modules:
     github:
       webhookSecret: ${GITHUB_WEBHOOK_SECRET}
+
+# TODO(awanlin): enable when https://github.com/backstage/backstage/pull/33344
+# is merged and released, likely with `1.49.0`
+# mcpActions:
+#   name: 'Backstage Demo MCP Server'
+#   description: 'Tools for interacting with the Backstage Demo MCP Server'
