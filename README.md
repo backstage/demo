@@ -159,6 +159,19 @@ To learn how to get started with Renovate we recommend reading the [Installing a
 
 The following sections are to help those working with this repo to keep it maintained.
 
+### Updating PlantUML
+
+PlantUML isn't currently updated by Renovate due to installation pattern. To do this we need to do the following manually:
+
+1. Get the URL to the latest stable release from the PlantUML GitHub releases here: <https://github.com/plantuml/plantuml/releases>
+2. We want the URL to the `*.jar` file, it will have a naming convention like this: `plantuml-1.2026.2.jar`
+3. We then update the URL in the Dockerfile
+4. We also need to update the `sha` we use to validate the file we download for security purposes
+5. First run the same curl command locally using the URL we used in step 3 like this: `curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2026.2/plantuml-1.2026.2.jar`
+6. This will download a file called `plantuml.jar`, we then generate the `sha` using `sha1sum` like this: `sha1sum plantuml.jar`
+7. Update the `sha` value in the Dockerfile, it's in the same section as where you updated the URL.
+8. Test the Dockerfile using the instructions below in [Local Docker](#local-docker)
+
 ### Local Docker
 
 The Dockerfile in this repo can be built locally using the following command:
