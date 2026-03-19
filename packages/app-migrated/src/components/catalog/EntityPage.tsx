@@ -156,7 +156,7 @@ const cicdCard = (
   <EntitySwitch>
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <Grid item xs={12} sm={6}>
-        <EntityRecentGithubActionsRunsCard limit={4} variant="gridItem" />
+        <EntityRecentGithubActionsRunsCard limit={4} />
       </Grid>
     </EntitySwitch.Case>
   </EntitySwitch>
@@ -192,7 +192,7 @@ const overviewContent = (
     {cicdCard}
 
     <Grid item xs={12} md={6}>
-      <EntityHasSubcomponentsCard variant="gridItem" />
+      <EntityHasSubcomponentsCard />
     </Grid>
   </Grid>
 );
@@ -229,10 +229,10 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6}>
-          <EntityDependsOnComponentsCard variant="gridItem" />
+          <EntityDependsOnComponentsCard />
         </Grid>
         <Grid item xs={12} md={6}>
-          <EntityDependsOnResourcesCard variant="gridItem" />
+          <EntityDependsOnResourcesCard />
         </Grid>
       </Grid>
     </EntityLayout.Route>
@@ -268,10 +268,10 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6}>
-          <EntityDependsOnComponentsCard variant="gridItem" />
+          <EntityDependsOnComponentsCard />
         </Grid>
         <Grid item xs={12} md={6}>
-          <EntityDependsOnResourcesCard variant="gridItem" />
+          <EntityDependsOnResourcesCard />
         </Grid>
       </Grid>
     </EntityLayout.Route>
