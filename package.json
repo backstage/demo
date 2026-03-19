@@ -27,6 +27,15 @@
     "prepare": "husky",
     "postinstall": "husky || true"
   },
+  "backstage": {
+    "cli": {
+      "new": {
+        "globals": {
+          "license": "Apache-2.0"
+        }
+      }
+    }
+  },
   "workspaces": {
     "packages": [
       "packages/*",
@@ -39,12 +48,11 @@
     "@octokit/rest": "^22.0.1",
     "@octokit/plugin-paginate-rest": "^14.0.0",
     "@octokit/plugin-rest-endpoint-methods": "^17.0.0",
-    "nan": "2.25.0",
-    "@backstage/core-components": "0.18.8-next.1",
-    "@backstage/core-app-api": "1.19.6-next.1"
+    "nan": "2.25.0"
   },
   "devDependencies": {
     "@backstage/cli": "backstage:^",
+    "@backstage/cli-defaults": "backstage:^",
     "@backstage/e2e-test-utils": "backstage:^",
     "@jest/environment-jsdom-abstract": "^30.2.0",
     "@playwright/test": "^1.32.3",
