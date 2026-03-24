@@ -35,32 +35,34 @@ export const NotificationSettings = () => {
   };
 
   return (
-    <Grid container justifyContent="center" spacing={2}>
-      <Grid item xs={9}>
-        <UserNotificationSettingsCard
-          originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
-        />
-      </Grid>
-      {isEnabled && (
-        <Grid item xs={3}>
-          <InfoCard title="Send Test Notification">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={async () => await handleNotifyClick()}
-            >
-              Notify
-            </Button>
-            <Box pt={2}>
-              <Typography variant="subtitle2">
-                Note: this card is not part of the default Notifications Setting
-                and was added to be able to try out the Notification system for
-                this Demo site.
-              </Typography>
-            </Box>
-          </InfoCard>
+    <Box pt={3} px={3}>
+      <Grid container justifyContent="center" spacing={2}>
+        <Grid item xs={9}>
+          <UserNotificationSettingsCard
+            originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
+          />
         </Grid>
-      )}
-    </Grid>
+        {isEnabled && (
+          <Grid item xs={3}>
+            <InfoCard title="Send Test Notification">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={async () => await handleNotifyClick()}
+              >
+                Notify
+              </Button>
+              <Box pt={2}>
+                <Typography variant="subtitle2">
+                  Note: this card is not part of the default Notifications
+                  Setting and was added to be able to try out the Notification
+                  system for this Demo site.
+                </Typography>
+              </Box>
+            </InfoCard>
+          </Grid>
+        )}
+      </Grid>
+    </Box>
   );
 };

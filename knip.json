@@ -3,24 +3,36 @@
   "ignore": [
     "**/setupTests.ts",
     "**/.eslintrc.js",
-    "**/config.d.ts",
     "packages/backend/src/instrumentation.js"
   ],
   "ignoreDependencies": [
-    "better-sqlite3",
     "app",
     "@backstage/cli-defaults",
     "@testing-library/jest-dom",
-    "webpack-env",
-    "lint-staged",
     "@types/lodash",
     "@types/d3",
-    "@types/glob",
     "@opentelemetry/auto-instrumentations-node",
     "@opentelemetry/exporter-prometheus",
     "@opentelemetry/exporter-trace-otlp-http",
     "@opentelemetry/sdk-node",
-    "@opentelemetry/sdk-trace-node"
+    "@opentelemetry/sdk-trace-node",
+    "@backstage-community/plugin-cost-insights",
+    "@backstage-community/plugin-explore",
+    "@backstage-community/plugin-github-actions",
+    "@backstage-community/plugin-tech-radar",
+    "@backstage-community/plugin-todo",
+    "@backstage/plugin-api-docs",
+    "@backstage/plugin-app-visualizer",
+    "@backstage/plugin-catalog",
+    "@backstage/plugin-catalog-graph",
+    "@backstage/plugin-kubernetes",
+    "@backstage/plugin-mui-to-bui",
+    "@backstage/plugin-scaffolder",
+    "@backstage/plugin-search-react",
+    "@backstage/plugin-techdocs",
+    "@backstage/plugin-techdocs-react",
+    "backstage-plugin-techdocs-addon-mermaid",
+    "react-router"
   ],
   "ignoreBinaries": ["docker-compose"]
 }
