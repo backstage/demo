@@ -6,12 +6,12 @@ import {
   AsyncEntityProvider,
 } from '@backstage/plugin-catalog-react';
 import { EntityBadgesDialog } from '@backstage-community/plugin-badges';
-import CallToActionIcon from '@material-ui/icons/CallToAction';
+import { RiMedalLine } from '@remixicon/react';
 
 export const badgesContextMenuItem = EntityContextMenuItemBlueprint.make({
   name: 'badges',
   params: {
-    icon: <CallToActionIcon fontSize="small" />,
+    icon: <RiMedalLine size={16} />,
     useProps: () => {
       const dialogApi = useApi(dialogApiRef);
       const { entity } = useEntity();

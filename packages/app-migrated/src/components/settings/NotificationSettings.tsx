@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Text } from '@backstage/ui';
 import {
   configApiRef,
   discoveryApiRef,
@@ -35,34 +35,33 @@ export const NotificationSettings = () => {
   };
 
   return (
-    <Box pt={3} px={3}>
-      <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={9}>
+    <Box pt="3" px="3">
+      <Grid.Root columns="12" gap="2">
+        <Grid.Item colSpan="9">
           <UserNotificationSettingsCard
             originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
           />
-        </Grid>
+        </Grid.Item>
         {isEnabled && (
-          <Grid item xs={3}>
+          <Grid.Item colSpan="3">
             <InfoCard title="Send Test Notification">
               <Button
-                variant="contained"
-                color="primary"
-                onClick={async () => await handleNotifyClick()}
+                variant="primary"
+                onPress={() => void handleNotifyClick()}
               >
                 Notify
               </Button>
-              <Box pt={2}>
-                <Typography variant="subtitle2">
+              <Box pt="2">
+                <Text variant="body-small">
                   Note: this card is not part of the default Notifications
                   Setting and was added to be able to try out the Notification
                   system for this Demo site.
-                </Typography>
+                </Text>
               </Box>
             </InfoCard>
-          </Grid>
+          </Grid.Item>
         )}
-      </Grid>
+      </Grid.Root>
     </Box>
   );
 };
