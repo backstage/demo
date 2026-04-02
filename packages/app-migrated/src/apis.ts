@@ -1,12 +1,4 @@
 import {
-  graphQlBrowseApiRef,
-  GraphQLEndpoints,
-} from '@backstage-community/plugin-graphiql';
-import {
-  costInsightsApiRef,
-  ExampleCostInsightsClient,
-} from '@backstage-community/plugin-cost-insights';
-import {
   ScmAuth,
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
@@ -24,8 +16,10 @@ import {
 import { GithubAuth } from '@backstage/core-app-api';
 import { visitsApiRef, VisitsWebStorageApi } from '@backstage/plugin-home';
 
-// New Frontend System imports
-import { ApiBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  ApiBlueprint,
+  ExtensionDefinition,
+} from '@backstage/frontend-plugin-api';
 
 const scmIntegrationsApi = ApiBlueprint.make({
   name: 'scm-integrations',
@@ -62,53 +56,6 @@ const githubAuthApi = ApiBlueprint.make({
     }),
 });
 
-const graphQlBrowseApi = ApiBlueprint.make({
-  name: 'graphql-browse',
-  params: define =>
-    define({
-      api: graphQlBrowseApiRef,
-      deps: {
-        errorApi: errorApiRef,
-        graphGithubAuthApi: githubAuthApiRef,
-        discoveryApi: discoveryApiRef,
-      },
-      factory: ({ errorApi, graphGithubAuthApi, discoveryApi }) =>
-        GraphQLEndpoints.from([
-          GraphQLEndpoints.create({
-            id: 'backstage',
-            title: 'GraphQL Backend',
-            url: discoveryApi.getBaseUrl('graphql'),
-          }),
-          GraphQLEndpoints.github({
-            id: 'github',
-            title: 'GitHub',
-            errorApi,
-            githubAuthApi: graphGithubAuthApi,
-          }),
-          GraphQLEndpoints.create({
-            id: 'gitlab',
-            title: 'GitLab',
-            url: 'https://gitlab.com/api/graphql',
-          }),
-          GraphQLEndpoints.create({
-            id: 'swapi',
-            title: 'SWAPI',
-            url: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
-          }),
-        ]),
-    }),
-});
-
-const costInsightsApi = ApiBlueprint.make({
-  name: 'cost-insights',
-  params: define =>
-    define({
-      api: costInsightsApiRef,
-      deps: {},
-      factory: ({}) => new ExampleCostInsightsClient(),
-    }),
-});
-
 const visitsApi = ApiBlueprint.make({
   name: 'visits',
   params: define =>
@@ -123,11 +70,9 @@ const visitsApi = ApiBlueprint.make({
     }),
 });
 
-export const apis = [
+export const apis: ExtensionDefinition[] = [
   scmIntegrationsApi,
   scmAuthApi,
   githubAuthApi,
-  graphQlBrowseApi,
-  costInsightsApi,
   visitsApi,
 ];

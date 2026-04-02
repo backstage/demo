@@ -1,6 +1,52 @@
 app:
   title: Backstage Demo
   baseUrl: http://localhost:3000
+  # Automatically discover and load all installed Backstage frontend packages
+  packages: all
+  extensions:
+    # Disable the built-in NavItemBlueprint so the catalog page's CategoryIcon
+    # is used instead (the built-in nav item uses HomeIcon which takes priority)
+    - nav-item:catalog: false
+    - catalog-filter:catalog/list:
+        config:
+          # Replaces initiallySelectedFilter="all" from the legacy CatalogIndexPage
+          initialFilter: all
+    # TODO(awanlin): initiallySelectedNamespaces={['default']} has no equivalent
+    # config in catalog-filter:catalog/namespace yet (configInput is empty).
+    - entity-card:catalog/about:
+        config:
+          type: info
+    - entity-card:catalog-graph/relations:
+        config:
+          type: content
+          filter:
+            $not: { kind: { $in: [Group, User] } }
+    - entity-card:org/ownership:
+        config:
+          type: content
+          filter: { kind: { $in: [Group, User] } }
+    - entity-card:api-docs/provided-apis:
+        config:
+          filter: { spec.providesApis: { $exists: true } }
+    - entity-card:api-docs/consumed-apis:
+        config:
+          filter: { spec.consumesApis: { $exists: true } }
+    - entity-card:catalog/depends-on-components:
+        config:
+          filter: { spec.dependsOn: { $exists: true } }
+    - entity-card:catalog/depends-on-resources:
+        config:
+          filter: { spec.dependsOn: { $exists: true } }
+    # TODO(awanlin): entity-content:catalog/dependencies does not exist in NFS yet.
+    # The legacy EntityDependenciesPage (Dependencies tab) has no equivalent entity-content
+    # extension in @backstage/plugin-catalog/alpha. Track upstream:
+    # https://github.com/backstage/backstage/issues
+    - entity-content:techdocs:
+        config:
+          title: Docs
+    # TODO(awanlin): entity-card:catalog/has-subcomponents cannot be filtered via
+    # config — subcomponents declare spec.subcomponentOf on themselves, so the
+    # parent entity has no spec field to filter against. Requires a code-based filter.
   support:
     url: https://github.com/backstage/backstage/issues
     items:
@@ -116,6 +162,11 @@ catalog:
       rules:
         - allow: [Template]
   providers:
+    backstageOpenapi:
+      plugins:
+        - catalog
+        - scaffolder
+        - search
     github:
       backstageRepo:
         organization: 'backstage'
@@ -199,8 +250,6 @@ events:
     github:
       webhookSecret: ${GITHUB_WEBHOOK_SECRET}
 
-# TODO(awanlin): enable when https://github.com/backstage/backstage/pull/33344
-# is merged and released, likely with `1.49.0`
-# mcpActions:
-#   name: 'Backstage Demo MCP Server'
-#   description: 'Tools for interacting with the Backstage Demo MCP Server'
+mcpActions:
+  name: 'Backstage Demo MCP Server'
+  description: 'Tools for interacting with the Backstage Demo MCP Server'
