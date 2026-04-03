@@ -1,4 +1,4 @@
-import { Grid } from '@material-ui/core';
+import { Grid } from '@backstage/ui';
 import {
   EntityContentLayoutBlueprint,
   EntityContentLayoutProps,
@@ -10,37 +10,35 @@ const OverviewLayout = (props: EntityContentLayoutProps) => {
   const ungroupedCards = props.cards.filter(c => !c.type);
 
   return (
-    <Grid container spacing={3} alignItems="stretch">
-      <Grid item md={6} xs={12}>
-        <Grid container spacing={3}>
-          {infoCards.map((card, i) => (
-            <Grid key={i} item xs={12}>
-              {card.element}
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-      <Grid item md={6} xs={12}>
-        <Grid container spacing={3}>
-          {contentCards.map((card, i) => (
-            <Grid key={i} item xs={12}>
-              {card.element}
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
+    <Grid.Root columns="1" gap="3">
+      <Grid.Item>
+        <Grid.Root columns={{ initial: '1', md: '2' }} gap="3">
+          <Grid.Item>
+            <Grid.Root columns="1" gap="3">
+              {infoCards.map((card, i) => (
+                <Grid.Item key={i}>{card.element}</Grid.Item>
+              ))}
+            </Grid.Root>
+          </Grid.Item>
+          <Grid.Item>
+            <Grid.Root columns="1" gap="3">
+              {contentCards.map((card, i) => (
+                <Grid.Item key={i}>{card.element}</Grid.Item>
+              ))}
+            </Grid.Root>
+          </Grid.Item>
+        </Grid.Root>
+      </Grid.Item>
       {ungroupedCards.length > 0 && (
-        <Grid item xs={12}>
-          <Grid container spacing={3}>
+        <Grid.Item>
+          <Grid.Root columns={{ initial: '1', md: '2' }} gap="3">
             {ungroupedCards.map((card, i) => (
-              <Grid key={i} item md={6} xs={12}>
-                {card.element}
-              </Grid>
+              <Grid.Item key={i}>{card.element}</Grid.Item>
             ))}
-          </Grid>
-        </Grid>
+          </Grid.Root>
+        </Grid.Item>
       )}
-    </Grid>
+    </Grid.Root>
   );
 };
 
