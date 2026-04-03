@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Text } from '@backstage/ui';
 import {
   configApiRef,
   discoveryApiRef,
@@ -35,32 +35,33 @@ export const NotificationSettings = () => {
   };
 
   return (
-    <Grid container justifyContent="center" spacing={2}>
-      <Grid item xs={9}>
-        <UserNotificationSettingsCard
-          originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
-        />
-      </Grid>
-      {isEnabled && (
-        <Grid item xs={3}>
-          <InfoCard title="Send Test Notification">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={async () => await handleNotifyClick()}
-            >
-              Notify
-            </Button>
-            <Box pt={2}>
-              <Typography variant="subtitle2">
-                Note: this card is not part of the default Notifications Setting
-                and was added to be able to try out the Notification system for
-                this Demo site.
-              </Typography>
-            </Box>
-          </InfoCard>
-        </Grid>
-      )}
-    </Grid>
+    <Box pt="3" px="3">
+      <Grid.Root columns="12" gap="2">
+        <Grid.Item colSpan="9">
+          <UserNotificationSettingsCard
+            originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
+          />
+        </Grid.Item>
+        {isEnabled && (
+          <Grid.Item colSpan="3">
+            <InfoCard title="Send Test Notification">
+              <Button
+                variant="primary"
+                onPress={() => void handleNotifyClick()}
+              >
+                Notify
+              </Button>
+              <Box pt="2">
+                <Text variant="body-small">
+                  Note: this card is not part of the default Notifications
+                  Setting and was added to be able to try out the Notification
+                  system for this Demo site.
+                </Text>
+              </Box>
+            </InfoCard>
+          </Grid.Item>
+        )}
+      </Grid.Root>
+    </Box>
   );
 };

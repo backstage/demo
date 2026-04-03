@@ -1,22 +1,12 @@
-import { makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles({
-  svg: {
-    fill: '#0099ff',
-    width: 'auto',
-    height: 40,
-  },
-});
+import styles from './ApertureLogoFull.module.css';
 
 export const ApertureLogoFull = () => {
-  const classes = useStyles();
-
   return (
     <svg
       viewBox="0 0 598 152"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      className={classes.svg}
+      className={styles.svg}
     >
       <defs>
         <clipPath id="f">
