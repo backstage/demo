@@ -1,93 +1,78 @@
 import {
-  graphQlBrowseApiRef,
-  GraphQLEndpoints,
-} from '@backstage-community/plugin-graphiql';
-import {
-  costInsightsApiRef,
-  ExampleCostInsightsClient,
-} from '@backstage-community/plugin-cost-insights';
-import {
   ScmAuth,
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
 
 import {
-  createApiFactory,
   githubAuthApiRef,
   discoveryApiRef,
   oauthRequestApiRef,
   errorApiRef,
   configApiRef,
-  AnyApiFactory,
   identityApiRef,
 } from '@backstage/core-plugin-api';
 
 import { GithubAuth } from '@backstage/core-app-api';
 import { visitsApiRef, VisitsWebStorageApi } from '@backstage/plugin-home';
 
-export const apis: AnyApiFactory[] = [
-  createApiFactory({
-    api: scmIntegrationsApiRef,
-    deps: { configApi: configApiRef },
-    factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
-  }),
-  ScmAuth.createDefaultApiFactory(),
-  createApiFactory({
-    api: githubAuthApiRef,
-    deps: {
-      configApi: configApiRef,
-      discoveryApi: discoveryApiRef,
-      oauthRequestApi: oauthRequestApiRef,
-    },
-    factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
-      GithubAuth.create({
-        discoveryApi,
-        oauthRequestApi,
-        defaultScopes: ['read:user'],
-        environment: configApi.getString('auth.environment'),
-      }),
-  }),
-  createApiFactory({
-    api: graphQlBrowseApiRef,
-    deps: {
-      errorApi: errorApiRef,
-      githubAuthApi: githubAuthApiRef,
-      discoveryApi: discoveryApiRef,
-    },
-    factory: ({ errorApi, githubAuthApi, discoveryApi }) =>
-      GraphQLEndpoints.from([
-        GraphQLEndpoints.create({
-          id: 'backstage',
-          title: 'GraphQL Backend',
-          url: discoveryApi.getBaseUrl('graphql'),
+import {
+  ApiBlueprint,
+  ExtensionDefinition,
+} from '@backstage/frontend-plugin-api';
+
+const scmIntegrationsApi = ApiBlueprint.make({
+  name: 'scm-integrations',
+  params: define =>
+    define({
+      api: scmIntegrationsApiRef,
+      deps: { configApi: configApiRef },
+      factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
+    }),
+});
+
+const scmAuthApi = ApiBlueprint.make({
+  name: 'scm-auth',
+  params: define => define(ScmAuth.createDefaultApiFactory()),
+});
+
+const githubAuthApi = ApiBlueprint.make({
+  name: 'github-auth',
+  params: define =>
+    define({
+      api: githubAuthApiRef,
+      deps: {
+        configApi: configApiRef,
+        discoveryApi: discoveryApiRef,
+        oauthRequestApi: oauthRequestApiRef,
+      },
+      factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
+        GithubAuth.create({
+          discoveryApi,
+          oauthRequestApi,
+          defaultScopes: ['read:user'],
+          environment: configApi.getString('auth.environment'),
         }),
-        GraphQLEndpoints.github({
-          id: 'github',
-          title: 'GitHub',
-          errorApi,
-          githubAuthApi,
-        }),
-        GraphQLEndpoints.create({
-          id: 'gitlab',
-          title: 'GitLab',
-          url: 'https://gitlab.com/api/graphql',
-        }),
-        GraphQLEndpoints.create({
-          id: 'swapi',
-          title: 'SWAPI',
-          url: 'https://swapi-graphql.netlify.app/.netlify/functions/index',
-        }),
-      ]),
-  }),
-  createApiFactory(costInsightsApiRef, new ExampleCostInsightsClient()),
-  createApiFactory({
-    api: visitsApiRef,
-    deps: {
-      identityApi: identityApiRef,
-      errorApi: errorApiRef,
-    },
-    factory: ({ identityApi, errorApi }) =>
-      VisitsWebStorageApi.create({ identityApi, errorApi }),
-  }),
+    }),
+});
+
+const visitsApi = ApiBlueprint.make({
+  name: 'visits',
+  params: define =>
+    define({
+      api: visitsApiRef,
+      deps: {
+        identityApi: identityApiRef,
+        errorApi: errorApiRef,
+      },
+      factory: ({ identityApi, errorApi }) =>
+        VisitsWebStorageApi.create({ identityApi, errorApi }),
+    }),
+});
+
+export const apis: ExtensionDefinition[] = [
+  scmIntegrationsApi,
+  scmAuthApi,
+  githubAuthApi,
+  visitsApi,
 ];
