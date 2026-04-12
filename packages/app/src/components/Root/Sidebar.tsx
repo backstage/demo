@@ -6,6 +6,7 @@ import {
   SidebarScrollWrapper,
   SidebarSpace,
 } from '@backstage/core-components';
+import { ExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { NavContentBlueprint } from '@backstage/plugin-app-react';
 import { SidebarSearchModal } from '@backstage/plugin-search';
 import { UserSettingsSignInAvatar } from '@backstage/plugin-user-settings';
@@ -21,7 +22,7 @@ import {
 const MuiToBuiIcon = () => <RiExchangeLine size={20} />;
 const GroupIcon = () => <RiGroupLine size={20} />;
 
-export const SidebarContent = NavContentBlueprint.make({
+export const SidebarContent: ExtensionDefinition = NavContentBlueprint.make({
   params: {
     component: ({ navItems }) => {
       const nav = navItems.withComponent(item => (
