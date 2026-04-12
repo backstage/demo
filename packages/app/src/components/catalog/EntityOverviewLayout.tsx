@@ -1,4 +1,5 @@
 import { Grid } from '@backstage/ui';
+import { ExtensionDefinition } from '@backstage/frontend-plugin-api';
 import {
   EntityContentLayoutBlueprint,
   EntityContentLayoutProps,
@@ -42,9 +43,10 @@ const OverviewLayout = (props: EntityContentLayoutProps) => {
   );
 };
 
-export const entityOverviewLayoutExtension = EntityContentLayoutBlueprint.make({
-  name: 'overview',
-  params: {
-    loader: async () => OverviewLayout,
-  },
-});
+export const entityOverviewLayoutExtension: ExtensionDefinition =
+  EntityContentLayoutBlueprint.make({
+    name: 'overview',
+    params: {
+      loader: async () => OverviewLayout,
+    },
+  });
