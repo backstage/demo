@@ -22,7 +22,7 @@ export const badgesContextMenuItem: ExtensionDefinition =
         return {
           title: 'Badges',
           onClick: async () => {
-            dialogApi.showModal(({ dialog }) => (
+            dialogApi.open(({ dialog }) => (
               <AsyncEntityProvider entity={entity} loading={false}>
                 <EntityBadgesDialog open onClose={() => dialog.close()} />
               </AsyncEntityProvider>

@@ -114,6 +114,10 @@ auth:
       development:
         clientId: ${GITHUB_DEVELOPMENT_CLIENT_ID}
         clientSecret: ${GITHUB_DEVELOPMENT_CLIENT_SECRET}
+  experimentalClientIdMetadataDocuments:
+    enabled: true
+  experimentalDynamicClientRegistration:
+    enabled: true
 
 catalog:
   readonly: true
@@ -251,5 +255,5 @@ events:
       webhookSecret: ${GITHUB_WEBHOOK_SECRET}
 
 mcpActions:
-  name: 'Backstage Demo MCP Server'
-  description: 'Tools for interacting with the Backstage Demo MCP Server'
+  name: 'My Backstage Demo'
+  description: 'Tools for managing your software catalog, creating new services from templates, and exploring your developer portal'
