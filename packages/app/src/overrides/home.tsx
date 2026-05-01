@@ -1,3 +1,4 @@
+import { FrontendFeature } from '@backstage/frontend-plugin-api';
 import { HomePageWidgetBlueprint } from '@backstage/plugin-home-react/alpha';
 import homePlugin from '@backstage/plugin-home/alpha';
 
@@ -6,7 +7,7 @@ import { tools } from '../components/home/shared';
 // page:home in NFS is already a customizable widget grid. Register the widgets
 // that don't have built-in NFS extensions yet, and override the toolkit with
 // the app's custom tools.
-export const homeWidgetsOverride = homePlugin.withOverrides({
+export const homeWidgetsOverride: FrontendFeature = homePlugin.withOverrides({
   extensions: [
     // Override home-page-widget:home/toolkit with custom tools
     HomePageWidgetBlueprint.make({
