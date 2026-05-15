@@ -47,6 +47,9 @@ app:
     # TODO(awanlin): entity-card:catalog/has-subcomponents cannot be filtered via
     # config — subcomponents declare spec.subcomponentOf on themselves, so the
     # parent entity has no spec field to filter against. Requires a code-based filter.
+    - sub-page:scaffolder/templates:
+        config:
+          enableBackstageUi: true
   support:
     url: https://github.com/backstage/backstage/issues
     items:
