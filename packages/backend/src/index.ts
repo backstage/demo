@@ -11,6 +11,7 @@ backend.add(import('@backstage/plugin-catalog-backend'));
 backend.add(
   import('@backstage/plugin-catalog-backend-module-backstage-openapi'),
 );
+backend.add(import('@backstage/plugin-catalog-backend-module-ai-model'));
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 backend.add(
