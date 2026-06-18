@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: github-mcp-server
+  title: GitHub MCP Server
+  description: |
+    GitHub's official MCP server providing tools for repository management,
+    file operations, issues, pull requests, code search, and more.
+  links:
+    - url: https://github.com/github/github-mcp-server
+      title: GitHub Repository
+    - url: https://modelcontextprotocol.io
+      title: MCP Specification
+spec:
+  type: mcp-server
+  lifecycle: production
+  owner: backstage/maintainers
+  remotes:
+    - type: streamable-http
+      url: https://api.githubcopilot.com/mcp/

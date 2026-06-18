@@ -125,7 +125,18 @@ auth:
 catalog:
   readonly: true
   rules:
-    - allow: [Component, API, System, Domain, Resource, Location, User, Group]
+    - allow:
+        [
+          Component,
+          API,
+          System,
+          Domain,
+          Resource,
+          Location,
+          User,
+          Group,
+          AiResource,
+        ]
   locations:
     # Backstage example components
     - type: url
@@ -154,6 +165,14 @@ catalog:
     # The backstage demo deployment (this)
     - type: url
       target: https://github.com/backstage/demo/blob/master/catalog-info.yaml
+
+    # Backstage AI Resources (skills for AI coding tools)
+    - type: url
+      target: https://github.com/backstage/demo/blob/master/examples/ai-resources.yaml
+
+    # Backstage MCP Server API examples
+    - type: url
+      target: https://github.com/backstage/demo/blob/master/examples/mcp-server-api.yaml
 
     # The backstage library repository
     - type: url
