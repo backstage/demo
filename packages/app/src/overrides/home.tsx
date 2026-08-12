@@ -46,6 +46,7 @@ const gettingStartedWidget = HomePageWidgetBlueprint.make({
   },
 });
 
+// TODO(awanlin): HomePageCompanyLogo has no NFS home-page-widget equivalent yet
 export const appModuleHome = createFrontendModule({
   pluginId: 'home',
   extensions: [gettingStartedWidget],

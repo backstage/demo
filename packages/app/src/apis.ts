@@ -8,14 +8,10 @@ import {
   githubAuthApiRef,
   discoveryApiRef,
   oauthRequestApiRef,
-  errorApiRef,
   configApiRef,
-  identityApiRef,
 } from '@backstage/core-plugin-api';
 
 import { GithubAuth } from '@backstage/core-app-api';
-import { visitsApiRef, VisitsWebStorageApi } from '@backstage/plugin-home';
-
 import {
   ApiBlueprint,
   ExtensionDefinition,
@@ -56,23 +52,8 @@ const githubAuthApi = ApiBlueprint.make({
     }),
 });
 
-const visitsApi = ApiBlueprint.make({
-  name: 'visits',
-  params: define =>
-    define({
-      api: visitsApiRef,
-      deps: {
-        identityApi: identityApiRef,
-        errorApi: errorApiRef,
-      },
-      factory: ({ identityApi, errorApi }) =>
-        VisitsWebStorageApi.create({ identityApi, errorApi }),
-    }),
-});
-
 export const apis: ExtensionDefinition[] = [
   scmIntegrationsApi,
   scmAuthApi,
   githubAuthApi,
-  visitsApi,
 ];
