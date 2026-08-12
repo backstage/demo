@@ -12,7 +12,7 @@ import { navModule } from './components/Root';
 import { appOverride } from './overrides/app';
 import { catalogNavItemOverride } from './overrides/catalog';
 import { graphiqlOverride } from './overrides/graphiql';
-import { homeWidgetsOverride } from './overrides/home';
+import { appModuleHome } from './overrides/home';
 import { userSettingsOverride } from './overrides/userSettings';
 
 const convertedBadgesPlugin = convertLegacyPlugin(badgesPlugin, {
@@ -34,7 +34,7 @@ const app = createApp({
     catalogNavItemOverride,
     graphiqlOverride,
     // Custom page overrides
-    homeWidgetsOverride,
+    appModuleHome,
     userSettingsOverride,
   ],
 });
