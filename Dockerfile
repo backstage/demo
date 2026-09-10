@@ -2,7 +2,7 @@
 ARG ENVIRONMENT_CONFIG=heroku
 
 # Stage 1 - Create yarn install skeleton layer
-FROM node:24-trixie-slim@sha256:50c3b2f6988dfc307b86e5301d69611af31f4789bdf232863b07d3b02fe55ae0 AS packages
+FROM node:24-trixie-slim@sha256:6950b66b4c0cb0151ce89fa75074673850763d096b044f422c6729b588dd4956 AS packages
 ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
@@ -16,7 +16,7 @@ COPY plugins plugins
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM node:24-trixie-slim@sha256:50c3b2f6988dfc307b86e5301d69611af31f4789bdf232863b07d3b02fe55ae0 AS build
+FROM node:24-trixie-slim@sha256:6950b66b4c0cb0151ce89fa75074673850763d096b044f422c6729b588dd4956 AS build
 ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
@@ -51,7 +51,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:24-trixie-slim@sha256:50c3b2f6988dfc307b86e5301d69611af31f4789bdf232863b07d3b02fe55ae0
+FROM node:24-trixie-slim@sha256:6950b66b4c0cb0151ce89fa75074673850763d096b044f422c6729b588dd4956
 ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
