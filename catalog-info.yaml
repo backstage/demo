@@ -27,3 +27,17 @@ spec:
     - backstage-demo
   definition:
     $text: https://demo.backstage.io/api/graphql/schema
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: zensical-demo
+  description: The Backstage demo documentation built with the experimental Zensical TechDocs engine.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-engine: zensical
+    demo.backstage.io/techdocs-builder: local
+spec:
+  type: website
+  owner: backstage/maintainers
+  lifecycle: experimental

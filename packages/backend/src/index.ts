@@ -46,6 +46,7 @@ backend.add(
 // backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
 backend.add(import('@backstage/plugin-techdocs-backend'));
+backend.add(import('@backstage/plugin-techdocs-backend-module-zensical'));
 backend.add(import('./extensions/docsBuildStrategy'));
 backend.add(import('@backstage-community/plugin-todo-backend'));
 
