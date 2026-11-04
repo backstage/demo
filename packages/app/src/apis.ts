@@ -4,16 +4,12 @@ import {
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
 
-import {
-  githubAuthApiRef,
-  discoveryApiRef,
-  oauthRequestApiRef,
-  configApiRef,
-} from '@backstage/core-plugin-api';
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
 
 import { GithubAuth } from '@backstage/core-app-api';
 import {
   ApiBlueprint,
+  coreApis,
   ExtensionDefinition,
 } from '@backstage/frontend-plugin-api';
 
@@ -22,7 +18,7 @@ const scmIntegrationsApi = ApiBlueprint.make({
   params: define =>
     define({
       api: scmIntegrationsApiRef,
-      deps: { configApi: configApiRef },
+      deps: { configApi: coreApis.config },
       factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
     }),
 });
@@ -38,9 +34,9 @@ const githubAuthApi = ApiBlueprint.make({
     define({
       api: githubAuthApiRef,
       deps: {
-        configApi: configApiRef,
-        discoveryApi: discoveryApiRef,
-        oauthRequestApi: oauthRequestApiRef,
+        configApi: coreApis.config,
+        discoveryApi: coreApis.discovery,
+        oauthRequestApi: coreApis.oauthRequest,
       },
       factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
         GithubAuth.create({

@@ -1,21 +1,15 @@
 import { Box, Button, Grid, Text } from '@backstage/ui';
-import {
-  configApiRef,
-  discoveryApiRef,
-  errorApiRef,
-  fetchApiRef,
-  useApi,
-} from '@backstage/core-plugin-api';
+import { coreApis, useApi } from '@backstage/frontend-plugin-api';
 
 import { InfoCard } from '@backstage/core-components';
 
 import { UserNotificationSettingsCard } from '@backstage/plugin-notifications';
 
 export const NotificationSettings = () => {
-  const config = useApi(configApiRef);
-  const fetchApi = useApi(fetchApiRef);
-  const discovery = useApi(discoveryApiRef);
-  const errorApi = useApi(errorApiRef);
+  const config = useApi(coreApis.config);
+  const fetchApi = useApi(coreApis.fetch);
+  const discovery = useApi(coreApis.discovery);
+  const errorApi = useApi(coreApis.error);
 
   const isEnabled =
     config.getOptionalBoolean('notificationsTester.enabled') ?? true;

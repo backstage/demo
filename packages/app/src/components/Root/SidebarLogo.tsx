@@ -4,7 +4,7 @@ import {
   useSidebarOpenState,
 } from '@backstage/core-components';
 import { NavLink } from 'react-router-dom';
-import { appThemeApiRef, useApi } from '@backstage/core-plugin-api';
+import { coreApis, useApi } from '@backstage/frontend-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
 import LogoFull from './LogoFull';
@@ -13,7 +13,7 @@ import styles from './SidebarLogo.module.css';
 
 export const SidebarLogo = () => {
   const { isOpen } = useSidebarOpenState();
-  const appThemeApi = useApi(appThemeApiRef);
+  const appThemeApi = useApi(coreApis.appTheme);
   const themeId = appThemeApi.getActiveThemeId();
 
   const fullLogo = themeId === 'aperture' ? <ApertureLogoFull /> : <LogoFull />;

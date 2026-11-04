@@ -1,4 +1,5 @@
 import {
+  coreApis,
   ExtensionDefinition,
   FrontendFeature,
 } from '@backstage/frontend-plugin-api';
@@ -9,11 +10,7 @@ import {
 import graphiqlPlugin, {
   graphiqlBrowseApi,
 } from '@backstage-community/plugin-graphiql/alpha';
-import {
-  errorApiRef,
-  githubAuthApiRef,
-  discoveryApiRef,
-} from '@backstage/core-plugin-api';
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
 
 // Override api:graphiql with custom endpoints — must live in the graphiql plugin
 // so it replaces the plugin's own API rather than conflicting with it.
@@ -25,9 +22,9 @@ export const graphiqlOverride: FrontendFeature = graphiqlPlugin.withOverrides({
         define({
           api: graphQlBrowseApiRef,
           deps: {
-            errorApi: errorApiRef,
+            errorApi: coreApis.error,
             graphGithubAuthApi: githubAuthApiRef,
-            discoveryApi: discoveryApiRef,
+            discoveryApi: coreApis.discovery,
           },
           factory: ({ errorApi, graphGithubAuthApi, discoveryApi }) =>
             GraphQLEndpoints.from([
