@@ -30,8 +30,12 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get install -y --no-install-recommends libsqlite3-dev python3 g++ build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-# Node.js 26 images no longer ship Yarn, so enable it through Corepack
-RUN npm install -g corepack && corepack enable
+# Node.js 26 images no longer ship Yarn, so enable it through Corepack.
+# Corepack itself is no longer bundled with Node.js as of v25, so install it from npm.
+# Create ~/.cache as `node` so the Yarn cache mount below doesn't make it
+# root-owned, which stops Corepack from writing its own cache there.
+RUN npm install -g corepack && corepack enable && \
+    mkdir -p /home/node/.cache && chown node:node /home/node/.cache
 
 USER node
 WORKDIR /app
@@ -60,8 +64,12 @@ ARG ENVIRONMENT_CONFIG
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON=/usr/bin/python3
 
-# Node.js 26 images no longer ship Yarn, so enable it through Corepack
-RUN npm install -g corepack && corepack enable
+# Node.js 26 images no longer ship Yarn, so enable it through Corepack.
+# Corepack itself is no longer bundled with Node.js as of v25, so install it from npm.
+# Create ~/.cache as `node` so the Yarn cache mount below doesn't make it
+# root-owned, which stops Corepack from writing its own cache there.
+RUN npm install -g corepack && corepack enable && \
+    mkdir -p /home/node/.cache && chown node:node /home/node/.cache
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
