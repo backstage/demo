@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const fs = require('fs-extra');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 const { EOL } = require('os');
 
 async function getBackstageVersion() {
@@ -11,54 +11,95 @@ async function getBackstageVersion() {
 }
 
 async function getLatestRelease() {
-  const response = await fetch('https://api.github.com/repos/backstage/backstage/releases/latest')
+  const response = await fetch(
+    'https://api.github.com/repos/backstage/backstage/releases/latest',
+  );
   const json = await response.json();
-  return json
+  return json;
 }
 
 async function getLatestPreRelease() {
-  const response = await fetch('https://api.github.com/repos/backstage/backstage/releases')
+  const response = await fetch(
+    'https://api.github.com/repos/backstage/backstage/releases',
+  );
   const json = await response.json();
 
   const preReleasesOnly = json.filter(release => {
-    return release.prerelease === true
-  })
-  
-  const latestPreRelease = preReleasesOnly.sort((a,b) => {return new Date(b.published_at) - new Date(a.published_at)})[0];
+    return release.prerelease === true;
+  });
 
-  return latestPreRelease
+  const latestPreRelease = preReleasesOnly.sort((a, b) => {
+    return new Date(b.published_at) - new Date(a.published_at);
+  })[0];
+
+  return latestPreRelease;
 }
 
 async function main() {
-  
+  // Release line passed from the workflow: 'main' or 'next' (default)
+  const releaseLine = process.argv[2] || 'next';
+  if (!['main', 'next'].includes(releaseLine)) {
+    throw new Error(
+      `Unknown release line "${releaseLine}", expected "main" or "next"`,
+    );
+  }
+
   // Get the current Backstage version from the backstage.json file
-  const backstageVersion = await getBackstageVersion()
+  const backstageVersion = await getBackstageVersion();
   // Get the latest Backstage Release from the GitHub API
-  const latestRelease = await getLatestRelease()
+  const latestRelease = await getLatestRelease();
   // Get the latest Backstage Pre-release from the GitHub API
-  const latestPreRelease = await getLatestPreRelease()
+  const latestPreRelease = await getLatestPreRelease();
 
-  console.log(`Current Backstage version is: v${backstageVersion}`)
-  console.log(`Latest Release version is: ${latestRelease.name}, published on: ${latestRelease.published_at}`)
-  console.log(`Latest Pre-release version is: ${latestPreRelease.name}, published on: ${latestPreRelease.published_at}`)
-  console.log()
+  console.log(`Current Backstage version is: v${backstageVersion}`);
+  console.log(
+    `Latest Release version is: ${latestRelease.name}, published on: ${latestRelease.published_at}`,
+  );
+  console.log(
+    `Latest Pre-release version is: ${latestPreRelease.name}, published on: ${latestPreRelease.published_at}`,
+  );
+  console.log();
 
-  const latestReleaseDate = new Date(latestRelease.published_at).getTime()
-  const latestPreReleaseDate = new Date(latestPreRelease.published_at).getTime()
-  if (latestReleaseDate > latestPreReleaseDate){
-    console.log(`Latest Release is newer than latest Pre-release, using Latest Release name ${latestRelease.name}`)
-    console.log()
+  const latestReleaseDate = new Date(latestRelease.published_at).getTime();
+  const latestPreReleaseDate = new Date(
+    latestPreRelease.published_at,
+  ).getTime();
+  if (releaseLine === 'main') {
+    console.log(
+      `Release line is main, using Latest Release name ${latestRelease.name}`,
+    );
+    console.log();
 
-    await fs.appendFile(process.env.GITHUB_OUTPUT, `release_version=${latestRelease.name.substring(1)}${EOL}`);
+    await fs.appendFile(
+      process.env.GITHUB_OUTPUT,
+      `release_version=${latestRelease.name.substring(1)}${EOL}`,
+    );
+  } else if (latestReleaseDate > latestPreReleaseDate) {
+    console.log(
+      `Latest Release is newer than latest Pre-release, using Latest Release name ${latestRelease.name}`,
+    );
+    console.log();
+
+    await fs.appendFile(
+      process.env.GITHUB_OUTPUT,
+      `release_version=${latestRelease.name.substring(1)}${EOL}`,
+    );
+  } else {
+    console.log(
+      `Latest Release is older than latest Pre-release, using Latest Pre-release name ${latestPreRelease.name}`,
+    );
+    console.log();
+
+    await fs.appendFile(
+      process.env.GITHUB_OUTPUT,
+      `release_version=${latestPreRelease.name.substring(1)}${EOL}`,
+    );
   }
-  else {
-    console.log(`Latest Release is older than latest Pre-release, using Latest Pre-release name ${latestPreRelease.name}`)
-    console.log()
 
-    await fs.appendFile(process.env.GITHUB_OUTPUT, `release_version=${latestPreRelease.name.substring(1)}${EOL}`);
-  }
-
-  await fs.appendFile(process.env.GITHUB_OUTPUT, `current_version=${backstageVersion}${EOL}`);
+  await fs.appendFile(
+    process.env.GITHUB_OUTPUT,
+    `current_version=${backstageVersion}${EOL}`,
+  );
 }
 
 main().catch(error => {
