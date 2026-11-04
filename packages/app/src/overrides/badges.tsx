@@ -1,7 +1,7 @@
-import { useApi } from '@backstage/core-plugin-api';
 import {
-  dialogApiRef,
+  coreApis,
   ExtensionDefinition,
+  useApi,
 } from '@backstage/frontend-plugin-api';
 import { EntityContextMenuItemBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import {
@@ -17,7 +17,7 @@ export const badgesContextMenuItem: ExtensionDefinition =
     params: {
       icon: <RiMedalLine size={16} />,
       useProps: () => {
-        const dialogApi = useApi(dialogApiRef);
+        const dialogApi = useApi(coreApis.dialog);
         const { entity } = useEntity();
         return {
           title: 'Badges',
