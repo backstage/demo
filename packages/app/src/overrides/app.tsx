@@ -1,8 +1,4 @@
-import {
-  AppRootElementBlueprint,
-  FrontendFeature,
-  PageBlueprint,
-} from '@backstage/frontend-plugin-api';
+import { FrontendFeature, PageBlueprint } from '@backstage/frontend-plugin-api';
 import { ProxiedSignInPage } from '@backstage/core-components';
 import {
   SignInPageBlueprint,
@@ -10,21 +6,10 @@ import {
 } from '@backstage/plugin-app-react';
 import appPlugin from '@backstage/plugin-app';
 import { UnifiedThemeProvider } from '@backstage/theme';
-import { SignalsDisplay } from '@backstage/plugin-signals';
 import { Navigate } from 'react-router-dom';
 
 import { apertureTheme } from '../theme/aperture';
 import { apertureBuiCss } from '../theme/apertureBui';
-import { apis } from '../apis';
-
-// SignalsDisplay must be registered manually — @backstage/plugin-signals only
-// exposes api:signals in its NFS alpha, with no app-root-element extension
-const signalsDisplayElement = AppRootElementBlueprint.make({
-  name: 'signals-display',
-  params: {
-    element: <SignalsDisplay />,
-  },
-});
 
 const proxiedSignInPage = SignInPageBlueprint.make({
   params: {
@@ -61,9 +46,7 @@ export const appOverride: FrontendFeature = appPlugin.withOverrides({
         loader: async () => <Navigate to="/catalog" replace />,
       },
     }),
-    ...apis,
     proxiedSignInPage,
     apertureThemeExtension,
-    signalsDisplayElement,
   ],
 });

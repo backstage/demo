@@ -1,9 +1,5 @@
-import {
-  Link,
-  sidebarConfig,
-  useSidebarOpenState,
-} from '@backstage/core-components';
-import { NavLink } from 'react-router-dom';
+import { sidebarConfig, useSidebarOpenState } from '@backstage/core-components';
+import { Link } from '@backstage/ui';
 import { coreApis, useApi } from '@backstage/frontend-plugin-api';
 import { ApertureLogoFull } from './ApertureLogoFull';
 import { ApertureLogoIcon } from './ApertureLogoIcon';
@@ -28,9 +24,9 @@ export const SidebarLogo = () => {
       }}
     >
       <Link
-        component={NavLink}
-        to="/catalog"
-        underline="none"
+        href="/catalog"
+        standalone
+        aria-label="Home"
         style={{
           width: sidebarConfig.drawerWidthClosed,
           marginLeft: themeId === 'aperture' ? 15 : 24,
