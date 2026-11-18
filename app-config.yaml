@@ -13,17 +13,12 @@ app:
           initialFilter: all
     # TODO(awanlin): initiallySelectedNamespaces={['default']} has no equivalent
     # config in catalog-filter:catalog/namespace yet (configInput is empty).
-    - entity-card:catalog/about:
-        config:
-          type: info
     - entity-card:catalog-graph/relations:
         config:
-          type: content
           filter:
             $not: { kind: { $in: [Group, User] } }
     - entity-card:org/ownership:
         config:
-          type: content
           filter: { kind: { $in: [Group, User] } }
     - entity-card:api-docs/provided-apis:
         config:
@@ -54,7 +49,7 @@ app:
     # Data is stored in browser localStorage since this demo uses guest auth.
     - api:home/visits: true
     - app-root-element:home/visit-listener: true
-    - home-page-widget:home/random-joke: true
+    - home-page-widget:home/random-joke: false
     - home-page-widget:home/toolkit:
         config:
           tools:
@@ -172,11 +167,6 @@ backend:
   database:
     client: better-sqlite3
     connection: ':memory:'
-  reading:
-    allow:
-      - host: demo.backstage.io
-        paths:
-          - /api/graphql/schema
   actions:
     pluginSources:
       - 'auth'
@@ -337,11 +327,6 @@ explore:
       url: '/cost-insights'
       image: '/google-cloud.png'
       tags: ['cloud', 'finops']
-    - title: 'GraphiQL'
-      description: 'Integrates GraphiQL as a tool to browse GraphiQL endpoints inside Backstage.'
-      url: '/graphiql'
-      image: '/graphiql.png'
-      tags: ['graphql', 'dev']
 
 notificationsTester:
   enabled: true

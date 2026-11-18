@@ -41,7 +41,6 @@ The following plugins have been added to help better illustrate Backstage featur
 - [Cost Insights](https://demo.backstage.io/cost-insights)
 - [Explore](https://demo.backstage.io/explore)
 - [GitHub Actions](https://demo.backstage.io/catalog/default/component/backstage-demo/ci-cd)
-- [GraphiQL](https://demo.backstage.io/graphiql)
 - [Home](https://demo.backstage.io/home)
 - [Tech Radar](https://demo.backstage.io/tech-radar)
 - [To Do](https://demo.backstage.io/catalog/default/component/backstage-demo/todos)

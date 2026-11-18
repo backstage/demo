@@ -31,7 +31,6 @@ export const SidebarContent: ExtensionDefinition = NavContentBlueprint.make({
 
       nav.take('page:search'); // Using search modal instead
       nav.take('page:cost-insights'); // Removed from sidebar
-      nav.take('page:graphiql'); // Removed from sidebar
       nav.take('page:kubernetes'); // Removed from sidebar
       nav.take('page:catalog-graph'); // Removed from sidebar
 
